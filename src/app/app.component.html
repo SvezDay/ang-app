@@ -1,0 +1,26 @@
+<nav>
+  <div class="nav-wrapper">
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <li><a routerLink="/course" routerLinkActive="active" *ngIf="auth.isAuthenticated()">Course</a></li>
+    </ul>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/profile" routerLinkActive="active" *ngIf="auth.isAuthenticated()">Profile</a></li>
+      <li><a routerLink="/admin" routerLinkActive="active" *ngIf="auth.isAuthenticated()">Admin</a></li>
+      <li>
+         <a *ngIf="!auth.isAuthenticated()"
+            (click)="auth.login()">
+            Log In
+         </a>
+      </li>
+      <li>
+         <a *ngIf="auth.isAuthenticated()"
+            (click)="auth.logout()">
+            Log Out
+         </a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

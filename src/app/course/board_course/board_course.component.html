@@ -1,0 +1,11 @@
+<a class="waves-effect waves-light btn" routerLink="../add" routerLinkActive="active">Add course</a>
+<div class="row">
+   <div class="col s12 m8 l6 offset-m2 offset-l3">
+      <ul class="collection with-header">
+         <li class="collection-header"><h4>Access to courses</h4></li>
+         <li class="collection-item" *ngFor="let item of courseList">
+            <div>{{item.name}}<i class="secondary-content material-icons" (click)="recallCourse(item)">games</i></div>
+         </li>
+      </ul>
+   </div>
+</div>
