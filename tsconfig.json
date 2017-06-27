@@ -10,7 +10,9 @@
     "experimentalDecorators": true,
     "target": "es5",
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js",
+      "node_modules/@angular-mdl/core"
     ],
     "lib": [
       "es2016",

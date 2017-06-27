@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './core/auth.service';
+import { Component, OnInit
+}                          from '@angular/core';
+import { AuthService }     from './core/auth.service';
 
+declare var componentHandler: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,9 +11,10 @@ import { AuthService } from './core/auth.service';
 })
 export class AppComponent implements OnInit{
    constructor(public auth: AuthService){
-      auth.handleAuthentication();
+      // auth.handleAuthentication();
    }
    ngOnInit(){
       console.log(this.auth.isAuthenticated());
    }
+
 }

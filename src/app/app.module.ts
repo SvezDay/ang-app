@@ -1,24 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule, Http, RequestOptions } from '@angular/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { BrowserModule }         from '@angular/platform-browser';
+import { NgModule }              from '@angular/core';
+import { FormsModule }           from '@angular/forms';
 
-import { MaterializeModule } from 'angular2-materialize';
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import {MdButtonModule, MdCheckboxModule} from '@angular/material';
+// import 'hammerjs';
 
-import { AppRoutingModule } from './app-routing.module';
+import {NgbModule}               from '@ng-bootstrap/ng-bootstrap';
+import { MdlModule }             from '@angular-mdl/core';
+
+import {
+   HttpModule, Http, RequestOptions
+}                                from '@angular/http';
+import { AuthHttp, AuthConfig }  from 'angular2-jwt';
+
 
 /* App Root */
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-// import { AuthService } from './auth/auth.service';
-// import { AuthGuard } from './auth/auth.guard';
+import { AppRoutingModule }      from './app-routing.module';
+import { AppComponent }          from './app.component';
+import { HomeComponent }         from './home/home.component';
+import { ProfileComponent }      from './profile/profile.component';
+import { AuthModalComponent }    from './share/modals.component';
+import { GoogleSigninComponent, SignupComponent }
+                                 from './signup/signup.component';
 
 /* Feature Modules */
-import { CoreModule } from './core/core.module';
-import { AdminModule } from './admin/admin.module';
-// import { CourseModule } from './course/course.module';
+import { CoreModule }            from './core/core.module';
+import { AdminModule }           from './admin/admin.module';
+import { RegisterComponent } from './register/register.component';
+import { ConnectionComponent } from './connection/connection.component';
 
 // https://github.com/auth0/angular2-jwt
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -37,13 +47,19 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   declarations: [
     AppComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    AuthModalComponent,
+    GoogleSigninComponent,
+    SignupComponent,
+    RegisterComponent,
+    ConnectionComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterializeModule,
+    NgbModule,
+    MdlModule,
     AppRoutingModule,
     CoreModule.forRoot(),
     AdminModule,
@@ -60,4 +76,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

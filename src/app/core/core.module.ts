@@ -2,16 +2,18 @@
 import {
   ModuleWithProviders, NgModule,
   Optional, SkipSelf }       from '@angular/core';
-
+import { FormsModule }       from '@angular/forms';
 import { CommonModule }      from '@angular/common';
 
 import { AuthService }       from './auth.service';
 // import { AuthGard } from './auth.gard';
 
-
 @NgModule({
-  imports:      [ CommonModule ],
-  // declarations: [],
+  imports: [
+     CommonModule,
+     FormsModule,
+  ],
+  declarations: [],
   // exports:      [],
   providers:    [ ]
 })

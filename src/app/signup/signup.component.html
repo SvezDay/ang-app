@@ -1,0 +1,33 @@
+
+   <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+   <!-- <div id="googleBtn">Google</div> -->
+<div class="container">
+   <h1>Sign Form</h1>
+   <google-signin></google-signin>
+
+   <form (ngSubmit)="login()" #credForm="ngForm">
+      <div class="form-group">
+       <label for="email">Email</label>
+       <input type="email" class="form-control" id="email"
+                required
+                [(ngModel)]="cred.email" name="email" #email="ngModel" #spy>
+        <div [hidden]="email.valid || email.pristine"
+             class="alert alert-danger">
+         Email is required
+        </div>
+      </div>
+
+     <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password"
+               required
+               [(ngModel)]="cred.password" name="password" #password="ngModel" #spy>
+        <div [hidden]="password.valid || password.pristine"
+            class="alert alert-danger">
+         Password is required
+        </div>
+     </div>
+     <button type="submit" class="btn btn-default" [disabled]="!credForm.form.valid">Submit</button>
+
+   </form>
+</div>
