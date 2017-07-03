@@ -1,3 +1,36 @@
-<p>
-  register works!
-</p>
+<div class="centeritems mdl-grid">
+   <div class="mdl-layout-spacer"></div>
+   <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col">
+      <div class="mdl-card__title">
+         <h2 class="mdl-card__title-text">Register</h2>
+      </div>
+      <div class="mdl-card__menu">
+         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+            routerLink="/">
+               <i class="material-icons">close</i>
+         </button>
+      </div>
+      <form class="" action="register()">
+         <div class="mdl-card__supporting-text">
+            <mdl-textfield type="text" label="Text..." [(ngModel)]="model.first" placeholder="First name" name="first"
+               autofocus  autocomplete="first">
+            </mdl-textfield>
+            <mdl-textfield type="text" label="Text..." [(ngModel)]="model.last" placeholder="Last name" name="last"
+               autofocus  autocomplete="last">
+            </mdl-textfield>
+            <mdl-textfield type="email" label="Text..." [(ngModel)]="model.email" placeholder="Email"  name="email"
+               autofocus>
+            </mdl-textfield>
+            <mdl-textfield type="password" label="Text..." [(ngModel)]="model.password" placeholder="Password" name="password"
+               autofocus >
+            </mdl-textfield>
+         </div>
+         <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="register()">
+               Sign-in
+            </a>
+         </div>
+      </form>
+   </div>
+   <div class="mdl-layout-spacer"></div>
+</div>

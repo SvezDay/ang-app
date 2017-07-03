@@ -12,24 +12,25 @@
          <mdl-layout-spacer></mdl-layout-spacer>
             <!-- Navigation. We hide it in small screens. -->
             <!-- <nav class="mdl-navigation mdl-layout--large-screen-only">
-               <a class="mdl-navigation__link" routerLink="/course" routerLinkActive="active" *ngIf="!auth.isAuthenticated()" >Course</a>
+               <a class="mdl-navigation__link" routerLink="/course" routerLinkActive="active" *ngIf="!auth.isLogged()" >Course</a>
                <a class="mdl-navigation__link" >Link</a>
                <a class="mdl-navigation__link" >Link</a>
             </nav> -->
-            <!-- <ul>
-               <li><a class="mdl-navigation__link" routerLink="/course" routerLinkActive="active" *ngIf="!auth.isAuthenticated()" >Course</a></li>
-            </ul> -->
+            <ul>
+               <li><a class="mdl-navigation__link" routerLink="/login" routerLinkActive="active" *ngIf="!auth.isLogged()" >Login</a></li>
+            </ul>
+
             <button
                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-               routerLink="/signup" routerLinkActive="active"
-               *ngIf="!auth.isAuthenticated()"
+               routerLink="/register" routerLinkActive="active"
+               *ngIf="!auth.isLogged()"
                >
                Connection
             </button>
             <button
                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-               (click)="auth.logout()"
-               *ngIf="auth.isAuthenticated()"
+               (click)="logout()"
+               *ngIf="auth.isLogged()"
                >
                Log out
             </button>
@@ -39,14 +40,15 @@
    <mdl-layout-drawer>
       <mdl-layout-title>Title</mdl-layout-title>
       <nav class="mdl-navigation">
-         <a class="mdl-navigation__link" routerLink="/course" routerLinkActive="active" *ngIf="!auth.isAuthenticated()" >Course</a>
-         <a class="mdl-navigation__link" routerLink="/profile" routerLinkActive="active" *ngIf="!auth.isAuthenticated()" >Profile</a>
-         <a class="mdl-navigation__link" routerLink="/admin" routerLinkActive="active" *ngIf="!auth.isAuthenticated()" >Admin</a>
+         <a class="mdl-navigation__link" routerLink="/course" routerLinkActive="active" *ngIf="!auth.isLogged()" >Course</a>
+         <a class="mdl-navigation__link" routerLink="/profile" routerLinkActive="active" *ngIf="!auth.isLogged()" >Profile</a>
+         <a class="mdl-navigation__link" routerLink="/admin" routerLinkActive="active" *ngIf="!auth.isLogged()" >Admin</a>
       </nav>
    </mdl-layout-drawer>
 
    <mdl-layout-content>
             <div class="main-content">
+               <alert></alert>
                <div class="router-outlet">
                   <router-outlet></router-outlet>
                </div>

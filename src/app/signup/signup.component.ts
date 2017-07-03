@@ -1,7 +1,7 @@
 import {
    Component, OnInit, ElementRef, AfterViewInit
 }                             from '@angular/core';
-import { AuthService }        from '../core/auth.service';
+// import { AuthService }        from '../core/auth.service';
 
 declare const gapi: any;
 @Component({
@@ -69,16 +69,16 @@ export class GoogleSigninComponent implements AfterViewInit {
   selector: 'signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  providers: [AuthService]
+  // providers: [AuthService]
 })
 export class SignupComponent implements OnInit{
    public cred = {email: "", password: ""};
-   constructor(public auth: AuthService){
-      // auth.handleAuthentication();
-   }
-   public login(){
-      this.auth.login(this.cred);
-   }
+   // constructor(public auth: AuthService){
+   //    // auth.handleAuthentication();
+   // }
+   // public login(){
+   //    this.auth.login(this.cred);
+   // }
 
    ngOnInit(){
    }

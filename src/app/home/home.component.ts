@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../core/auth.service';
+// import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'home',
@@ -9,7 +9,7 @@ import { AuthService } from '../core/auth.service';
 export class HomeComponent implements OnInit {
    profile: any;
 
-  constructor(public auth: AuthService) { }
+  // constructor(public auth: AuthService) { }
 
   ngOnInit() {
    //  if (this.auth.userProfile) {

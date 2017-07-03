@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CourseService } from '../course.service';
 import { Course } from '../course';
-import { AuthService } from '../../core/auth.service';
+// import { AuthService } from '../../core/auth.service';
 
 @Component({
    moduleId: module.id,
@@ -15,7 +15,7 @@ export class AddCourseComponent implements OnInit {
    new_course = {name:""};
    constructor(
       private courseService: CourseService,
-      private auth: AuthService,
+      // private auth: AuthService,
       private router: Router
    ){
    }

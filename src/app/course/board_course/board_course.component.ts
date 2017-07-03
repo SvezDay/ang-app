@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { Course } from '../course';
-import { AuthService } from '../../core/auth.service';
+// import { AuthService } from '../../core/auth.service';
 
 @Component({
    moduleId: module.id,
@@ -13,8 +13,8 @@ export class BoardCourseComponent implements OnInit {
    courseList: Course[];
 
    constructor(
-      private courseService: CourseService,
-      private auth: AuthService
+      private courseService: CourseService
+      // private auth: AuthService
    ){
    }
 
