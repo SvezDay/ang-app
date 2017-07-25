@@ -1,6 +1,6 @@
 /* References:
 http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial#fake-backend-ts
-
+https://github.com/mseemann/angular2-mdl
 */
 
 
@@ -32,7 +32,7 @@ import { ProfileComponent }      from './profile/profile.component';
 // import { GoogleSigninComponent, SignupComponent }
 //                                  from './signup/signup.component';
 import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { AuthenticateComponent } from './authenticate/authenticate.component';
 
 
 // // https://github.com/auth0/angular2-jwt
@@ -57,7 +57,7 @@ import { LoginComponent } from './login/login.component';
    //  GoogleSigninComponent,
    //  SignupComponent,
     RegisterComponent,
-    LoginComponent
+    AuthenticateComponent
   ],
   imports: [
     BrowserModule,

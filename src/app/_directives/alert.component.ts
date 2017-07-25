@@ -7,11 +7,15 @@ import { AlertService } from '../_core/alert.service';
     moduleId: module.id,
     selector: 'alert',
     template: `
-    <div *ngIf="message" [ngClass]="{ 'alert': message,
-       'alert-success': message.type === 'success',
-       'alert-danger': message.type === 'error' }">
-       {{message.text}}
-    </div>
+    <div class="mdl-grid">
+       <div
+          *ngIf="message" [ngClass]="{ 'alert': message,
+          'mdl-cell mdl-cell--12-col graybox': message.type === 'success',
+          'mdl-cell mdl-cell--12-col': message.type === 'error'
+       }">
+          {{message.text._body}}
+       </div>
+   </div>
     `
 })
 
@@ -21,7 +25,11 @@ export class AlertComponent implements OnDestroy {
 
     constructor(private alertService: AlertService) {
         // subscribe to alert messages
-        this.subscription = alertService.getMessage().subscribe(message => { this.message = message; });
+
+        this.subscription = alertService.getMessage().subscribe(message => {
+           console.log(message);
+           this.message = message;
+        });
     }
 
     ngOnDestroy(): void {

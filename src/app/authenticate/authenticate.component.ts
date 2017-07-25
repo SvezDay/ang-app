@@ -6,13 +6,14 @@ import { AuthenticationService }    from '../_core/authentication.service';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'login.component.html'
+    templateUrl: 'authenticate.component.html',
+    styles: ['authenticate.component.css']
    //  template: `
    //
    //  `
 })
 
-export class LoginComponent implements OnInit {
+export class AuthenticateComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;

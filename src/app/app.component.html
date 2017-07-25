@@ -16,8 +16,22 @@
                <a class="mdl-navigation__link" >Link</a>
                <a class="mdl-navigation__link" >Link</a>
             </nav> -->
+            <button
+               class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+               (click)="usering()"
+               *ngIf="auth.isLogged()"
+               >
+               Users
+            </button>
+            <button
+               class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+               (click)="test()"
+               *ngIf="auth.isLogged()"
+               >
+               Test
+            </button>
             <ul>
-               <li><a class="mdl-navigation__link" routerLink="/login" routerLinkActive="active" *ngIf="!auth.isLogged()" >Login</a></li>
+               <li><a class="mdl-navigation__link" routerLink="/authenticate" routerLinkActive="active" *ngIf="!auth.isLogged()" >Login</a></li>
             </ul>
 
             <button
@@ -25,7 +39,7 @@
                routerLink="/register" routerLinkActive="active"
                *ngIf="!auth.isLogged()"
                >
-               Connection
+               Sign up
             </button>
             <button
                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
