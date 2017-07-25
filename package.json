@@ -16,8 +16,8 @@
   },
   "private": true,
   "engines": {
-    "node": "7.4.0",
-    "npm": "4.0.5"
+    "node": "^7.4.0",
+    "npm": "^4.0.5"
   },
   "dependencies": {
     "@angular-mdl/core": "^4.0.8",
