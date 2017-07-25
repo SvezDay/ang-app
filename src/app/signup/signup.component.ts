@@ -11,7 +11,8 @@ declare const gapi: any;
   '<div class="g-signin2" data-onsuccess="onSignIn"></div>'
   // '<div id="my-signin2"></div>'
 })
-export class GoogleSigninComponent implements AfterViewInit {
+// export 
+class GoogleSigninComponent implements AfterViewInit {
 
   private clientId:string = '1035538165681-3k64kc83gcn12hibjcmp4rtqtl75isn6.apps.googleusercontent.com';
 
