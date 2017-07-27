@@ -29,16 +29,7 @@ export class AppComponent implements OnInit{
    ngOnInit(){
 
    }
-   test(){
-      this.auth.test()
-      .subscribe(
-          data => {
-             console.log(data);
-          },
-          error => {
-             console.log(error);
-          });
-   }
+   
    usering(){
       this.users.getAll()
       .subscribe(

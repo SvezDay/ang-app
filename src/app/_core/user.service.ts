@@ -10,6 +10,10 @@ export class UserService {
    public api_url = 'http://localhost:3200';
     constructor(private http: Http) { }
 
+    register(user: User) {
+        return this.http.post(this.api_url + '/register', user)
+        .map((response: Response) => response.json());
+    }
     getAll() {
         return this.http.get(this.api_url + '/api/users', this.jwt())
         .map((response: Response) => response.json());
@@ -20,10 +24,10 @@ export class UserService {
         .map((response: Response) => response.json());
     }
 
-    create(user: User) {
-        return this.http.post(this.api_url + '/api/users', user, this.jwt())
-        .map((response: Response) => response.json());
-    }
+   //  create(user: User) {
+   //      return this.http.post(this.api_url + '/api/users', user, this.jwt())
+   //      .map((response: Response) => response.json());
+   //  }
 
     update(user: User) {
         return this.http.put(this.api_url + '/api/users/' + user.id, user, this.jwt())

@@ -13,16 +13,6 @@ export class AuthenticationService {
       header.append('x-access-token', localStorage.getItem('auth_token'));
    }
 
-   test(){
-      let header = new Headers();
-      this.authHeaders(header);
-      return this.http.post(this.api_url + '/api/test', { }, {headers:header})
-      .map((response: Response)=>{
-         // console.log(response.json());
-         return response.json();
-      })
-   }
-
    login(email: string, password: string) {
       return this.http.post(this.api_url + '/authenticate', { email, password } )
       .map((response: Response) => {

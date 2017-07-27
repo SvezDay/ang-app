@@ -55,7 +55,6 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
     HomeComponent,
     ProfileComponent,
    //  GoogleSigninComponent,
-   //  SignupComponent,
     RegisterComponent,
     AuthenticateComponent
   ],

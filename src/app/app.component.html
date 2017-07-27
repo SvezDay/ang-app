@@ -23,16 +23,9 @@
                >
                Users
             </button>
-            <button
-               class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-               (click)="test()"
-               *ngIf="auth.isLogged()"
-               >
-               Test
-            </button>
-            <ul>
-               <li><a class="mdl-navigation__link" routerLink="/authenticate" routerLinkActive="active" *ngIf="!auth.isLogged()" >Login</a></li>
-            </ul>
+
+            <a class="mdl-navigation__link" routerLink="/" routerLinkActive="active" *ngIf="auth.isLogged()">Note</a>
+            <a class="mdl-navigation__link" routerLink="/authenticate" routerLinkActive="active" *ngIf="!auth.isLogged()">Login</a>
 
             <button
                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
