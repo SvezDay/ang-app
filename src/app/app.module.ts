@@ -33,6 +33,8 @@ import { ProfileComponent }      from './profile/profile.component';
 //                                  from './signup/signup.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { NoteComponent } from './note/note.component';
+import { NoteListComponent } from './note-list/note-list.component';
 
 
 // // https://github.com/auth0/angular2-jwt
@@ -56,7 +58,9 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
     ProfileComponent,
    //  GoogleSigninComponent,
     RegisterComponent,
-    AuthenticateComponent
+    AuthenticateComponent,
+    NoteComponent,
+    NoteListComponent
   ],
   imports: [
     BrowserModule,
