@@ -28,6 +28,16 @@ export class NoteService {
         return data;
       })
    }
+   getDetail(note_id){
+      return this.http.get(this.api_url + `/api/get_note_detail/${note_id}`, this.jwt())
+      .map((response:Response)=>{
+         let data = response.json();
+         if(data && data.token){
+            localStorage.setItem('auth_token', data.token);
+         }
+         return data;
+      });
+   };
 
     private jwt() {
         // create authorization header with jwt token

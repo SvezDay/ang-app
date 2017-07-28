@@ -20,12 +20,27 @@ export class NoteListComponent implements OnInit {
      private noteService: NoteService
  ) { }
 
+ detail(note_id){
+    this.router.navigate(['/note_detail'], {queryParams:{note_id: note_id}});
+   //  console.log(note_id);
+   //  this.noteService.getDetail(note_id)
+   //    .subscribe(
+   //       data =>{
+   //          console.log(data);
+   //       },
+   //       error =>{
+   //          this.alertService.error(error);
+   //          this.loading = false;
+   //       }
+   //    );
+}
+
   ngOnInit() {
      this.noteService.getAll()
          .subscribe(
             data =>{
-               console.log(data);
-               this.list = data;
+               console.log(data.list);
+               this.list = data.list;
             },
             error =>{
                this.alertService.error(error);
