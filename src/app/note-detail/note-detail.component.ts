@@ -15,12 +15,21 @@ export class NoteDetailComponent implements OnInit {
    sub:any;
    note_id:Number;
    loading = false;
+   detail = [];
+   content = "<h1>Hello</h1>";
   constructor(
      private route: ActivatedRoute,
      private router: Router,
      private alertService: AlertService,
      private noteService: NoteService
  ) { }
+
+ customContent(array){
+    let content = "<h1>Hello</h1>";
+   //  for(let item of array){
+   //
+   // }
+ }
 
   ngOnInit() {
      this.route
@@ -31,11 +40,13 @@ export class NoteDetailComponent implements OnInit {
      this.noteService.getDetail(this.note_id)
      .subscribe(
         data =>{
+           this.detail = data.detail;
            console.log(data);
         },
         error =>{
-           this.alertService.error(error);
-           this.loading = false;
+         //   this.alertService.error(error);
+         //   this.loading = false;
+         this.router.navigate(['/authenticate']);
         }
      );
   }

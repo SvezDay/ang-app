@@ -1,3 +1,41 @@
-<p>
-  note-detail works!
-</p>
+<div [innerHtml]="content">
+
+</div>
+
+<div class="centeritems mdl-grid">
+   <div class="mdl-layout-spacer"></div>
+   <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+      <div class="mdl-card__menu">
+         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+            routerLink="/note_list">
+               <i class="material-icons">close</i>
+         </button>
+      </div>
+      <div>
+         <!-- <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp mdl-cell--8-col" >
+          <tbody> -->
+             <div *ngFor="let item of detail">
+               <p class="mdl-data-table__cell--non-numeric">
+
+                  {{item.content}}
+               </p>
+            </div>
+          <!-- </tbody>
+         </table> -->
+      </div>
+      <!-- <form action="create()">
+         <div class="mdl-card__supporting-text">
+           <div class="mdl-textfield mdl-js-textfield" style="width:100%">
+             <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" [(ngModel)]="content" name="content" autofocus style="padding:2%; outline:none;"></textarea>
+           </div>
+           <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="create()">
+                Create
+              </a>
+           </div>
+        </div>
+      </form> -->
+
+   </div>
+   <div class="mdl-layout-spacer"></div>
+</div>

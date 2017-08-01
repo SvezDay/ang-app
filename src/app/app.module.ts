@@ -36,6 +36,7 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { NoteComponent } from './note/note.component';
 import { NoteListComponent } from './note-list/note-list.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
+import { NoteEditComponent } from './note-edit/note-edit.component';
 
 
 // // https://github.com/auth0/angular2-jwt
@@ -62,7 +63,8 @@ import { NoteDetailComponent } from './note-detail/note-detail.component';
     AuthenticateComponent,
     NoteComponent,
     NoteListComponent,
-    NoteDetailComponent
+    NoteDetailComponent,
+    NoteEditComponent
   ],
   imports: [
     BrowserModule,
