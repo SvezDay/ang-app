@@ -25,8 +25,8 @@ export class NoteService {
          if (data && data.token) {
            localStorage.setItem('auth_token', data.token);
          }
-         console.log('data');
-         console.log(data);
+         // console.log('data');
+         // console.log(data);
          // if(data.status)
         return data;
       })

@@ -16,7 +16,6 @@ export class NoteDetailComponent implements OnInit {
    note_id:Number;
    loading = false;
    detail = [];
-   content = "<h1>Hello</h1>";
   constructor(
      private route: ActivatedRoute,
      private router: Router,
@@ -24,12 +23,13 @@ export class NoteDetailComponent implements OnInit {
      private noteService: NoteService
  ) { }
 
- customContent(array){
-    let content = "<h1>Hello</h1>";
-   //  for(let item of array){
-   //
-   // }
- }
+ edit(){
+   //  console.log(typeof JSON.stringify(this.detail));
+    this.router.navigate(['/note_edit'], {queryParams: {
+      note_id: this.note_id,
+      detail: JSON.stringify(this.detail)
+   }});
+}
 
   ngOnInit() {
      this.route

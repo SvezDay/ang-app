@@ -23,7 +23,7 @@ export class NoteComponent implements OnInit {
 
   create(){
      let info = {
-        content: this.content,
+        content: `<p>${this.content}</p>`,
         user_id: localStorage.getItem('user_id')
      };
      this.noteService.create(info)
@@ -31,11 +31,13 @@ export class NoteComponent implements OnInit {
             data =>{
                this.alertService.success('Registration successful', true);
                // Then the navigation gone to the note get by id
-               this.router.navigate(['/note']);
+               this.router.navigate(['/note_list']);
             },
             error =>{
-               this.alertService.error(error);
-               this.loading = false;
+               // this.alertService.error(error);
+               // this.loading = false;
+               console.log(error);
+               this.router.navigate(['/authenticate']);
             }
          )
  }

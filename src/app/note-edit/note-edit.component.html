@@ -1,3 +1,62 @@
-<p>
-  note-edit works!
-</p>
+<div class="centeritems mdl-grid">
+   <div class="mdl-layout-spacer"></div>
+   <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col" [style.background-color]="backgroundToggle()">
+      <div class="mdl-card__title">
+         <h2 class="mdl-card__title-text">Note #{{note_id}}</h2>
+      </div>
+      <div class="mdl-card__menu">
+         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+            routerLink="/note_list">
+               <i class="material-icons">close</i>
+         </button>
+      </div>
+
+
+      <div class="mdl-card__supporting-text">
+         <div *ngFor="let item of detail">
+            <div style="float:left" [ngClass]="item.labels">{{item.content}}</div>
+            <span class="mdl-chip" style="background-color:#A9A9A9;border-radius:25px; text-align:center;width:15%; position:absolute; right:5%">
+               <span class="mdl-chip__text">Contact Chip</span>
+            </span>
+         </div>
+      </div>
+      <!-- <div class="centeritems mdl-grid"> -->
+         <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"  *ngIf="toggle">
+            <div class="mdl-card__menu">
+               <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="toggling()">
+                     <i class="material-icons">close</i>
+               </button>
+            </div>
+            <form action="create()">
+               <div class="mdl-card__supporting-text">
+                 <div class="mdl-textfield mdl-js-textfield" style="width:100%">
+                   <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" [(ngModel)]="newContent" name="newContent" autofocus style="padding:2%; outline:none;"></textarea>
+                   <!-- <label class="mdl-textfield__label" for="sample5">New note</label> -->
+                 </div>
+                 <div class="mdl-card__actions mdl-card--border">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="save()">
+                      Save
+                    </a>
+                 </div>
+              </div>
+            </form>
+         </div>
+         <!-- </div> -->
+
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="Delete()">
+          Delete
+        </a>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="toggling()" *ngIf="!toggle">
+          Add
+        </a>
+
+      </div>
+
+   </div>
+   <div class="mdl-layout-spacer"></div>
+</div>
+<style media="screen">
+   .Undefined{}
+   .Title{font-size:xx-large}
+</style>

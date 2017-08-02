@@ -9,6 +9,7 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { NoteComponent } from './note/note.component';
 import { NoteListComponent } from './note-list/note-list.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
+import { NoteEditComponent } from './note-edit/note-edit.component';
 // import { CourseComponent } from './course/course/course.component';
 // import { AddCourseComponent } from './course/add_course/add_course.component';
 
@@ -22,6 +23,7 @@ const routes: Routes = [
    { path: 'note', component: NoteComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_list', component: NoteListComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_detail', component: NoteDetailComponent  /*, canActivate: [AuthGuard]*/   },
+   { path: 'note_edit', component: NoteEditComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'course', loadChildren: 'app/course/course.module#CourseModule' },
    // {
    //   path: 'sign-in',

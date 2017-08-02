@@ -34,6 +34,9 @@ export class NoteListComponent implements OnInit {
    //       }
    //    );
 }
+add(){
+   this.router.navigate(['/note']);
+}
 
   ngOnInit() {
      this.noteService.getAll()
@@ -43,8 +46,9 @@ export class NoteListComponent implements OnInit {
                this.list = data.list;
             },
             error =>{
-               this.alertService.error(error);
-               this.loading = false;
+               // this.alertService.error(error);
+               // this.loading = false;
+               this.router.navigate(['/authenticate']);
             }
          )
   }
