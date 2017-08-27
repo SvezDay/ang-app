@@ -1,27 +1,75 @@
 
-
+<style media="screen">
+   .original-label {
+      color: blue;}
+   .new-label{
+      color: red;
+   }
+   .order{
+      background-color:#D8D8D8;
+   }
+</style>
 <div class="centeritems mdl-grid">
    <div class="mdl-layout-spacer"></div>
    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
-      <div class="mdl-card__menu">
-         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
-            routerLink="/note_list">
-               <i class="material-icons">close</i>
+      <div class="mdl-card__title">
+         <h2 class="mdl-card__title-text">Note #{{note_id}}</h2>
+      </div>
+      <br>
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col" *ngIf=editing>
+         <div class="mdl-card__supporting-text" >
+            <ul >
+               <li  *ngFor="let item of labels"  style="display:inline" (click)="labelChanging(item)" [class.original-label]="item==selectedProperty.labels" [class.new-label]="item==newLabel">
+                    {{item}}
+               </li>
+            </ul>
+            <br>
+            <textarea id="textarea1" class="mdl-textfield__input" type="text" rows= "1" style="padding:2%; outline:none;"
+               [(ngModel)]="newValue" name="newValue" (blur)="save()"></textarea>
+        </div>
+        <div class="mdl-card__menu">
+           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="drop('up')" [disabled]="selectedProperty.order==1">
+            <i class="material-icons">arrow_drop_up</i>
+          </button>
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="drop('down')" [disabled]="selectedProperty.order==noteDetail.length">
+           <i class="material-icons">arrow_drop_down</i>
          </button>
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="delete()">
+             Delete
+          </a>
+        </div>
+
       </div>
-      <div class="mdl-card__supporting-text">
-         <div *ngFor="let item of detail">
-            <p class="mdl-data-table__cell--non-numeric">
-               {{item.content}}
-            </p>
-         </div>
+
+
+      <div class="mdl-card__supporting-text" style="width:initial">
+         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%">
+          <tbody>
+            <tr *ngFor="let node of noteDetail">
+               <td class="mdl-data-table__cell--non-numeric" (click)="editer(node)" [class.order]="node==selectedProperty">
+                  {{node.value}}
+               </td>
+            </tr>
+          </tbody>
+         </table>
       </div>
-      <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="edit()">
-          Edit
-        </a>
+
+      <div class="mdl-card__menu">
+          <!-- <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="delete()">
+            <i class="material-icons">arrow_back</i>
+          </button> -->
+         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" routerLink="/note_list">
+            Back
+         </a>
+         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="editer({})">
+            Add
+         </a>
       </div>
 
    </div>
    <div class="mdl-layout-spacer"></div>
 </div>
+
+<script type="text/javascript">
+    $('#textarea1').trigger('autoresize');
+</script>

@@ -50,6 +50,25 @@ export class NoteEditComponent implements OnInit {
 toggling(){
    this.toggle ? this.toggle = false : this.toggle = true;
 }
+saveChange(node_id, oldVal, newVal){
+   if( oldVal != newVal){
+      console.log(node_id);
+      console.log(oldVal);
+      console.log(newVal);
+
+   }
+
+   // this.noteService.update(node_id, $event)
+   //    .subscribe(
+   //       data => {
+   //          console.log(data);
+   //          this.alertService.success('Saved !');
+   //       },
+   //       error => {
+   //          this.alertService.error(error);
+   //       }
+   //    );
+}
 
  ngOnInit() {
      this.route

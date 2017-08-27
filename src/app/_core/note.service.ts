@@ -41,6 +41,63 @@ export class NoteService {
          return data;
       });
    };
+   update(params){
+      return this.http.post(
+         this.api_url + '/api/update_property',
+         params,
+         this.jwt()
+      )
+      .map((response:Response)=>{
+         let data = response.json();
+         if(data && data.token){
+            localStorage.setItem('auth_token', data.token);
+         }
+         return data;
+      })
+   }
+   add(params){
+      return this.http.post(
+         this.api_url + '/api/add_property',
+         params,
+         this.jwt()
+      )
+      .map((response:Response)=>{
+         let data = response.json();
+         if(data && data.token){
+            localStorage.setItem('auth_token', data.token);
+         }
+         return data;
+      })
+   }
+   delete(note_id, property_id){
+      return this.http.delete(
+         this.api_url + `/api/delete_property/${note_id}/${property_id}`,
+         // params,
+         this.jwt()
+      )
+      .map((response:Response)=>{
+         let data = response.json();
+         if(data && data.token){
+            localStorage.setItem('auth_token', data.token);
+         }
+         return data;
+      })
+   }
+
+   drop(params){
+      return this.http.post(
+         this.api_url + `/api/drop_property`,
+         params,
+         this.jwt()
+      )
+      .map((response:Response)=>{
+         let data = response.json();
+         if(data && data.token){
+            localStorage.setItem('auth_token', data.token);
+         }
+         return data;
+      })
+   }
 
     private jwt() {
         // create authorization header with jwt token

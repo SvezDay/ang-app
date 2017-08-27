@@ -5,18 +5,27 @@
          <h2 class="mdl-card__title-text">Note #{{note_id}}</h2>
       </div>
       <div class="mdl-card__menu">
-         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
-            routerLink="/note_list">
-               <i class="material-icons">close</i>
-         </button>
+         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" routerLink="/note_list">
+          Back
+         </a>
       </div>
 
 
       <div class="mdl-card__supporting-text">
          <div *ngFor="let item of detail">
-            <div style="float:left" [ngClass]="item.labels">{{item.content}}</div>
+            <div class="mdl-textfield mdl-js-textfield" style="width:70%; float:left;">
+              <!-- <textarea class="mdl-textfield__input" type="text" rows= "1" style="padding:2%; outline:none;"
+               (change)="update(item)" [ngModel]="item.content" (ngModelChange)="saveChange(item.node_id, $event)">
+               {{item.content}}
+              </textarea> -->
+              <textarea class="mdl-textfield__input" type="text" rows= "1" style="padding:2%; outline:none;"
+              (blur)="saveChange(item.node_id,item.content,$event)"
+              [ngModel]="item.content" (ngModelChange)="item.content=$event" [value]="item.content">
+              </textarea>
+            </div>
+
             <span class="mdl-chip" style="background-color:#A9A9A9;border-radius:25px; text-align:center;width:15%; position:absolute; right:5%">
-               <span class="mdl-chip__text">Contact Chip</span>
+               <span class="mdl-chip__text">{{item.labels}}</span>
             </span>
          </div>
       </div>
