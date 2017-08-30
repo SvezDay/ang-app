@@ -37,6 +37,9 @@ import { NoteComponent } from './note/note.component';
 import { NoteListComponent } from './note-list/note-list.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { NoteEditComponent } from './note-edit/note-edit.component';
+import { CourseListComponent } from './course-list/course-list.component';
+import { CourseCreateComponent } from './course-create/course-create.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 
 // // https://github.com/auth0/angular2-jwt
@@ -64,7 +67,10 @@ import { NoteEditComponent } from './note-edit/note-edit.component';
     NoteComponent,
     NoteListComponent,
     NoteDetailComponent,
-    NoteEditComponent
+    NoteEditComponent,
+    CourseListComponent,
+    CourseCreateComponent,
+    CourseDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,9 @@ import { NoteComponent } from './note/note.component';
 import { NoteListComponent } from './note-list/note-list.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { NoteEditComponent } from './note-edit/note-edit.component';
+import { CourseListComponent } from './course-list/course-list.component';
+import { CourseCreateComponent } from './course-create/course-create.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 // import { CourseComponent } from './course/course/course.component';
 // import { AddCourseComponent } from './course/add_course/add_course.component';
 
@@ -24,7 +27,10 @@ const routes: Routes = [
    { path: 'note_list', component: NoteListComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_detail', component: NoteDetailComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_edit', component: NoteEditComponent  /*, canActivate: [AuthGuard]*/   },
-   { path: 'course', loadChildren: 'app/course/course.module#CourseModule' },
+   { path: 'course_list', component: CourseListComponent /*, canActivate: [AuthGuard]*/ },
+   { path: 'course_create', component: CourseCreateComponent /*, canActivate: [AuthGuard]*/ },
+   { path: 'course_detail', component: CourseDetailComponent /*, canActivate: [AuthGuard]*/ },
+  //  { path: 'course', loadChildren: 'app/course/course.module#CourseModule' },s
    // {
    //   path: 'sign-in',
    //  component: AdminComponent,

@@ -1,0 +1,82 @@
+<div class="centeritems mdl-grid">
+   <div class="mdl-layout-spacer"></div>
+   <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+      <div class="mdl-card__title">
+         <h2 class="mdl-card__title-text">Course</h2>
+      </div>
+      <div class="mdl-card__menu">
+         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+            routerLink="/course-list">
+               <i class="material-icons">close</i>
+         </button>
+      </div>
+      <form action="create()">
+         <div class="mdl-card__supporting-text">
+           <div class="mdl-textfield mdl-js-textfield" style="width:100%">
+             <textarea class="mdl-textfield__input" type="text" rows= "1" id="sample5" [(ngModel)]="new_course.value" name="value" autofocus style="padding:2%; outline:none;"></textarea>
+             <!-- <label class="mdl-textfield__label" for="sample5">New note</label> -->
+           </div>
+           <!-- <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" *ngFor="let schema of schemaList"> -->
+             <!-- <div class="" *ngFor="let schema of schemaList">
+             <select class="mdl-selectfield__select" id="professsion2" name="professsion">
+               <option value="option1">{{schema}}</option>
+             </select>
+             <label class="mdl-selectfield__label" for="professsion2">Profession</label>
+           </div> -->
+           <!-- <md-select [(ngModel)]="new_course.schema" placeholder="Schema"> -->
+              <!-- <option *ngFor="#title of titleArray" [value]="title.Value">
+                {{title.Text}}
+              </option> -->
+              <!-- <option *ngFor="let schema of schemaList"
+                  [value]="schema"
+                  [attr.selected]="passenger.Title==title.Text ? true : null">
+                {{schema}}
+              </option> -->
+              <!-- <md-option *ngFor="let schema of schemaList"
+                  >
+                {{schema}}
+              </md-option>
+          </md-select> -->
+          <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+              <input class="mdl-textfield__input" type="text" id="sample1" value="fefe" readonly tabIndex="-1">
+              <label for="sample1" class="mdl-textfield__label">Schema</label> -->
+              <!-- <ul for="sample1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" *ngFor="let schema of objectKeys(schemaList)"> -->
+                <!-- <ul for="sample1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                  <li class="mdl-menu__item">fefe</li>
+                  <li class="mdl-menu__item">lambo</li>
+                  <li class="mdl-menu__item">ston</li>
+              </ul>
+          </div> -->
+          <!-- <input type="text" name="" value="ello">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+            <input class="mdl-textfield__input" type="text" id="sample1" value="Belarus" readonly tabIndex="-1">
+            <label for="sample1" class="mdl-textfield__label">Country</label>
+            <ul for="sample1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                <li class="mdl-menu__item">Germany</li>
+                <li class="mdl-menu__item">Belarus</li>
+                <li class="mdl-menu__item">Russia</li>
+            </ul>
+        </div> -->
+        <div class="">
+
+          <ul *ngFor="let schema of objectKeys(schemaList)">
+            <!-- <li> -->
+              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1" value="schema" [class.checkboxSelected]="schema==new_course.schema">
+                <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" [checked]="schema==new_course.schema" (change)="schemaSelection(schema)">
+                <span class="mdl-checkbox__label">{{schema}}</span>
+              </label>
+            <!-- </li> -->
+          </ul>
+        </div>
+
+           <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="create()">
+                Save
+              </a>
+           </div>
+        </div>
+      </form>
+
+   </div>
+   <div class="mdl-layout-spacer"></div>
+</div>
