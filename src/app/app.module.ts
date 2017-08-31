@@ -36,7 +36,6 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { NoteComponent } from './note/note.component';
 import { NoteListComponent } from './note-list/note-list.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
-import { NoteEditComponent } from './note-edit/note-edit.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { CourseCreateComponent } from './course-create/course-create.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
@@ -67,7 +66,6 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
     NoteComponent,
     NoteListComponent,
     NoteDetailComponent,
-    NoteEditComponent,
     CourseListComponent,
     CourseCreateComponent,
     CourseDetailComponent

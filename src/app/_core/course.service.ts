@@ -25,9 +25,6 @@ export class CourseService {
          if (data && data.token) {
            localStorage.setItem('auth_token', data.token);
          }
-         // console.log('data');
-         // console.log(data);
-         // if(data.status)
         return data;
       })
    }
@@ -38,9 +35,6 @@ export class CourseService {
         if (data && data.token) {
           localStorage.setItem('auth_token', data.token);
         }
-        // console.log('data');
-        // console.log(data);
-        // if(data.status)
        return data;
      })
    }
@@ -53,7 +47,33 @@ export class CourseService {
         }
         return data;
       });
-   }
+   };
+   update(course){
+     return this.http.post(`${this.api_url}/api/update_course`, course, this.jwt())
+      .map((response: Response)=>{
+        let data = response.json();
+        if(data && data.token){
+          localStorage.setItem('auth_token', data.token);
+        };
+        return data;
+      });
+   };
+   delete(course){
+     return this.http.delete(`${this.api_url}/api/delete_course/${course.id}`, this.jwt())
+     .map((response: Response)=>{
+       return response;
+     });
+   };
+   updateCourseValue(course){
+     return this.http.post(`${this.api_url}/api/update_course_value`, course, this.jwt())
+     .map((response: Response)=>{
+       let data = response.json();
+       if (data && data.token){
+         localStorage.setItem('auth_token', data.token);
+       };
+       return data;
+     });
+   };
 
     private jwt() {
         // create authorization header with jwt token

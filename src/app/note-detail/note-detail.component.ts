@@ -57,19 +57,13 @@ export class NoteDetailComponent implements OnInit {
       }else{
          this.newLabel = '';
       }
-   }
+   };
    editer(node){
-      //  this.router.navigate(['/note_edit'], {queryParams: {
-      //    note_id: this.note_id,
-      //    detail: JSON.stringify(this.detail)
-      // }});
-
       this.selectedProperty = node || {labels:'Undefined', value:''};
       this.newValue = node.value || '';
       if(!node.value) this.newProperty = true;
       this.editing = true;
-
-   }
+   };
    save(){
       console.log('check on the save function');
       console.log('this.newLabel', this.newLabel);

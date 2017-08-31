@@ -21,8 +21,8 @@ export class CourseListComponent implements OnInit {
   add(){
     this.router.navigate(['/course_create']);
   };
-  detail(id){
-    this.router.navigate(['/course_detail'], {queryParams:{course_id:id}});
+  detail(item){
+    this.router.navigate(['/course_detail'], {queryParams:{id:item.id}});
   };
 
   ngOnInit() {
@@ -30,7 +30,6 @@ export class CourseListComponent implements OnInit {
     .courseService.getAll()
     .subscribe(
        data =>{
-          console.log(data);
           this.list = data.data;
        },
        error =>{

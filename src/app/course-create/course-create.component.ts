@@ -25,7 +25,8 @@ export class CourseCreateComponent implements OnInit {
     this.courseService.create(this.new_course)
     .subscribe(
       data => {
-        this.router.navigate(['/course_list']);
+        // console.log(data);
+        this.router.navigate(['/course_detail'], {queryParams:{id:data.id}});
       },
       error => {
         this.router.navigate(['/course_list']);
@@ -48,6 +49,7 @@ export class CourseCreateComponent implements OnInit {
         error =>{
            // this.alertService.error(error);
            // this.loading = false;
+          //  console.log(error);
            this.router.navigate(['/course_list']);
         }
       )
