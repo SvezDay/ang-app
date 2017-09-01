@@ -1,5 +1,5 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.deep_purple-amber.min.css" />
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.grey-amber.min.css" />
 
 <div>
 
@@ -16,16 +16,18 @@
                <a class="mdl-navigation__link" >Link</a>
                <a class="mdl-navigation__link" >Link</a>
             </nav> -->
-            <button
+            <!-- <button
                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                (click)="usering()"
                *ngIf="auth.isLogged()"
                >
                Users
-            </button>
+            </button> -->
 
             <a class="mdl-navigation__link" routerLink="/note_list" routerLinkActive="active" *ngIf="auth.isLogged()">Note</a>
+            <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" *ngIf="auth.isLogged()">Project</a>
             <a class="mdl-navigation__link" routerLink="/course_list" routerLinkActive="active" *ngIf="auth.isLogged()">Course</a>
+            <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" *ngIf="auth.isLogged()">Gaming</a>
             <a class="mdl-navigation__link" routerLink="/authenticate" routerLinkActive="active" *ngIf="!auth.isLogged()">Login</a>
 
             <button
@@ -57,7 +59,7 @@
    <mdl-layout-content>
             <div class="main-content">
                <alert></alert>
-               <div class="router-outlet">
+               <div class="router-outlet" style=''>
                   <router-outlet></router-outlet>
                </div>
                <footer class="mdl-mini-footer">

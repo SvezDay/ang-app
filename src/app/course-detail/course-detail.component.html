@@ -28,8 +28,9 @@
           <tbody>
             <tr *ngFor="let node of courseDetail">
                <td class="mdl-data-table__cell--non-numeric" (click)="editer(node)">
-                 <h6>{{node.property}}</h6>
-                 <p>{{node.value}}</p>
+                 <!-- <h6>{{node.property}}</h6> -->
+                 <span>{{node.property}}</span>
+                 <p style="color:black;">{{node.value}}</p>
 
                </td>
             </tr>
