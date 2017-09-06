@@ -20,7 +20,7 @@ export class GameListComponent implements OnInit {
   ) { }
 
   new_result(){
-    this.gameService.query('post', '/api/new_result', {id:1})
+    this.gameService.query('post', '/new_result', {id:1})
     .subscribe((response)=>{
       console.log(response);
     },(error)=>{
@@ -33,14 +33,6 @@ export class GameListComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.gameService.query('get', '/api/get_all_course')
-    .subscribe((response)=>{
-      console.log(response);
-    },(error)=>{
-      console.log(error);
-    });
-
-
   };
 
 }

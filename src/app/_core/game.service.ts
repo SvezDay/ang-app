@@ -4,7 +4,7 @@ import { Http, Headers, RequestOptions, Response }
 
 @Injectable()
 export class GameService {
-   public api_url = 'http://localhost:3200';
+   public api_url = 'http://localhost:3200/api';
     constructor(
       private http: Http
     ) { };
@@ -30,7 +30,7 @@ export class GameService {
         });
       }
     };
-  
+
     private jwt() {
         // create authorization header with jwt token
         let token = localStorage.getItem('auth_token');

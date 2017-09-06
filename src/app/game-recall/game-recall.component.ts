@@ -19,11 +19,21 @@ export class GameRecallComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-      this.route.queryParams
-      .subscribe(params => {
-        this.gameType = params.type;
+  recall(){
+    this.gameService.query('get', `/game_${this.gameType}`)
+      .subscribe((response)=>{
+        console.log(response);
+      },(error)=>{
+        console.log(error);
       });
-  }
+  };
 
-}
+  ngOnInit() {
+    this.route.queryParams
+    .subscribe(params => {
+      this.gameType = params.type;
+      this.recall();
+    });
+  };
+
+};
