@@ -29,6 +29,7 @@ const routes: Routes = [
    { path: 'note_detail', component: NoteDetailComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'course_list', component: CourseListComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'course_create', component: CourseCreateComponent /*, canActivate: [AuthGuard]*/ },
+   { path: 'course_detail', component: CourseDetailComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'game_list', component: GameListComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'game_recall', component: GameRecallComponent /*, canActivate: [AuthGuard]*/ },
   //  { path: 'course', loadChildren: 'app/course/course.module#CourseModule' },s
