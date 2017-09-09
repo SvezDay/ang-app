@@ -14,6 +14,7 @@ import { CourseCreateComponent } from './course-create/course-create.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameRecallComponent } from './game-recall/game-recall.component';
+import { GameUpdateComponent } from './game-update/game-update.component';
 // import { CourseComponent } from './course/course/course.component';
 // import { AddCourseComponent } from './course/add_course/add_course.component';
 
@@ -32,6 +33,7 @@ const routes: Routes = [
    { path: 'course_detail', component: CourseDetailComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'game_list', component: GameListComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'game_recall', component: GameRecallComponent /*, canActivate: [AuthGuard]*/ },
+   { path: 'game_update', component: GameUpdateComponent /*, canActivate: [AuthGuard]*/ },
   //  { path: 'course', loadChildren: 'app/course/course.module#CourseModule' },s
    // {
    //   path: 'sign-in',

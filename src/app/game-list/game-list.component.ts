@@ -12,7 +12,6 @@ import { GameService }                 from '../_core/game.service';
   providers:[GameService]
 })
 export class GameListComponent implements OnInit {
-  // timer = require('./timer.jpg');
   list = {} as any;
   constructor(
     private gameService: GameService,
@@ -29,7 +28,11 @@ export class GameListComponent implements OnInit {
   };
 
   start(type){
-    this.router.navigate(['/game_recall'], {queryParams:{type:type}})
+    this.router.navigate(['/game_recall'], {queryParams:{type:type}});
+  };
+
+  update(){
+    this.router.navigate(['/game_update']);
   };
 
   ngOnInit() {
