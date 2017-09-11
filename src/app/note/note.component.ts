@@ -26,7 +26,7 @@ export class NoteComponent implements OnInit {
         content: `<p>${this.content}</p>`,
         user_id: localStorage.getItem('user_id')
      };
-     this.noteService.create(info)
+     this.noteService.query('post', 'create_note', info)
          .subscribe(
             data =>{
                this.alertService.success('Registration successful', true);

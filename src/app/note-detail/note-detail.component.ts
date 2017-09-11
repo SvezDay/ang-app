@@ -33,24 +33,16 @@ export class NoteDetailComponent implements OnInit {
    ) { }
 
    initing(){
-      this.noteService.getDetail(this.note_id)
+      this.noteService.query('get', `/get_note_detail/${this.note_id}`)
       .subscribe(
          data =>{
             this.noteDetail = data.detail;
-            console.log(data);
          },
          error =>{
-            //   this.alertService.error(error);
-            //   this.loading = false;
             this.router.navigate(['/authenticate']);
-         }
-      );
-   }
+         });
+    };
 
-   // show() {
-   //  this.dialog.showModal();
-   //  /* Or dialog.show(); to show the dialog without a backdrop. */
-   // };
    labelChanging(label){
       if(label!=this.selectedProperty.labels){
          this.newLabel = label;

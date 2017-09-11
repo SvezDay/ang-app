@@ -22,35 +22,22 @@ export class NoteListComponent implements OnInit {
 
  detail(note_id){
     this.router.navigate(['/note_detail'], {queryParams:{note_id: note_id}});
-   //  console.log(note_id);
-   //  this.noteService.getDetail(note_id)
-   //    .subscribe(
-   //       data =>{
-   //          console.log(data);
-   //       },
-   //       error =>{
-   //          this.alertService.error(error);
-   //          this.loading = false;
-   //       }
-   //    );
-}
-add(){
+ };
+ add(){
    this.router.navigate(['/note']);
-}
+ };
 
   ngOnInit() {
-     this.noteService.getAll()
-         .subscribe(
-            data =>{
-               console.log(data.list);
-               this.list = data.list;
-            },
-            error =>{
-               // this.alertService.error(error);
-               // this.loading = false;
-               this.router.navigate(['/authenticate']);
-            }
-         )
-  }
-
-}
+     this.noteService.query('get', '/get_all_note')
+     .subscribe(
+        data =>{
+           console.log(data.list);
+           this.list = data.list;
+        },
+        error =>{
+           // this.alertService.error(error);
+           // this.loading = false;
+           this.router.navigate(['/authenticate']);
+        }
+     )};
+ };

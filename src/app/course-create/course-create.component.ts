@@ -22,10 +22,9 @@ export class CourseCreateComponent implements OnInit {
   ) { }
 
   create(){
-    this.courseService.create(this.new_course)
+    this.courseService.query('post', '/create_course', this.new_course)
     .subscribe(
       data => {
-        // console.log(data);
         this.router.navigate(['/course_detail'], {queryParams:{id:data.id}});
       },
       error => {
@@ -37,22 +36,17 @@ export class CourseCreateComponent implements OnInit {
     this.new_course.schema = schema;
   };
 
-
   ngOnInit() {
-    this.courseService.getSchemaList()
-      .subscribe(
-        data =>{
-           console.log(data.list);
-           this.schemaList = data.list;
-           this.new_course.schema = Object.keys(data.list)[0];
-        },
-        error =>{
-           // this.alertService.error(error);
-           // this.loading = false;
-          //  console.log(error);
-           this.router.navigate(['/course_list']);
-        }
-      )
-  }
+    this.courseService.query('get', '/get_schema_list')
+    .subscribe(
+      data =>{
+         console.log(data.list);
+         this.schemaList = data.list;
+         this.new_course.schema = Object.keys(data.list)[0];
+      },
+      error =>{
+         this.router.navigate(['/course_list']);
+      });
+  };
 
-}
+};
