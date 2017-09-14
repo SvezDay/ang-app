@@ -17,7 +17,8 @@ export class GameUpdateComponent implements OnInit {
   courseRecallable = [];
   constructor(
     private gameService: GameService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private router: Router
   ) { }
 
 
@@ -26,9 +27,11 @@ export class GameUpdateComponent implements OnInit {
     .subscribe(
       () => {
         this.courseRecallable.push(course);
+        let newList = [];
         this.courseWait.map( c => {
-          return c.id != course.id ? c : null
+            c.id != course.id ? newList.push(c): null
         });
+        this.courseWait = newList;
       },
       error => {
         console.log(error);
@@ -42,9 +45,12 @@ export class GameUpdateComponent implements OnInit {
     .subscribe(
       () => {
         this.courseWait.push(course);
+        let newList = [];
         this.courseRecallable.map( c => {
-          return c.id != course.id ? c : null
+            c.id != course.id ? newList.push(c): null
         });
+        this.courseRecallable = newList;
+
       },
       error => {
         console.log(error);
@@ -56,7 +62,8 @@ export class GameUpdateComponent implements OnInit {
   recallable(){
     this.gameService.query('get', '/game_course_recallable')
     .subscribe( response => {
-      this.courseRecallable = response;
+      this.courseRecallable = response.data;
+      console.log('recallable')
       console.log(this.courseRecallable);
     }, error => {
       console.log(error);
@@ -64,16 +71,25 @@ export class GameUpdateComponent implements OnInit {
     });
   };
 
+
+  detail(item){
+    console.log('detail plus item:', item);
+    // this.router.navigate(['/course_detail'], {queryParams:{id:item.id}});
+  };
+
+
   ngOnInit() {
     this.gameService.query('get', '/course_wait_recall')
     .subscribe( response => {
-      this.courseWait = response;
+      this.courseWait = response.data;
+      console.log('course wait')
       console.log(this.courseWait);
       this.recallable();
     }, error => {
       console.log(error);
       this.errorService.handler(error);
     });
+
   };
 
 }

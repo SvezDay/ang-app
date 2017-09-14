@@ -1,3 +1,41 @@
-<p>
-  game-update works!
-</p>
+<div class="centeritems mdl-grid">
+   <div class="mdl-layout-spacer"></div>
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell--8-col">
+         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%">
+           <tbody>
+             <tr *ngFor="let item of courseWait">
+
+               <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1" value="schema">
+                 <td class="mdl-data-table__cell--non-numeric" (click)="detail(item)">
+                   <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" value="" [checked]=false (click)='toggleInToRecall(item)' >
+                   {{item.value}}
+                 </td>
+               </label>
+
+               <!-- <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1" value="schema" [class.checkboxSelected]="schema==new_course.schema">
+                 <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" [checked]="schema==new_course.schema" (change)="schemaSelection(schema)">
+                 <span class="mdl-checkbox__label">{{schema}}</span>
+               </label> -->
+
+             </tr>
+           </tbody>
+         </table>
+         <br>
+         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%">
+           <tbody>
+             <tr *ngFor="let item of courseRecallable">
+               <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1" value="schema">
+                 <td class="mdl-data-table__cell--non-numeric" (click)="detail(item)">
+                   <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" value="" [checked]=true (click)='toggleOutFromRecall(item)' >
+                   {{item.value}}
+                 </td>
+               </label>
+
+
+
+             </tr>
+           </tbody>
+         </table>
+      </div>
+   <div class="mdl-layout-spacer"></div>
+</div>
