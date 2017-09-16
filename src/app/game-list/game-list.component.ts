@@ -23,7 +23,8 @@ export class GameListComponent implements OnInit {
     .subscribe((response)=>{
       console.log(response);
     },(error)=>{
-      console.log(error);
+      error.status == 401 ? this.router.navigate(['/authenticate']) : null
+      // console.log(error);
     });
   };
 

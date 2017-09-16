@@ -13,24 +13,44 @@ import { GameService }                 from '../_core/game.service';
 })
 export class GameRecallComponent implements OnInit {
   gameType: any;
+  question: any;
+  response: any;
+  toggle = false;
+
+
   constructor(
     private gameService: GameService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
+
   recall(){
     this.gameService.query('get', `/game_${this.gameType}`)
       .subscribe((response)=>{
-        console.log(response);
+        this.question = response.data.startNode;
+        this.response = response.data.endNode;
+        console.log(this.response.properties);
+        console.log(this.question.properties.value)
       },(error)=>{
-        console.log(error);
+        error.status == 401 ? this.router.navigate(['/authenticate']) : null
+        // console.log(error);
       });
   };
 
+
+  answering(bool){
+    console.log(bool)
+    this.gameService.query('post', '/game_answering', bool)
+    .subscribe(
+      resp => { this.recall(); },
+      error => { console.log(error); });
+  };
+
+
   ngOnInit() {
     this.route.queryParams
-    .subscribe(params => {
+    .subscribe(params =>{
       this.gameType = params.type;
       this.recall();
     });
