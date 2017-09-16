@@ -67,7 +67,9 @@ export class CourseDetailComponent implements OnInit {
   };
 
   save(){
-    if(this.newValue != this.selectedNode.value){
+    if(this.selectedNode.labels.indexOf('Course') != -1 && this.newValue.length == 0){
+      alert('Cannot save empty title');
+    }else if(this.newValue != this.selectedNode.value){
       let label='';
       for(let l in this.selectedNode.property){
         label+= `:${this.selectedNode.property[l]}`;
