@@ -19,6 +19,7 @@ export class CourseDetailComponent implements OnInit {
   editing = false;
   editingCourse = false;
   newValue = '';
+  text: any;
   // newCourseName = '';
 
 
@@ -28,7 +29,11 @@ export class CourseDetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) { }
+
+
   init(){
+    // this.text = <span>hello</span>;
+
     this.courseService.query('get', `/get_course_detail/${this.course.id}`)
       .subscribe(
         result=>{
@@ -46,6 +51,8 @@ export class CourseDetailComponent implements OnInit {
         }
       );
   };
+
+
   delete(){
     this.courseService.query('delete', `/delete_course/${this.course.id}`)
     .subscribe(
@@ -53,6 +60,8 @@ export class CourseDetailComponent implements OnInit {
         this.router.navigate(['/course_list']);
       });
   };
+
+
   editer(node){
     this.selectedNode = node;
     this.newValue = node.value;
@@ -66,8 +75,11 @@ export class CourseDetailComponent implements OnInit {
     }
   };
 
+
   save(){
-    if(this.selectedNode.labels.indexOf('Course') != -1 && this.newValue.length == 0){
+    console.log("save function check")
+    console.log(this.selectedNode)
+    if(this.selectedNode.property.indexOf('Course') != -1 && this.newValue.length == 0){
       alert('Cannot save empty title');
     }else if(this.newValue != this.selectedNode.value){
       let label='';
@@ -88,6 +100,12 @@ export class CourseDetailComponent implements OnInit {
     };
     this.editing = this.editingCourse =  false;
   };
+
+
+  editProperty(node){
+
+  };
+
 
   ngOnInit() {
     this.route.queryParams

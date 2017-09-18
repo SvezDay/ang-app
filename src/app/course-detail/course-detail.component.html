@@ -10,6 +10,8 @@
 <div class="centeritems mdl-grid">
    <div class="mdl-layout-spacer"></div>
    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+     <div class="mdl-card__title">
+     </div>
       <div class="mdl-card__title" (click)='editer(course)'>
          <h2 class="mdl-card__title-text" *ngIf='!editingCourse'>{{course.value}}</h2>
          <input class="mdl-textfield__input" type="text" [(ngModel)]="newValue" (blur)="save()" *ngIf='editingCourse' autofocus>
@@ -17,7 +19,7 @@
       <br>
       <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col" *ngIf=editing>
          <div class="mdl-card__supporting-text" >
-            <textarea id="textarea1" class="mdl-textfield__input" type="text" rows= "1" style="padding:2%; outline:none;"
+            <textarea id="textarea1" class="mdl-textfield__input" type="text" rows= "1" style="padding:2%; outline:none;" autofocus
                [(ngModel)]="newValue" name="newValue" (blur)="save()"></textarea>
         </div>
       </div>
@@ -29,8 +31,11 @@
             <tr *ngFor="let node of courseDetail">
                <td class="mdl-data-table__cell--non-numeric" (click)="editer(node)">
                  <!-- <h6>{{node.property}}</h6> -->
-                 <span>{{node.property}}</span>
-                 <p style="color:black;">{{node.value}}</p>
+                 <!-- <span>{{node.property}}</span> -->
+                 <!-- <button type="button" class="my-chip" (click)="editProperty(node)">
+                   <span class="">{{node.property}}</span>
+                 </button> -->
+                 <p style="color:black;"><span class="my-chip">{{node.property}}   </span>{{node.value}}</p>
 
                </td>
             </tr>
@@ -38,7 +43,52 @@
          </table>
       </div>
 
-      <div class="mdl-card__menu" *ngIf="!editingCourse">
+      <div class="mdl-card__menu my-card-menu" *ngIf="!editingCourse" style="top: 0; right:0;">
+          <!-- <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="delete()">
+            <i class="material-icons">arrow_back</i>
+          </button> -->
+         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" routerLink="/course_list">
+            Back
+         </a>
+         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="editer({})">
+            Add
+         </a>
+         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="delete()">
+           Delete
+         </a>
+      </div>
+
+   </div>
+   <div class="mdl-layout-spacer"></div>
+</div>
+<!--
+
+
+
+ -->
+
+<div class="centeritems mdl-grid">
+   <div class="mdl-layout-spacer"></div>
+   <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+     <div class="mdl-card__title">
+     </div>
+      <div class="mdl-card__title" (click)='editer(course)'>
+         <h2 class="mdl-card__title-text" *ngIf='!editingCourse'>{{course.value}}</h2>
+         <input class="mdl-textfield__input" type="text" [(ngModel)]="newValue" (blur)="save()" *ngIf='editingCourse' autofocus>
+      </div>
+      <br>
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col" *ngIf=editing>
+         <div class="mdl-card__supporting-text" >
+            <textarea id="textarea1" class="mdl-textfield__input" type="text" rows= "1" style="padding:2%; outline:none;" autofocus
+               [(ngModel)]="newValue" name="newValue" (blur)="save()"></textarea>
+        </div>
+      </div>
+
+
+      <div class="mdl-card__supporting-text texting" style="width:initial">
+      </div>
+
+      <div class="mdl-card__menu my-card-menu" *ngIf="!editingCourse" style="top: 0; right:0;">
           <!-- <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="delete()">
             <i class="material-icons">arrow_back</i>
           </button> -->

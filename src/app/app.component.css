@@ -1,0 +1,13 @@
+.my-main{
+  background-color: #E8E8E8;
+}
+.my-layout-header:{
+  background-color: white !important;
+}
+.my-footer{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #585858;
+}

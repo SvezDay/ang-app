@@ -4,11 +4,18 @@
     height: 176px;
   }
 </style>
-<div class="centeritems mdl-grid">
-  <div class="mdl-layout-spacer"></div>
-  <button type="button" name="button" (click)="update()">Update Course</button>
-  <div class="mdl-layout-spacer"></div>
-</div>
+<mdl-layout-header class="mdl-shadow--2dp" style="background-color: #989898">
+      <mdl-layout-header-row style="justify-content: center;">
+
+         <!-- <mdl-layout-spacer></mdl-layout-spacer> -->
+
+         <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" (click)="update()">Update Course</a>
+         <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" >Stats</a>
+
+
+      </mdl-layout-header-row>
+   </mdl-layout-header>
+
 <div class="centeritems mdl-grid">
    <div class="mdl-layout-spacer"></div>
          <div class="mdl-card mdl-shadow--2dp mdl-cell--3-col" >

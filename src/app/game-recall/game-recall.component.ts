@@ -41,10 +41,15 @@ export class GameRecallComponent implements OnInit {
 
   answering(bool){
     console.log(bool)
-    this.gameService.query('post', '/game_answering', bool)
+    this.gameService.query('post', '/game_answering', {bool:bool})
     .subscribe(
-      resp => { this.recall(); },
-      error => { console.log(error); });
+      resp => {
+        console.log(resp);
+        this.recall();
+      },
+      error => {
+        console.log(error);
+      });
   };
 
 

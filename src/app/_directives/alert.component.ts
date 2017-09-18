@@ -7,9 +7,9 @@ import { AlertService } from '../_core/alert.service';
     moduleId: module.id,
     selector: 'alert',
     template: `
-    <div class="mdl-grid">
+    <div class="mdl-grid" *ngIf="message">
        <div
-          *ngIf="message" [ngClass]="{ 'alert': message,
+           [ngClass]="{ 'alert': message,
           'mdl-cell mdl-cell--12-col graybox': message.type === 'success',
           'mdl-cell mdl-cell--12-col': message.type === 'error'
        }">
