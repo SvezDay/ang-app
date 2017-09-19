@@ -9,7 +9,19 @@
   color: rgba(0,0,0,.87);
   font-size: smaller;
   margin-right: 5px;
+  &__method {
+    color: red;
   }
-  .my-chip-text{
-
-  }
+}
+.chip-selected{
+  background-color: green!important;
+}
+.list{
+  background-color: orange;
+}
+.Method{
+  color: blue;
+}
+.Example{
+  color:red;
+}

@@ -16,10 +16,15 @@ export class CourseDetailComponent implements OnInit {
   course = {} as any;
   courseDetail = {} as any;
   selectedNode = {} as any;
+  selectedNode_id: any;
   editing = false;
   editingCourse = false;
   newValue = '';
   text: any;
+  div: any;
+  selected_node_chip_id: any;
+  selected_node_chip_property: any;
+  selected_node_id: any;
   // newCourseName = '';
 
 
@@ -31,8 +36,29 @@ export class CourseDetailComponent implements OnInit {
   ) { }
 
 
+  chip_edit(node){
+    this.selected_node_chip_id = node.id;
+    this.selected_node_chip_property = node.property;
+    console.log('check chip edit');
+    console.log(node)
+  };
+
+
+  chip_close(){
+    this.selected_node_chip_id = null;
+    this.selected_node_chip_property = null;
+  };
+
+
+  chip_new(name){
+    console.log(name);
+  };
+
+
   init(){
-    // this.text = <span>hello</span>;
+    // this.div.innerHTML = "Hello";
+    // this.div.innerHTML += " World";
+
 
     this.courseService.query('get', `/get_course_detail/${this.course.id}`)
       .subscribe(
@@ -40,6 +66,13 @@ export class CourseDetailComponent implements OnInit {
           console.log('result: ', result);
           this.courseDetail = result.properties;
           this.course = result.course;
+          console.log(result.properties[0])
+          // for (let node of result.properties) {
+          //   console.log(node)
+          //   this.div.innerHTML += `
+          //   <p style="color:black;"><span class="my-chip"> ${node.property}   </span> ${node.value} </p>
+          //   `;
+          // }
         },
         error=>{
           this.errorService.handler(error);
@@ -63,6 +96,7 @@ export class CourseDetailComponent implements OnInit {
 
 
   editer(node){
+    this.selectedNode_id = node.id;
     this.selectedNode = node;
     this.newValue = node.value;
     if(node == this.course){
@@ -108,6 +142,7 @@ export class CourseDetailComponent implements OnInit {
 
 
   ngOnInit() {
+    this.div = window.document.getElementById('my-course-detail');
     this.route.queryParams
       .subscribe(params=>{
           this.course = params;

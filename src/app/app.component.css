@@ -5,7 +5,7 @@
   background-color: white !important;
 }
 .my-footer{
-  position: absolute;
+  position: initial;
   left: 0;
   right: 0;
   bottom: 0;
