@@ -1,5 +1,10 @@
-import { Component, OnInit }           from '@angular/core';
+import { Component, OnInit, ViewContainerRef
+                                     } from '@angular/core';
 import { Router, ActivatedRoute }      from '@angular/router';
+
+// import { ToastsManager }               from 'ng2-toastr/ng2-toastr';
+// import { trigger, state, style, animate, transition
+//                                      } from '@angular/animations';
 
 import { AlertService }                from '../_core/alert.service';
 import { CourseService }               from '../_core/course.service';
@@ -10,7 +15,35 @@ import { ErrorService }                from '../_core/error.service';
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
   styleUrls: ['./course-detail.component.css'],
-  providers:[CourseService, ErrorService]
+  providers:[CourseService, ErrorService, AlertService]
+  // animations: [
+  // trigger('heroState', [
+  //   state('inactive', style({
+  //     backgroundColor: '#eee',
+  //     transform: 'scale(1)'
+  //   })),
+  //   state('active',   style({
+  //     backgroundColor: '#cfd8dc',
+  //     transform: 'scale(1.1)'
+  //   })),
+  //   transition('inactive => active', animate('100ms ease-in')),
+  //   transition('active => inactive', animate('100ms ease-out'))
+  // ])
+// ]
+  // animations: [
+  //   trigger('alert', [
+  //     state('inactive', style({
+  //       backgroundColor: '#eee',
+  //       transform: 'scale(1)'
+  //     })),
+  //     state('active',   style({
+  //       backgroundColor: '#cfd8dc',
+  //       transform: 'scale(1.1)'
+  //     })),
+  //     transition('inactive => active', animate('100ms ease-in')),
+  //     transition('active => inactive', animate('100ms ease-out'))
+  //   ])
+  // ]
 })
 export class CourseDetailComponent implements OnInit {
   course = {} as any;
@@ -26,20 +59,31 @@ export class CourseDetailComponent implements OnInit {
   selected_node_chip_property: any;
   selected_node_id: any;
   subNavEditor = false;
-  // newCourseName = '';
+  alert_status = false;
+  alert_message = "";
 
 
   constructor(
+    private alertService: AlertService,
     private courseService: CourseService,
     private errorService: ErrorService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    // private toastr: ToastsManager,
+    // private vcr: ViewContainerRef
+  ) {
+    // this.toastr.setRootViewContainerRef(vcr);
+    // this.alert.status = false;
+  }
 
 
   getSelectionText(){
 
   };
+
+  // showSuccess() {
+  //       this.toastr.success('You are awesome!', 'Success!');
+  //     }
 
 
   selectText(){
@@ -47,6 +91,12 @@ export class CourseDetailComponent implements OnInit {
       let x = window.getSelection().toString();
       console.log(x)
     }
+    this.alert_message = 'Text selected';
+    this.alert_status = true;
+    setTimeout(()=>{
+      this.alert_status = false;
+    }, 5000);
+    // this.alertService.success('The text was selected');
     // $(thisDiv).on("mouseup", function () {
     // let textarea = window.document.getElementById(id);
     // textarea.on("mouseup", ()=>{
@@ -176,6 +226,7 @@ export class CourseDetailComponent implements OnInit {
           this.course = params;
           this.init();
         });
+
   };
 
 }
