@@ -25,6 +25,7 @@ export class CourseDetailComponent implements OnInit {
   selected_node_chip_id: any;
   selected_node_chip_property: any;
   selected_node_id: any;
+  subNavEditor = false;
   // newCourseName = '';
 
 
@@ -34,6 +35,31 @@ export class CourseDetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) { }
+
+
+  getSelectionText(){
+
+  };
+
+
+  selectText(){
+    if(window.getSelection){
+      let x = window.getSelection().toString();
+      console.log(x)
+    }
+    // $(thisDiv).on("mouseup", function () {
+    // let textarea = window.document.getElementById(id);
+    // textarea.on("mouseup", ()=>{
+    //     var selectedText = getSelectionText();
+    //     console.log(selectedText);
+    //     // var selectedTextRegExp = new RegExp(selectedText,"g");
+    //     // var text = $(this).text().replace(selectedTextRegExp, "<span class='red'>" + selectedText + "</span>");
+    //     // $(this).html(text);
+    // });
+  };
+
+
+
 
 
   chip_edit(node){
@@ -105,6 +131,8 @@ export class CourseDetailComponent implements OnInit {
       console.log('this.courseDetail', this.courseDetail);
       this.editingCourse = true;
     }else{
+      this.selectText();
+      this.subNavEditor = true;
       this.editing = true;
     }
   };
@@ -151,3 +179,4 @@ export class CourseDetailComponent implements OnInit {
   };
 
 }
+;

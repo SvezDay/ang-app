@@ -15,10 +15,12 @@ import { FormsModule }           from '@angular/forms';
 import {NgbModule}               from '@ng-bootstrap/ng-bootstrap';
 import { MdlModule }             from '@angular-mdl/core';
 
+
 import {
    HttpModule, Http, RequestOptions
 }                                from '@angular/http';
 import { AuthHttp, AuthConfig }  from 'angular2-jwt';
+import {Autosize}                from 'angular2-autosize/src/autosize.directive';
 
 /* Feature Modules */
 import { CoreModule }            from './_core/core.module';
@@ -61,6 +63,7 @@ import { GameUpdateComponent } from './game-update/game-update.component';
   declarations: [
     AppComponent,
     AlertComponent,
+    Autosize,
     HomeComponent,
     ProfileComponent,
    //  GoogleSigninComponent,

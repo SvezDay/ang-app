@@ -17,7 +17,7 @@ export class GameService {
           if(data && data.token){
             localStorage.setItem('auth_token', data.token);
           };
-          return data;
+          return {response, data};
         });
       }else{
         return this.http[verb](`${this.api_url}${route}`, param, this.jwt())
@@ -26,7 +26,7 @@ export class GameService {
           if(data && data.token){
             localStorage.setItem('auth_token', data.token);
           };
-          return data;
+          return {response, data};
         });
       }
     };

@@ -60,6 +60,18 @@
 
  -->
 
+ <mdl-layout-header class="mdl-shadow--2dp" style="background-color: #989898" *ngIf="subNavEditor">
+       <mdl-layout-header-row style="justify-content: center;">
+
+          <!-- <mdl-layout-spacer></mdl-layout-spacer> -->
+
+          <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" (click)="update()">Update Course</a>
+          <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" >Stats</a>
+
+
+       </mdl-layout-header-row>
+    </mdl-layout-header>
+
 <div class="centeritems mdl-grid">
    <div class="mdl-layout-spacer"></div>
    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
@@ -82,8 +94,8 @@
         <tr *ngFor="let node of courseDetail">
            <td class="mdl-data-table__cell--non-numeric" >
              <p [ngClass]=node.property  (click)="editer(node)" [id]=node.id *ngIf="selectedNode_id != node.id">{{node.value}}</p>
-             <textarea id="textarea1" class="mdl-textfield__input" type="text" rows= "1" style="padding:2%; outline:none; background-color: #F5F5F5" autofocus
-                [(ngModel)]="newValue" name="newValue" (blur)="save()" *ngIf="selectedNode_id == node.id"></textarea>
+             <textarea id="textarea1" autosize class="mdl-textfield__input my-textarea" type="text" rows= "1" style="padding:2%; outline:none; background-color: #F5F5F5" autofocus
+                [(ngModel)]="newValue" name="newValue" (blur)="save()" *ngIf="selectedNode_id == node.id" (mouseup)="selectText()"></textarea>
            </td>
            <td class="mdl-data-table__cell--non-numeric" style="vertical-align: initial;">
              <span class="my-chip" (click)="chip_edit(node)" *ngIf="selected_node_chip_id != node.id">{{node.property}}</span>
@@ -118,5 +130,6 @@
 </div>
 
 <script type="text/javascript">
-    $('#textarea1').trigger('autoresize');
+    // $('#textarea1').trigger('autoresize');
+    // $('#textarea1').autosize();
 </script>

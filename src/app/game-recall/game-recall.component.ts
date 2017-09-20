@@ -13,9 +13,11 @@ import { GameService }                 from '../_core/game.service';
 })
 export class GameRecallComponent implements OnInit {
   gameType: any;
-  question: any;
-  response: any;
+  question = {labels: [] || "",properties: {} } as any;
+  response = {labels: [] || "",properties: {} } as any;
+  recall_id: any;
   toggle = false;
+  empty = false;
 
 
   constructor(
@@ -26,25 +28,33 @@ export class GameRecallComponent implements OnInit {
 
 
   recall(){
+    console.log('check')
     this.gameService.query('get', `/game_${this.gameType}`)
-      .subscribe((response)=>{
-        this.question = response.data.startNode;
-        this.response = response.data.endNode;
-        console.log(this.response.properties);
-        console.log(this.question.properties.value)
+      .subscribe((sub)=>{
+        console.log(sub.response)
+        if(sub.response.status == 204){ // aka No content on response
+          console.log('no more question');
+          this.empty = true;
+          // this.router.navigate(['/game_list']);
+        }else{
+          this.question = sub.data.data.startNode;
+          this.response = sub.data.data.endNode;
+          this.recall_id = sub.data.data.recall_id;
+        };
       },(error)=>{
-        error.status == 401 ? this.router.navigate(['/authenticate']) : null
-        // console.log(error);
+        console.log(error);
+        // error.status == 401 ? this.router.navigate(['/authenticate']) : null
       });
   };
 
 
   answering(bool){
     console.log(bool)
-    this.gameService.query('post', '/game_answering', {bool:bool})
+    let params = {bool:bool, recall_id:this.recall_id};
+    this.gameService.query('post', '/game_answering', params)
     .subscribe(
-      resp => {
-        console.log(resp);
+      () => {
+        console.log('Answer done');
         this.recall();
       },
       error => {
