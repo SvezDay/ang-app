@@ -95,7 +95,7 @@ export class CourseDetailComponent implements OnInit {
     this.alert_status = true;
     setTimeout(()=>{
       this.alert_status = false;
-    }, 5000);
+    }, 2000);
     // this.alertService.success('The text was selected');
     // $(thisDiv).on("mouseup", function () {
     // let textarea = window.document.getElementById(id);

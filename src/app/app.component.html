@@ -28,27 +28,38 @@
             <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" *ngIf="auth.isLogged()">Project</a>
             <a class="mdl-navigation__link" routerLink="/course_list" routerLinkActive="active" *ngIf="auth.isLogged()">Course</a>
             <a class="mdl-navigation__link" routerLink="/game_list" routerLinkActive="active" *ngIf="auth.isLogged()">Game</a>
-            <a class="mdl-navigation__link" routerLink="/authenticate" routerLinkActive="active" *ngIf="!auth.isLogged()">Login</a>
+            <!-- <a class="mdl-navigation__link" routerLink="/authenticate" routerLinkActive="active" *ngIf="!auth.isLogged()">Login</a> -->
 
-            <button
+            <!-- <button
                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                routerLink="/register" routerLinkActive="active"
                *ngIf="!auth.isLogged()"
                >
                Sign up
-            </button>
-            <button
+            </button> -->
+            <!-- <button
                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                (click)="logout()"
                *ngIf="auth.isLogged()"
                >
                Log out
+            </button> -->
+            <button class="mdl-button mdl-js-button" *ngIf="!auth.isLogged()" routerLink="/authenticate">
+            <i class="material-icons" style="font-size:32px; color:red;">power_settings_new</i>
             </button>
-         </mdl-layout-header-row>
-      </mdl-layout-header>
+            <button class="mdl-button mdl-js-button" *ngIf="auth.isLogged()" (click)="logout()">
+            <i class="material-icons" style="font-size:32px;color:#00FF00;">power_settings_new</i>
+            </button>
+            <button class="mdl-button mdl-js-button" *ngIf="auth.isLogged()" routerLink='/profile'>
+            <i class="material-icons" style="font-size:32px;color:#00BFFF;">account_circle</i>
+            </button>
+
+
+       </mdl-layout-header-row>
+   </mdl-layout-header>
 
    <mdl-layout-drawer>
-      <mdl-layout-title>Title</mdl-layout-title>
+      <mdl-layout-title>Side bar</mdl-layout-title>
       <nav class="mdl-navigation">
          <a class="mdl-navigation__link" routerLink="/course" routerLinkActive="active" *ngIf="!auth.isLogged()" >Course</a>
          <a class="mdl-navigation__link" routerLink="/profile" routerLinkActive="active" *ngIf="!auth.isLogged()" >Profile</a>
@@ -60,7 +71,7 @@
             <div class="main-content">
                <!-- <alert></alert> -->
                <div class="router-outlet">
-                  <router-outlet></router-outlet>
+                 <router-outlet></router-outlet>
                </div>
             </div>
             <footer class="mdl-mini-footer my-footer">

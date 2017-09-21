@@ -7,19 +7,21 @@
    }
 
 </style>
-<mdl-layout-header class="mdl-shadow--2dp" style="background-color: #989898" *ngIf="alert_status">
-      <mdl-layout-header-row style="justify-content: center;">
-        {{alert_message}}
-      </mdl-layout-header-row>
-   </mdl-layout-header>
- <mdl-layout-header class="mdl-shadow--2dp" style="background-color: #989898" *ngIf="subNavEditor">
+
+ <mdl-layout-header class="mdl-shadow--2dp" style="background-color: #00BFFF" *ngIf="subNavEditor && !alert_status">
        <mdl-layout-header-row style="justify-content: center;">
 
-          <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" (click)="update()">Update Course</a>
-          <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" >Stats</a>
+           <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" (click)="update()">Update Course</a>
+           <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" >Stats</a>
 
        </mdl-layout-header-row>
     </mdl-layout-header>
+    <mdl-layout-header class="mdl-shadow--2dp" style="background-color: green" *ngIf="alert_status">
+
+          <mdl-layout-header-row style="justify-content: center;" >
+            {{alert_message}}
+            </mdl-layout-header-row>
+       </mdl-layout-header>
 
 <div class="centeritems mdl-grid">
    <div class="mdl-layout-spacer"></div>

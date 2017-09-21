@@ -11,3 +11,6 @@
   bottom: 0;
   background-color: #585858;
 }
+.mdl-layout__header--waterfall{
+    overflow: visible;
+}
