@@ -46,6 +46,7 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { GameListComponent }     from './game-list/game-list.component';
 import { GameRecallComponent }   from './game-recall/game-recall.component';
 import { GameUpdateComponent }   from './game-update/game-update.component';
+import { NoteCreateComponent } from './note-create/note-create.component';
 
 
 // // https://github.com/auth0/angular2-jwt
@@ -79,7 +80,8 @@ import { GameUpdateComponent }   from './game-update/game-update.component';
     CourseDetailComponent,
     GameListComponent,
     GameRecallComponent,
-    GameUpdateComponent
+    GameUpdateComponent,
+    NoteCreateComponent
   ],
   imports: [
     BrowserModule,

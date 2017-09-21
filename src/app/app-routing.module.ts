@@ -6,7 +6,8 @@ import { ProfileComponent } from './profile/profile.component';
 // import { SignupComponent } from './signup/signup.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
-import { NoteComponent } from './note/note.component';
+// import { NoteComponent } from './note/note.component';
+import { NoteCreateComponent } from './note-create/note-create.component';
 import { NoteListComponent } from './note-list/note-list.component';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { CourseListComponent } from './course-list/course-list.component';
@@ -25,7 +26,8 @@ const routes: Routes = [
    { path: 'profile', component: ProfileComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'register', component: RegisterComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'authenticate', component: AuthenticateComponent  /*, canActivate: [AuthGuard]*/   },
-   { path: 'note', component: NoteComponent  /*, canActivate: [AuthGuard]*/   },
+  //  { path: 'note', component: NoteComponent  /*, canActivate: [AuthGuard]*/   },
+   { path: 'note_create', component: NoteCreateComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_list', component: NoteListComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_detail', component: NoteDetailComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'course_list', component: CourseListComponent /*, canActivate: [AuthGuard]*/ },
