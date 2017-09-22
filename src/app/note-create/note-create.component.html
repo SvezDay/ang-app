@@ -1,3 +1,63 @@
-<p>
-  note-create works!
-</p>
+<
+<style media="screen">
+   .original-label {
+      color: blue;}
+   .new-label{
+      color: red;
+   }
+
+</style>
+
+ <mdl-layout-header class="mdl-shadow--2dp" style="background-color: #00BFFF" *ngIf="subNavEditor && !alert_status">
+       <mdl-layout-header-row style="justify-content: center;">
+
+           <a class="mdl-navigation__link" routerLink="/note_list" routerLinkActive="active">Back</a>
+
+       </mdl-layout-header-row>
+    </mdl-layout-header>
+    <mdl-layout-header class="mdl-shadow--2dp" style="background-color: green" *ngIf="alert_status">
+          <mdl-layout-header-row style="justify-content: center;" >
+            {{alert_message}}
+            </mdl-layout-header-row>
+       </mdl-layout-header>
+
+<div class="centeritems mdl-grid">
+   <div class="mdl-layout-spacer"></div>
+   <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+     <div class="mdl-card__title">
+     </div>
+      <div class="mdl-card__title" (click)='toggleTitle = true'>
+         <h2 class="mdl-card__title-text" *ngIf='!toggleTitle'>{{note.title_value}}</h2>
+         <input class="mdl-textfield__input" type="text" [(ngModel)]="note.title_value" (blur)="blur(); toggleTitle = false" *ngIf='toggleTitle' autofocus>
+      </div>
+
+
+      <div class="mdl-card__supporting-text texting" style="width:initial" id='my-course-detail'>
+        <tr>
+           <td class="mdl-data-table__cell--non-numeric" >
+             <p [ngClass]=note.content_label  (click)="toggleContent = true" *ngIf="!toggleContent">{{node.value}}</p>
+             <textarea id="textarea1" autosize class="mdl-textfield__input my-textarea" type="text" rows= "1" style="padding:2%; outline:none; background-color: #F5F5F5" autofocus
+                [(ngModel)]="note.content_value" name="newValue" (blur)="blur()" *ngIf="toggleContent"></textarea>
+           </td>
+           <td class="mdl-data-table__cell--non-numeric" style="vertical-align: initial;">
+             <span class="my-chip" (click)="getLabel()" *ngIf="!toggleabelList">{{note.content_label}}</span>
+             <div class="" *ngIf="toggleLabelList" style="display: table-caption;" >
+               <span class="my-chip list" value="Defintion" [class.chip-selected]="'Defintion' == note.content_label" (click)="changeLabel('Defintion')">Definition</span>
+               <span class="my-chip list" value="Method" [class.chip-selected]="'Method' == note.content_label" (click)="changeLabel('Method')" >Method</span>
+               <span class="my-chip list" value="Property-Theorem" [class.chip-selected]="'Property-Theorem' == note.content_label" (click)="changeLabel('Property-Theorem')" >Property - Theorem</span>
+               <span class="my-chip list" value="Example" [class.chip-selected]="'Example' == note.content_label" (click)="changeLabel('Example')" >Example</span>
+               <span class="my-chip list" value="Solution" [class.chip-selected]="'Solution' == note.content_label" (click)="changeLabel('Solution')" >Solution</span>
+             </div>
+           </td>
+        </tr>
+      </div>
+
+      <div class="mdl-card__menu my-card-menu" style="top: 0; right:0;">
+         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="delete()">
+           Delete
+         </a>
+      </div>
+
+   </div>
+   <div class="mdl-layout-spacer"></div>
+</div>

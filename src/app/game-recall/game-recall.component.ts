@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService }                from '../_core/alert.service';
-import { GameService }                 from '../_core/game.service';
+import { ApiService }                 from '../_core/api.service';
 
 @Component({
   moduleId: module.id,
   selector: 'app-game-recall',
   templateUrl: './game-recall.component.html',
   styleUrls: ['./game-recall.component.css'],
-  providers:[GameService]
+  providers:[ApiService]
 })
 export class GameRecallComponent implements OnInit {
   gameType: any;
@@ -21,7 +21,7 @@ export class GameRecallComponent implements OnInit {
 
 
   constructor(
-    private gameService: GameService,
+    private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -29,7 +29,7 @@ export class GameRecallComponent implements OnInit {
 
   recall(){
     console.log('check')
-    this.gameService.query('get', `/game_${this.gameType}`)
+    this.apiService.query('get', `/game_${this.gameType}`)
       .subscribe((sub)=>{
         console.log(sub.response)
         if(sub.response.status == 204){ // aka No content on response
@@ -51,7 +51,7 @@ export class GameRecallComponent implements OnInit {
   answering(bool){
     console.log(bool)
     let params = {bool:bool, recall_id:this.recall_id};
-    this.gameService.query('post', '/game_answering', params)
+    this.apiService.query('post', '/game_answering', params)
     .subscribe(
       () => {
         console.log('Answer done');

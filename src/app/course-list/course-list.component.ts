@@ -1,8 +1,7 @@
 import { Component, OnInit }           from '@angular/core';
 import { Router, ActivatedRoute }      from '@angular/router';
 
-import { AlertService }                from '../_core/alert.service';
-import { CourseService }               from '../_core/course.service';
+import { ApiService }                  from '../_core/api.service';
 import { ErrorService }                from '../_core/error.service';
 
 @Component({
@@ -10,14 +9,14 @@ import { ErrorService }                from '../_core/error.service';
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css'],
-  providers:[CourseService, ErrorService]
+  providers:[ApiService, ErrorService]
 })
 export class CourseListComponent implements OnInit {
   list = [];
 
 
   constructor(
-    private courseService: CourseService,
+    private apiService: ApiService,
     private errorService: ErrorService,
     private router: Router
   ) { }
@@ -34,9 +33,10 @@ export class CourseListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.courseService.query('get', '/get_all_course')
-    .subscribe( response =>{
-      this.list = response.data;
+    this.apiService.query('get', '/get_all_course')
+    .subscribe( sub =>{
+      this.list = sub.data.data;
+      console.log('response', sub)
     }, error => {
       console.log('error', error);
       this.errorService.handler(error);

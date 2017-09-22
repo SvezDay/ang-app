@@ -2,24 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService }                from '../_core/alert.service';
-import { GameService }                 from '../_core/game.service';
+import { ApiService }                 from '../_core/api.service';
 
 @Component({
   moduleId: module.id,
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.css'],
-  providers:[GameService]
+  providers:[ApiService]
 })
 export class GameListComponent implements OnInit {
   list = {} as any;
   constructor(
-    private gameService: GameService,
+    private apiService: ApiService,
     private router: Router
   ) { }
 
   new_result(){
-    this.gameService.query('post', '/new_result', {id:1})
+    this.apiService.query('post', '/new_result', {id:1})
     .subscribe((response)=>{
       console.log(response);
     },(error)=>{

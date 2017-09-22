@@ -1,15 +1,14 @@
 import { Component, OnInit }           from '@angular/core';
 import { Router, ActivatedRoute }      from '@angular/router';
 
-import { AlertService }                from '../_core/alert.service';
-import { NoteService }                 from '../_core/note.service';
+import { ApiService }                 from '../_core/api.service';
 
 @Component({
    moduleId: module.id,
    selector: 'app-note-detail',
    templateUrl: './note-detail.component.html',
    styleUrls: ['./note-detail.component.css'],
-   providers:[NoteService]
+   providers:[ApiService]
 })
 export class NoteDetailComponent implements OnInit {
    loading = false;
@@ -28,12 +27,11 @@ export class NoteDetailComponent implements OnInit {
    constructor(
       private route: ActivatedRoute,
       private router: Router,
-      private alertService: AlertService,
-      private noteService: NoteService
+      private apiService: ApiService
    ) { }
 
    initing(){
-      this.noteService.query('get', `/get_note_detail/${this.note_id}`)
+      this.apiService.query('get', `/get_note_detail/${this.note_id}`)
       .subscribe(
          data =>{
             this.noteDetail = data.detail;
@@ -57,9 +55,6 @@ export class NoteDetailComponent implements OnInit {
       this.editing = true;
    };
    save(){
-      console.log('check on the save function');
-      console.log('this.newLabel', this.newLabel);
-      console.log('this.newValue', this.newValue);
       let params = {};
       let saving = false;
 
@@ -76,10 +71,10 @@ export class NoteDetailComponent implements OnInit {
          params["note_id"] = this.note_id;
          console.log('params', params);
          if(this.newProperty){
-            this.noteService.add(params)
+            this.apiService.query('post', '/add_property', params)
             .subscribe(
-               data => {
-                  console.log('data', data);
+               response => {
+                  console.log('data', response);
                   // this.alertService.success('Saved !');
                   this.editing = false;
                   this.newProperty = false;
@@ -89,12 +84,11 @@ export class NoteDetailComponent implements OnInit {
                error => {
                   console.log('error', error);
                   this.editing = false;
-                  this.alertService.error(error);
                }
             );
 
          }else{
-            this.noteService.update(params)
+            this.apiService.query('post', '/update_property', params)
             .subscribe(
                data => {
                   console.log('data', data);
@@ -107,7 +101,6 @@ export class NoteDetailComponent implements OnInit {
                error => {
                   console.log('error', error);
                   this.editing = false;
-                  this.alertService.error(error);
                }
             );
          }
@@ -124,7 +117,7 @@ export class NoteDetailComponent implements OnInit {
       this.newProperty = true;
    }
    delete(){
-      this.noteService.delete(this.note_id, this.selectedProperty.node_id)
+      this.apiService.query('delete', `/delete_property/${this.note_id}/${this.selectedProperty.node_id}`)
       .subscribe(
          data => {
             console.log('data', data);
@@ -134,7 +127,6 @@ export class NoteDetailComponent implements OnInit {
          error => {
             console.log('error', error);
             this.editing = false;
-            this.alertService.error(error);
          }
       );
 
@@ -145,7 +137,7 @@ export class NoteDetailComponent implements OnInit {
          property_id:this.selectedProperty.node_id,
          drop:direction
       };
-      this.noteService.drop(params)
+      this.apiService.query('post', '/drop_property', params)
       .subscribe(
          data => {
             console.log('data', data);
@@ -155,7 +147,6 @@ export class NoteDetailComponent implements OnInit {
          error => {
             console.log('error', error);
             this.editing = false;
-            this.alertService.error(error);
          }
       );
 

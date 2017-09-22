@@ -7,7 +7,7 @@ import { Router, ActivatedRoute }      from '@angular/router';
 //                                      } from '@angular/animations';
 
 import { AlertService }                from '../_core/alert.service';
-import { CourseService }               from '../_core/course.service';
+import { ApiService }               from '../_core/api.service';
 import { ErrorService }                from '../_core/error.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { ErrorService }                from '../_core/error.service';
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
   styleUrls: ['./course-detail.component.css'],
-  providers:[CourseService, ErrorService, AlertService]
+  providers:[ApiService, ErrorService, AlertService]
   // animations: [
   // trigger('heroState', [
   //   state('inactive', style({
@@ -55,9 +55,11 @@ export class CourseDetailComponent implements OnInit {
   newValue = '';
   text: any;
   div: any;
+
   selected_node_chip_id: any;
   selected_node_chip_property: any;
   selected_node_id: any;
+
   subNavEditor = false;
   alert_status = false;
   alert_message = "";
@@ -65,7 +67,7 @@ export class CourseDetailComponent implements OnInit {
 
   constructor(
     private alertService: AlertService,
-    private courseService: CourseService,
+    private apiService: ApiService,
     private errorService: ErrorService,
     private router: Router,
     private route: ActivatedRoute,
@@ -136,13 +138,13 @@ export class CourseDetailComponent implements OnInit {
     // this.div.innerHTML += " World";
 
 
-    this.courseService.query('get', `/get_course_detail/${this.course.id}`)
+    this.apiService.query('get', `/get_course_detail/${this.course.id}`)
       .subscribe(
-        result=>{
-          console.log('result: ', result);
-          this.courseDetail = result.properties;
-          this.course = result.course;
-          console.log(result.properties[0])
+        sub=>{
+          console.log('result: ', sub);
+          this.courseDetail = sub.data.properties;
+          this.course = sub.data.course;
+          console.log(sub.data.properties[0])
           // for (let node of result.properties) {
           //   console.log(node)
           //   this.div.innerHTML += `
@@ -163,7 +165,7 @@ export class CourseDetailComponent implements OnInit {
 
 
   delete(){
-    this.courseService.query('delete', `/delete_course/${this.course.id}`)
+    this.apiService.query('delete', `/delete_course/${this.course.id}`)
     .subscribe(
       ()=>{
         this.router.navigate(['/course_list']);
@@ -198,7 +200,7 @@ export class CourseDetailComponent implements OnInit {
       for(let l in this.selectedNode.property){
         label+= `:${this.selectedNode.property[l]}`;
       };
-      this.courseService.query('post', '/update_course',
+      this.apiService.query('post', '/update_course',
         {id:this.selectedNode.id, value:this.newValue, label:label}
       )
       .subscribe(

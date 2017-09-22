@@ -2,7 +2,7 @@ import { Component, OnInit }           from '@angular/core';
 import { Router, ActivatedRoute }      from '@angular/router';
 
 import { AlertService }                from '../_core/alert.service';
-import { GameService }                 from '../_core/game.service';
+import { ApiService }                 from '../_core/api.service';
 import { ErrorService }                from '../_core/error.service';
 
 @Component({
@@ -10,20 +10,20 @@ import { ErrorService }                from '../_core/error.service';
   selector: 'app-game-update',
   templateUrl: './game-update.component.html',
   styleUrls: ['./game-update.component.css'],
-  providers: [GameService, ErrorService]
+  providers: [ApiService, ErrorService]
 })
 export class GameUpdateComponent implements OnInit {
   courseWait = [];
   courseRecallable = [];
   constructor(
-    private gameService: GameService,
+    private apiService: ApiService,
     private errorService: ErrorService,
     private router: Router
   ) { }
 
 
   toggleInToRecall(course){
-    this.gameService.query('post', '/game_toggle_in_to_recallable', course)
+    this.apiService.query('post', '/game_toggle_in_to_recallable', course)
     .subscribe(
       () => {
         this.courseRecallable.push(course);
@@ -41,7 +41,7 @@ export class GameUpdateComponent implements OnInit {
 
 
   toggleOutFromRecall(course){
-    this.gameService.query('post', '/game_toggle_out_from_recallable', course)
+    this.apiService.query('post', '/game_toggle_out_from_recallable', course)
     .subscribe(
       () => {
         this.courseWait.push(course);
@@ -60,7 +60,7 @@ export class GameUpdateComponent implements OnInit {
 
 
   recallable(){
-    this.gameService.query('get', '/game_course_recallable')
+    this.apiService.query('get', '/game_course_recallable')
     .subscribe( response => {
       this.courseRecallable = response.data;
       console.log('recallable')
@@ -79,7 +79,7 @@ export class GameUpdateComponent implements OnInit {
 
 
   ngOnInit() {
-    this.gameService.query('get', '/course_wait_recall')
+    this.apiService.query('get', '/course_wait_recall')
     .subscribe( response => {
       this.courseWait = response.data;
       console.log('course wait')

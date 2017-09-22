@@ -30,15 +30,15 @@ import { CoreModule }            from './_core/core.module';
 /* App Root */
 import { AppRoutingModule }      from './app-routing.module';
 import { AppComponent }          from './app.component';
-// import { AlertComponent }           from './_directives/alert.component';
+
 import { HomeComponent }         from './home/home.component';
 import { ProfileComponent }      from './profile/profile.component';
-// import { GoogleSigninComponent, SignupComponent }
-//                                  from './signup/signup.component';
+
+
 import { RegisterComponent }     from './register/register.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
-import { NoteComponent }         from './note/note.component';
 import { NoteListComponent }     from './note-list/note-list.component';
+import { NoteCreateComponent } from './note-create/note-create.component';
 import { NoteDetailComponent }   from './note-detail/note-detail.component';
 import { CourseListComponent }   from './course-list/course-list.component';
 import { CourseCreateComponent } from './course-create/course-create.component';
@@ -46,42 +46,27 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { GameListComponent }     from './game-list/game-list.component';
 import { GameRecallComponent }   from './game-recall/game-recall.component';
 import { GameUpdateComponent }   from './game-update/game-update.component';
-import { NoteCreateComponent } from './note-create/note-create.component';
-
-
-// // https://github.com/auth0/angular2-jwt
-// export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-//   return new AuthHttp(new AuthConfig({
-//      headerPrefix: 'Bearer',
-//    // noJwtError: true,
-//    tokenName:'id_token',
-//     tokenGetter: (() => localStorage.getItem('id_token')),
-//     globalHeaders: [{'Content-Type':'application/json'}],
-//   }), http, options);
-// };
-
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    // AlertComponent,
     Autosize,
+
+    AppComponent,
     HomeComponent,
     ProfileComponent,
-   //  GoogleSigninComponent,
     RegisterComponent,
     AuthenticateComponent,
-    NoteComponent,
+
     NoteListComponent,
+    NoteCreateComponent,
     NoteDetailComponent,
     CourseListComponent,
     CourseCreateComponent,
     CourseDetailComponent,
     GameListComponent,
     GameRecallComponent,
-    GameUpdateComponent,
-    NoteCreateComponent
+    GameUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -90,10 +75,7 @@ import { NoteCreateComponent } from './note-create/note-create.component';
     FormsModule,
     NgbModule,
     MdlModule,
-    // ToastModule.forRoot(),
     CoreModule.forRoot(),
-    // BrowserAnimationsModule,
-   //  CourseModule
   ],
   providers: [
    //    {
