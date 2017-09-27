@@ -18,6 +18,7 @@ import { HttpModule, Http, RequestOptions
 
 import {NgbModule}               from '@ng-bootstrap/ng-bootstrap';
 import { MdlModule }             from '@angular-mdl/core';
+import {FocusModule}             from 'angular2-focus';
 // import {ToastModule}             from 'ng2-toastr/ng2-toastr';
 
 
@@ -51,7 +52,6 @@ import { GameUpdateComponent }   from './game-update/game-update.component';
 @NgModule({
   declarations: [
     Autosize,
-
     AppComponent,
     HomeComponent,
     ProfileComponent,
@@ -76,6 +76,7 @@ import { GameUpdateComponent }   from './game-update/game-update.component';
     NgbModule,
     MdlModule,
     CoreModule.forRoot(),
+    FocusModule.forRoot(),
   ],
   providers: [
    //    {

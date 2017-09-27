@@ -36,6 +36,7 @@
     "@types/auth0-lock": "^10.16.0",
     "angular-in-memory-web-api": "^0.3.2",
     "angular2-autosize": "^1.0.1",
+    "angular2-focus": "^1.1.0",
     "angular2-jwt": "^0.2.3",
     "auth0-js": "^8.7.0",
     "auth0-lock": "^10.16.0",

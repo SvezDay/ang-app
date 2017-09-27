@@ -34,8 +34,10 @@ export class NoteListComponent implements OnInit {
   ngOnInit() {
      this.apiService.query('get', '/get_all_note')
      .subscribe(
-        response =>{
-           this.list = response.data;
+        res =>{
+          console.log(res)
+          res.response.status == 401 ? this.router.navigate(['/authenticate']) : null
+           this.list = res.data.list;
         },
         error =>{
           console.log(error);

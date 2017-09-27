@@ -20,6 +20,7 @@ export class NoteDetailComponent implements OnInit {
    newProperty = false;
 
    note_id:Number;
+   init_command: any;
    selectedProperty: any;
 
    // sub:any;
@@ -31,13 +32,19 @@ export class NoteDetailComponent implements OnInit {
    ) { }
 
    initing(){
+     this.init_command ?  console.log(this.init_command) : console.log('no command')
       this.apiService.query('get', `/get_note_detail/${this.note_id}`)
       .subscribe(
-         data =>{
-            this.noteDetail = data.detail;
+         res =>{
+            this.noteDetail = res.data.detail;
          },
-         error =>{
-            this.router.navigate(['/authenticate']);
+         error => {
+            // console.log(error);
+            if(error.status == 401){
+              this.router.navigate(['/authenticate']);
+            }else{
+              this.router.navigate(['/note_list']);
+            };
          });
     };
 
@@ -157,6 +164,7 @@ export class NoteDetailComponent implements OnInit {
       .queryParams
       .subscribe(params=>{
          this.note_id = params.note_id;
+         params.command ? this.init_command = params.command : null
       });
       this.initing();
    }

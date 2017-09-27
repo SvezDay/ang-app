@@ -12,9 +12,9 @@ import { ApiService }                 from '../_core/api.service';
   providers:[ApiService]
 })
 export class CourseCreateComponent implements OnInit {
-  new_course = {value:'', schema:''};
+  new_course = {value:'', model_title:''};
   objectKeys = Object.keys;
-  schemaList =[];
+  modelList =[];
 
   constructor(
     private apiService: ApiService,
@@ -32,17 +32,21 @@ export class CourseCreateComponent implements OnInit {
       }
     );
   };
-  schemaSelection(schema){
-    this.new_course.schema = schema;
+  modelSelection(model){
+
+    this.new_course.model_title = model.title;
+    console.log(this.new_course.model_title)
   };
 
   ngOnInit() {
-    this.apiService.query('get', '/get_schema_list')
+    this.apiService.query('get', '/get_model_list')
     .subscribe(
-      data =>{
-         console.log(data.list);
-         this.schemaList = data.list;
-         this.new_course.schema = Object.keys(data.list)[0];
+      res =>{
+
+         console.log(res.data.list);
+         this.modelList = res.data.list;
+         this.new_course.model_title = res.data.list[0].title;
+         console.log('this.new_course.model', res.data.list[0])
       },
       error =>{
          this.router.navigate(['/course_list']);
