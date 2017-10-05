@@ -65,7 +65,7 @@
             <textarea id="textarea1" autosize focus="true"
               class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
               type="text"
-              [(ngModel)]="note.content_value" name="newValue" (blur)="blur()"
+              [(ngModel)]="note.content_value" name="newValue" (ngModelChange)="change($event, id)"
               *ngIf="toggleContent"></textarea>
           </div>
 

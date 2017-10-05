@@ -44,11 +44,14 @@
                >
                Log out
             </button> -->
-            <button class="mdl-button mdl-js-button" *ngIf="!auth.isLogged()" routerLink="/authenticate">
+            <!-- <button class="mdl-button mdl-js-button" *ngIf="!auth.isLogged()" routerLink="/authenticate">
             <i class="material-icons" style="font-size:32px; color:red;">power_settings_new</i>
             </button>
             <button class="mdl-button mdl-js-button" *ngIf="auth.isLogged()" (click)="logout()">
             <i class="material-icons" style="font-size:32px;color:#00FF00;">power_settings_new</i>
+            </button> -->
+            <button class="mdl-button mdl-js-button" *ngIf="!auth.isLogged()" routerLink='/profile'>
+            <i class="material-icons" style="font-size:32px;color:grey;">account_circle</i>
             </button>
             <button class="mdl-button mdl-js-button" *ngIf="auth.isLogged()" routerLink='/profile'>
             <i class="material-icons" style="font-size:32px;color:#00BFFF;">account_circle</i>
@@ -61,15 +64,14 @@
    <mdl-layout-drawer>
       <mdl-layout-title>Side bar</mdl-layout-title>
       <nav class="mdl-navigation">
-         <a class="mdl-navigation__link" routerLink="/course" routerLinkActive="active" *ngIf="!auth.isLogged()" >Course</a>
-         <a class="mdl-navigation__link" routerLink="/profile" routerLinkActive="active" *ngIf="!auth.isLogged()" >Profile</a>
-         <a class="mdl-navigation__link" routerLink="/admin" routerLinkActive="active" *ngIf="!auth.isLogged()" >Admin</a>
+         <a class="mdl-navigation__link" routerLink="/course" routerLinkActive="active" *ngIf="auth.isLogged()" (click)="logout()">Logout</a>
       </nav>
    </mdl-layout-drawer>
 
    <mdl-layout-content class="my-main">
             <div class="main-content">
                <!-- <alert></alert> -->
+               <!-- <subnav></subnav> -->
                <div class="router-outlet">
                  <router-outlet></router-outlet>
                </div>

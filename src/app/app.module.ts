@@ -19,7 +19,6 @@ import { HttpModule, Http, RequestOptions
 import {NgbModule}               from '@ng-bootstrap/ng-bootstrap';
 import { MdlModule }             from '@angular-mdl/core';
 import {FocusModule}             from 'angular2-focus';
-// import {ToastModule}             from 'ng2-toastr/ng2-toastr';
 
 
 import { AuthHttp, AuthConfig }  from 'angular2-jwt';
@@ -27,6 +26,7 @@ import {Autosize}                from 'angular2-autosize/src/autosize.directive'
 
 /* Feature Modules */
 import { CoreModule }            from './_core/core.module';
+import { SubnavComponent }       from './_directives/subnav.component';
 
 /* App Root */
 import { AppRoutingModule }      from './app-routing.module';
@@ -53,6 +53,7 @@ import { GameUpdateComponent }   from './game-update/game-update.component';
   declarations: [
     Autosize,
     AppComponent,
+    SubnavComponent,
     HomeComponent,
     ProfileComponent,
     RegisterComponent,

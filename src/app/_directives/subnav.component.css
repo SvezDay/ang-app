@@ -1,0 +1,19 @@
+.my-subnav-layout{
+  background-color: #00BFFF;
+}
+.my-subnav-layout-row{
+  justify-content: center;
+}
+.my-subnav-a{
+  display:grid;
+  color:white;
+  cursor:pointer;
+  min-width:8%;
+  margin: 0 5px;
+}
+.my-subnav-i{
+  text-align:center;
+}
+.my-subnav-span{
+  text-align:center;
+}

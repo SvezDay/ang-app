@@ -20,6 +20,7 @@ export class ApiService {
         if(data && data.token){
           localStorage.setItem('auth_token', data.token);
         };
+        // data.data ? data = data.data : null
         return {response, data};
       });
     }else{
@@ -29,6 +30,7 @@ export class ApiService {
         if(data && data.token){
           localStorage.setItem('auth_token', data.token);
         };
+        // data.data ? data = data.data : null
         return {response, data};
       });
     }

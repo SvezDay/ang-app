@@ -17,13 +17,15 @@ export class AppComponent implements OnInit, AfterViewInit {
       public auth: AuthenticationService,
       public users : UserService,
       public router: Router
+   ){ }
 
-   ){
-   }
+   ngOnInit(){
 
-  ngAfterViewInit(){
-    console.log('after view init')
-  };
+   };
+
+    ngAfterViewInit(){
+      console.log('after view init')
+    };
 
 
    logout(){
@@ -32,9 +34,6 @@ export class AppComponent implements OnInit, AfterViewInit {
    };
 
 
-   ngOnInit(){
-
-   };
 
 
    usering(){

@@ -3,7 +3,7 @@
    <div class="mdl-layout-spacer"></div>
    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col">
       <div class="mdl-card__title">
-         <h2 class="mdl-card__title-text">Login</h2>
+          <h2 class="mdl-card__title-text">Login</h2>
       </div>
       <div class="mdl-card__menu">
          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
@@ -21,9 +21,14 @@
             </mdl-textfield >
          </div>
          <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="login()">
-               Login
-            </a>
+           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" routerLink="/" (click)="login()" style="float:right;" >
+             <i class="material-icons" style="font-size: 18px">perm_identity</i>
+             <span style="">Login</span>
+           </a>
+           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" routerLink="/register" style="float:left;">
+             <i class="material-icons" style="font-size: 18px">arrow_back</i>
+             <span style="">Register</span>
+           </a>
          </div>
       </form>
    </div>

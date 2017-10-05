@@ -12,14 +12,14 @@ export class HomeComponent implements OnInit {
   // constructor(public auth: AuthService) { }
 
   ngOnInit() {
-   //  if (this.auth.userProfile) {
-   //    this.profile = this.auth.userProfile;
-   //  } else {
-   //    this.auth.getProfile((err, profile) => {
-   //       console.log(profile);
-   //      this.profile = profile;
-   //    });
-   //  }
+    // if (this.auth.userProfile) {
+    //   this.profile = this.auth.userProfile;
+    // } else {
+    //   this.auth.getProfile((err, profile) => {
+    //      console.log(profile);
+    //     this.profile = profile;
+    //   });
+    // }
   }
 
 }

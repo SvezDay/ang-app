@@ -24,10 +24,24 @@ export class AuthenticationService {
             localStorage.setItem('user_id', user.id);
             localStorage.setItem('user_name', user.name);
          }
-
          return user;
       });
    }
+
+   register(creds){
+     return this.http.post(`${this.api_url}/register`, creds)
+     .map( (response:Response) => {
+       let user = response.json();
+       console.log(user)
+       if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('auth_token', user.token);
+          localStorage.setItem('user_id', user.id);
+          localStorage.setItem('user_name', user.name);
+       }
+       return user;
+     })
+   };
 
    logout() {
       // remove user from local storage to log user out

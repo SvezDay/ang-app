@@ -9,67 +9,84 @@
       background-color:#D8D8D8;
    }
 </style>
-<div class="centeritems mdl-grid">
-   <div class="mdl-layout-spacer"></div>
-   <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
-      <div class="mdl-card__title">
-         <h2 class="mdl-card__title-text">Note #{{note_id}}</h2>
-      </div>
-      <br>
-      <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col" *ngIf=editing>
-         <div class="mdl-card__supporting-text" >
-            <ul >
-               <li  *ngFor="let item of labels"  style="display:inline" (click)="labelChanging(item)" [class.original-label]="item==selectedProperty.labels" [class.new-label]="item==newLabel">
-                    {{item}}
-               </li>
-            </ul>
-            <br>
-            <textarea id="textarea1" class="mdl-textfield__input" type="text" rows= "1" style="padding:2%; outline:none;"
-               [(ngModel)]="newValue" name="newValue" (blur)="save()"></textarea>
-        </div>
-        <div class="mdl-card__menu">
-           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="drop('up')" [disabled]="selectedProperty.order==1">
-            <i class="material-icons">arrow_drop_up</i>
-          </button>
-          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="drop('down')" [disabled]="selectedProperty.order==noteDetail.length">
-           <i class="material-icons">arrow_drop_down</i>
-         </button>
-          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="delete()">
-             Delete
-          </a>
-        </div>
 
-      </div>
+<mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
+    <mdl-layout-header-row class="my-subnav-layout-row">
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="add()">
+          <i class="material-icons" style="text-align:center;">add</i>
+          <span style="text-align:center;">Add item</span>
+        </a>
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="delete_container()">
+          <i class="material-icons" style="text-align:center;">delete</i>
+          <span style="text-align:center;">Delete</span>
+        </a>
+    </mdl-layout-header-row>
+ </mdl-layout-header>
 
+ <mdl-layout-header class="mdl-shadow--2dp" style="background-color: green" *ngIf="alert_message">
+   <mdl-layout-header-row style="justify-content: center;" >
+     {{alert_message}}
+   </mdl-layout-header-row>
+  </mdl-layout-header>
 
-      <div class="mdl-card__supporting-text" style="width:initial">
-         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%">
-          <tbody>
-            <tr *ngFor="let node of noteDetail">
-               <td class="mdl-data-table__cell--non-numeric" (click)="editer(node)" [class.order]="node==selectedProperty">
-                  {{node.value}}
-               </td>
-            </tr>
-          </tbody>
-         </table>
-      </div>
+  <div class="centeritems mdl-grid">
+     <div class="mdl-layout-spacer"></div>
+     <div class="mdl-cell mdl-cell--8-col">
 
-      <div class="mdl-card__menu">
-          <!-- <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" (click)="delete()">
-            <i class="material-icons">arrow_back</i>
-          </button> -->
-         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" routerLink="/note_list">
-            Back
-         </a>
-         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="editer({})">
-            Add
-         </a>
-      </div>
+       <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
+          <div class="mdl-card__title" (click)="dataSelect(title)">
+             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf='ref != title.id'>
+               {{title.value}}
+             </h2>
+             <input id="input1"
+                class="mdl-textfield__input blinking-cursor noborder"
+                type="text" [(ngModel)]="updateData.value"
+                (blur)="update()"
+                *ngIf='ref == title.id' focus="true">
+          </div>
+       </div>
 
-   </div>
-   <div class="mdl-layout-spacer"></div>
-</div>
+       <div *ngFor="let item of details">
+         <div id="card_{{item.id}}"  class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-property">
+            <div class="mdl-card__supporting-text texting" style="width:initial" id='my-course-detail'>
 
-<script type="text/javascript">
-    $('#textarea1').trigger('autoresize');
-</script>
+              <div class="mdl-card__menu my-card-property-chip">
+                  <!-- <span class="my-chip" (click)="dataSelect(item); toggler('label')" *ngIf="!toggleLabelList">{{item.labels}}</span> -->
+                  <span class="my-chip" (click)="dataSelect(item); alert.show()" *ngIf="!toggleLabelList">{{item.labels}}</span>
+                  <!-- <div *ngIf="toggleLabelList" class=" my-card-property-chip-list-div">
+                    <ul class="my-card-property-chip-list">
+                      <li *ngFor="let label of label_list">
+                        <span class="my-chip list" [class.chip-selected]="label == item.labels" (click)="changeLabel(label)">{{label}}</span>
+                      </li>
+                    </ul>
+                  </div> -->
+                  <mdl-alert #alert="mdlAlert"
+                    message="This is a <em class='mdl-color-text--primary'>simple</em> Alert"
+                    okText="Got it!"
+                    (confirmed)="alertConfirmd()"></mdl-alert>
+              </div>
+
+              <div class="mdl-cell mdl-cell--12-col my-card-property-text" (click)="dataSelect(item)" >
+                <div [ngClass]=item.labels
+                 *ngIf="ref != item.id" id="p_{{item.id}}" autosize>{{item.value}}</div>
+                 <div *ngIf="ref == item.id" style="margin:0;">
+                   <textarea id="textarea_{{item.id}}" autosize focus='true'
+                   class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
+                   type="text"
+                   [(ngModel)]="updateData.value" name="newValue"
+                   (blur)="update()"
+                   *ngIf="ref == item.id"></textarea>
+                   <a style="display:grid; color:grey; cursor:pointer; min-width:8%; margin: 0 5px; height: 50px;" (click)="delete_property()">
+                     <i class="material-icons" style="text-align:center;">delete</i>
+                     <span style="text-align:center;">Delete item</span>
+                   </a>
+                 </div>
+              </div>
+
+            </div>
+         </div>
+       </div>
+
+     </div>
+     <div class="mdl-layout-spacer"></div>
+  </div>

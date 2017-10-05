@@ -1,3 +1,18 @@
+<mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_status">
+    <mdl-layout-header-row class="my-subnav-layout-row">
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="add()">
+          <i class="material-icons" style="text-align:center;">add</i>
+          <span style="text-align:center;">New note</span>
+        </a>
+    </mdl-layout-header-row>
+ </mdl-layout-header>
+
+ <mdl-layout-header class="mdl-shadow--2dp" style="background-color: green" *ngIf="alert_status">
+   <mdl-layout-header-row style="justify-content: center;" >
+     {{alert_message}}
+   </mdl-layout-header-row>
+  </mdl-layout-header>
+
 <div class="centeritems mdl-grid">
    <div class="mdl-layout-spacer"></div>
       <!-- <div class="mdl-cell--8-col"> -->
@@ -9,13 +24,13 @@
              </tr>
            </tbody>
          </table>
-         <br>
+         <!-- <br>
          <div class="mdl-card__actions" style="text-align:right;">
 
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" (click)="add()">
               <i class="material-icons">add</i>
             </button>
-         </div>
+         </div> -->
       </div>
 
    <div class="mdl-layout-spacer"></div>

@@ -1,51 +1,42 @@
-import { Component }                from '@angular/core';
-import { Router }                   from '@angular/router';
-// import { Http, Headers, RequestOptions, Response }
-//                                     from '@angular/http';
+import { Component }                        from '@angular/core';
+import { Router, ActivatedRoute }           from '@angular/router';
 
-// import { AlertService }             from '../_core/alert.service';
-import { UserService }              from '../_core/user.service';
-// import { User }                     from '../_models/user';
+import { AuthenticationService }            from '../_core/authentication.service';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'register.component.html',
-    styles: ['register.component.css']
+    styleUrls: ['../app.component.css','register.component.css']
 })
 
 export class RegisterComponent {
     model: any = {};
     loading = false;
-   //  api_url = 'http://localhost:3200';
+    return_url: string;
 
     constructor(
         private router: Router,
-        private userService: UserService,
-        // private alertService: AlertService,
-      //   private http: Http
+        private route: ActivatedRoute,
+        private auth: AuthenticationService
      ) { }
 
-    register() {
-        this.loading = true;
-      //   this.http
-      //       .post(this.api_url + '/register', this.model)
-      //       .map((response: Response)=>{
-      //          let resp = response.json();
-      //          console.log(resp);
-      //         this.alertService.success('Registration successful', true);
-      //         this.router.navigate(['/authenticate']);
-      //       });
+     ngOnInit(){
+       this.return_url = this.route.snapshot.queryParams['returnUrl'] || '/';
+     };
 
-        this.userService.register(this.model)
-            .subscribe(
-                data => {
-                    // set success message and pass true paramater to persist the message after redirecting to the login page
-                    //  this.alertService.success('Registration successful', true);
-                     this.router.navigate(['/authenticate']);
-                },
-                error => {
-                    // this.alertService.error(error);
-                    this.loading = false;
-                });
-    }
+    register() {
+      this.loading = true;
+
+      this.auth.register(this.model)
+      .subscribe(
+          (user) => {
+              // set success message and pass true paramater to persist the message after redirecting to the login page
+              //  this.router.navigate(['/authenticate']);
+               this.router.navigate([this.return_url]);
+          },
+          error => {
+              this.loading = false;
+      });
+    };
+
 }

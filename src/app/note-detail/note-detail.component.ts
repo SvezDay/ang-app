@@ -1,4 +1,4 @@
-import { Component, OnInit }           from '@angular/core';
+import { Component, OnInit, ViewContainerRef }           from '@angular/core';
 import { Router, ActivatedRoute }      from '@angular/router';
 
 import { ApiService }                 from '../_core/api.service';
@@ -11,162 +11,198 @@ import { ApiService }                 from '../_core/api.service';
    providers:[ApiService]
 })
 export class NoteDetailComponent implements OnInit {
-   loading = false;
-   noteDetail = [];
-   editing = false;
-   labels = ['Undefined', 'title', 'Resume', 'Code'];
-   newLabel: string;
-   newValue: string;
-   newProperty = false;
-
+  // Init params
    note_id:Number;
-   init_command: any;
-   selectedProperty: any;
+   details = [];
+   container: any;
+   title: any;
+   label_list: any;
+// loading = false;
+
+  // toggling params
+  ref = 0;
+
+  // Selecting data params
+  originalData: any;
+  updateData: any;
+
+
+  //  editing = false;
+  //  labels = ['Undefined', 'title', 'Resume', 'Code'];
+  //  newLabel: string;
+  //  newValue: string;
+  //  newProperty = false;
+   //
+  //  init_command: any;
+  //  selectedProperty: any;
+
+   // Message params
+   alert_message = "";
 
    // sub:any;
    // dialog = document.querySelector('dialog');
    constructor(
       private route: ActivatedRoute,
       private router: Router,
-      private apiService: ApiService
+      private api: ApiService,
+      private vcr: ViewContainerRef
    ) { }
 
-   initing(){
-     this.init_command ?  console.log(this.init_command) : console.log('no command')
-      this.apiService.query('get', `/get_note_detail/${this.note_id}`)
-      .subscribe(
-         res =>{
-            this.noteDetail = res.data.detail;
-         },
-         error => {
-            // console.log(error);
-            if(error.status == 401){
-              this.router.navigate(['/authenticate']);
-            }else{
-              this.router.navigate(['/note_list']);
-            };
-         });
-    };
-
-   labelChanging(label){
-      if(label!=this.selectedProperty.labels){
-         this.newLabel = label;
-      }else{
-         this.newLabel = '';
-      }
-   };
-   editer(node){
-      this.selectedProperty = node || {labels:'Undefined', value:''};
-      this.newValue = node.value || '';
-      if(!node.value) this.newProperty = true;
-      this.editing = true;
-   };
-   save(){
-      let params = {};
-      let saving = false;
-
-      if(this.newLabel){
-         params["label"] = this.newLabel;
-         saving = true;
-      }
-      if(this.newValue != this.selectedProperty.value){
-         saving = true;
-         params["value"] = this.newValue;
-      }
-      if(saving){
-         params["excluded_id"] = this.selectedProperty.node_id;
-         params["note_id"] = this.note_id;
-         console.log('params', params);
-         if(this.newProperty){
-            this.apiService.query('post', '/add_property', params)
-            .subscribe(
-               response => {
-                  console.log('data', response);
-                  // this.alertService.success('Saved !');
-                  this.editing = false;
-                  this.newProperty = false;
-                  //   this.router.navigate(['/note_detail'], {queryParams:{note_id: this.note_id}});
-                  this.initing();
-               },
-               error => {
-                  console.log('error', error);
-                  this.editing = false;
-               }
-            );
-
-         }else{
-            this.apiService.query('post', '/update_property', params)
-            .subscribe(
-               data => {
-                  console.log('data', data);
-                  // this.alertService.success('Saved !');
-                  this.editing = false;
-                  this.newProperty = false;
-                  //   this.router.navigate(['/note_detail'], {queryParams:{note_id: this.note_id}});
-                  this.initing();
-               },
-               error => {
-                  console.log('error', error);
-                  this.editing = false;
-               }
-            );
-         }
-      }else{
-         this.editing = false;
-      }
-   }
-   add(){
-      this.selectedProperty = {
-         value: "",
-         labels: 'Undefined'
-      };
-      this.editing = true;
-      this.newProperty = true;
-   }
-   delete(){
-      this.apiService.query('delete', `/delete_property/${this.note_id}/${this.selectedProperty.node_id}`)
-      .subscribe(
-         data => {
-            console.log('data', data);
-            this.editing = false;
-            this.initing();
-         },
-         error => {
-            console.log('error', error);
-            this.editing = false;
-         }
-      );
-
-   }
-   drop(direction){
-      let params = {
-         note_id: this.note_id,
-         property_id:this.selectedProperty.node_id,
-         drop:direction
-      };
-      this.apiService.query('post', '/drop_property', params)
-      .subscribe(
-         data => {
-            console.log('data', data);
-            this.editing = false;
-            // this.initing();
-         },
-         error => {
-            console.log('error', error);
-            this.editing = false;
-         }
-      );
-
-   }
-
    ngOnInit() {
-      this.route
-      .queryParams
-      .subscribe(params=>{
-         this.note_id = params.note_id;
-         params.command ? this.init_command = params.command : null
+     this.route
+     .queryParams
+     .subscribe(params=>{
+       this.note_id = params.note_id;
+       //  params.command ? this.init_command = params.command : null
+     });
+     this.initing();
+   };
+
+   initing(){
+    //  this.init_command ?  console.log(this.init_command) : console.log('no command')
+     this.api.query('get', `/get_note_detail/${this.note_id}`)
+     .subscribe(
+       res =>{
+         let d = res.data.data;
+         this.details = d.detail;
+         this.container = d.container;
+         this.title = d.title;
+         this.get_label();
+       },
+       error => {
+         if(error.status == 401){
+           this.router.navigate(['/authenticate']);
+         }else{
+            console.log(error);
+          //  this.router.navigate(['/note_list']);
+         };
       });
-      this.initing();
-   }
+   };
+
+   get_label(){
+     this.api.query('get', '/note_get_label')
+     .subscribe(
+       res => {
+         this.label_list = res.data.data;
+       },
+       error => {
+         if(error.status == 401){
+            this.router.navigate(['/authenticate']);
+         }else{
+           console.log(error);
+         };
+       });
+   };
+
+   dataSelect(item){
+     this.ref = item.id;
+     let c = window.document.getElementById(`card_${item.id}`).style;
+     c.width = "110%";
+     c.left = "-6%";
+     this.originalData = Object.assign({},item);
+     this.updateData = Object.assign({},item);
+   };
+
+  //  labelChanging(label){
+  //     if(label!=this.selectedProperty.labels){
+  //        this.newLabel = label;
+  //     }else{
+  //        this.newLabel = '';
+  //     }
+  //  };
+
+   update(){
+
+     this.ref = 0;
+     let c = window.document.getElementById(`card_${this.updateData.id}`).style;
+     c.width = "initial";
+     c.left = "0";
+     let t = window.document.getElementsByClassName("my-card-property-extend");
+     t[0] ? t[0].classList.remove('my-card-property-extend') : null
+
+     if(this.originalData.labels != this.updateData.labels){
+        this.updateData.container_id = this.note_id;
+        this.api.query('post', '/note_update_label', this.updateData)
+        .subscribe( res => {
+          //override the data wihtin the init params
+          this.details.map( item => {
+            if(item.id == this.updateData.id){
+              item.labels = this.updateData.labels;
+            };
+          });
+          console.log(res);
+        }, error => {
+          console.log(error);
+        });
+    }else if(this.originalData.value != this.updateData.value){
+        this.updateData.container_id = this.note_id;
+         this.api.query('post', '/note_update_value', this.updateData)
+         .subscribe( res => {
+           // Override the data wihtin the init params
+           // Check if the update concerne the title or not
+           if(this.title.id == this.updateData.id){
+             this.title.value = this.updateData.value;
+           }else{
+             this.details.map( item => {
+               if(item.id == this.updateData.id){
+                 item.value = this.updateData.value;
+               };
+             });
+           };
+           console.log(res);
+         }, error => {
+           console.log(error);
+         });
+     };
+   };
+
+   add(){
+    //  Add in db
+      this.api.query('post', '/note_add_property', {container_id: this.note_id})
+      .subscribe( res => {
+        //  Then Add in this.details with result of db creation
+        this.details.unshift(res.data.data);
+      }, error => {
+        console.log(error);
+      });
+
+   };
+
+   delete_container(){
+      this.api.query('delete', `/delete_container/${this.container.id}`)
+      .subscribe(
+         () => {
+            this.router.navigate(['/note_list']);
+         },
+         error => {
+            console.log('error', error);
+         }
+      );
+   };
+
+   delete_property(){
+     // this.current property
+   };
+
+  //  drop(direction){
+  //     let params = {
+  //        note_id: this.note_id,
+  //        property_id:this.selectedProperty.node_id,
+  //        drop:direction
+  //     };
+  //     this.apiService.query('post', '/drop_property', params)
+  //     .subscribe(
+  //        data => {
+  //           console.log('data', data);
+  //           this.editing = false;
+  //           // this.initing();
+  //        },
+  //        error => {
+  //           console.log('error', error);
+  //           this.editing = false;
+  //        }
+  //     );
+   //
+  //  };
 
 }

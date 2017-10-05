@@ -22,7 +22,16 @@ export class NoteListComponent implements OnInit {
 
 
  add(){
-   this.router.navigate(['/note_create']);
+  this.apiService.query('post', '/create_empty_note')
+  .subscribe(
+    res => {
+      this.router.navigate(['/note_detail'],
+        {queryParams:{note_id:res.data.data.note_id}}
+      );
+    },
+    err => {
+      console.log(err);
+    });
  };
 
 
@@ -35,12 +44,12 @@ export class NoteListComponent implements OnInit {
      this.apiService.query('get', '/get_all_note')
      .subscribe(
         res =>{
-          console.log(res)
-          res.response.status == 401 ? this.router.navigate(['/authenticate']) : null
            this.list = res.data.list;
         },
         error =>{
-          console.log(error);
+          // console.log(error);
+          // console.log(error.status);
+          error.status == 401 ? this.router.navigate(['/authenticate']) : null
 
            // this.alertService.error(error);
            // this.loading = false;
