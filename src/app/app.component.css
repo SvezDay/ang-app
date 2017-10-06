@@ -45,8 +45,102 @@
   border: none;
 }
 
-/*                       GENERAL                         */
 
+.my-chip {
+  display: inline-block;
+  background-color: rgba(244,244,244,1);
+  height: 16px;
+  vertical-align: middle;
+  line-height: 16px;
+  border-radius: 25px;
+  padding: 0 12px;
+  color: rgba(0,0,0,.87);
+  font-size: smaller;
+  margin-right: 5px;
+  &__method {
+    color: red;
+  }
+}
+.chip-selected{
+  background-color: green!important;
+}
+.list{
+  background-color: orange;
+}
+.Method{
+  color: blue;
+}
+.Example{
+  color:red;
+}
+
+/*                       GENERAL                         */
+/*                       SUB NAV COMMAND                            */
+.my-subnav-layout{
+  background-color: #00BFFF;
+}
+.my-subnav-layout-row{
+  justify-content: center;
+}
+.my-subnav-a{
+  display:grid;
+  color:white;
+  cursor:pointer;
+  min-width:8%;
+  margin: 0 5px;
+}
+.my-subnav-i{
+  text-align:center;
+}
+.my-subnav-span{
+  text-align:center;
+}
+
+/*                       MAIN                            */
 .my-card-title{
   min-height: 50px;
+}
+.my-card-title-h2{
+  margin-left:15px;
+}
+.my-card-property{
+  min-height: 50px;
+  margin-top: 0;
+  margin-bottom: 0;
+
+}
+.my-card-property-under{
+  padding: 0;
+  width: 95%;
+}
+.my-card-property-extend{
+  min-height: 200px;
+}
+.my-card-property-chip{
+  margin-top: -15px;
+}
+.my-card-property-chip-list-div{
+  display: table-caption;
+  background-color: white;
+  /*background-color:grey;
+  opacity: 0.5;*/
+}
+.my-card-property-chip-list{
+  list-style-type:none;
+  text-align:left;
+  padding:0 12px;
+  margin: 0;
+}
+.my-card-property-text{
+  margin: 0 0 0 5%;
+  white-space: pre;
+}
+.my-card-property-text div{
+  margin-top: -2%;
+  margin-bottom: -7%;
+}
+.my-card-property-text-textarea{
+  padding:2%;
+  outline:none;
+  width: stretch;
 }

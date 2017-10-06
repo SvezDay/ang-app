@@ -45,29 +45,29 @@
                 *ngIf='ref == title.id' focus="true">
           </div>
        </div>
+       <div class="mdl-shadow--2dp" style="margin:inherit;">
+         <div *ngFor="let item of details" style="margin-left:-1%; margin-right:-1%;">
+           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property">
+             <div class="mdl-card__supporting-text texting my-card-property-under" id='my-course-detail'>
 
-       <div *ngFor="let item of details">
-         <div id="card_{{item.id}}"  class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-property">
-            <div class="mdl-card__supporting-text texting" style="width:initial" id='my-course-detail'>
+               <div class="mdl-card__menu my-card-property-chip">
+                 <!-- <span class="my-chip" (click)="dataSelect(item); toggler('label')" *ngIf="!toggleLabelList">{{item.labels}}</span> -->
+                 <span class="my-chip" (click)="dataSelect(item); alert.show()" *ngIf="!toggleLabelList">{{item.labels}}</span>
+                 <!-- <div *ngIf="toggleLabelList" class=" my-card-property-chip-list-div">
+                 <ul class="my-card-property-chip-list">
+                    <li *ngFor="let label of label_list">
+                      <span class="my-chip list" [class.chip-selected]="label == item.labels" (click)="changeLabel(label)">{{label}}</span>
+                    </li>
+                 </ul>
+                 </div> -->
+                 <mdl-alert #alert="mdlAlert"
+                 message="This is a <em class='mdl-color-text--primary'>simple</em> Alert"
+                 okText="Got it!"
+                 (confirmed)="alertConfirmd()"></mdl-alert>
+               </div>
 
-              <div class="mdl-card__menu my-card-property-chip">
-                  <!-- <span class="my-chip" (click)="dataSelect(item); toggler('label')" *ngIf="!toggleLabelList">{{item.labels}}</span> -->
-                  <span class="my-chip" (click)="dataSelect(item); alert.show()" *ngIf="!toggleLabelList">{{item.labels}}</span>
-                  <!-- <div *ngIf="toggleLabelList" class=" my-card-property-chip-list-div">
-                    <ul class="my-card-property-chip-list">
-                      <li *ngFor="let label of label_list">
-                        <span class="my-chip list" [class.chip-selected]="label == item.labels" (click)="changeLabel(label)">{{label}}</span>
-                      </li>
-                    </ul>
-                  </div> -->
-                  <mdl-alert #alert="mdlAlert"
-                    message="This is a <em class='mdl-color-text--primary'>simple</em> Alert"
-                    okText="Got it!"
-                    (confirmed)="alertConfirmd()"></mdl-alert>
-              </div>
-
-              <div class="mdl-cell mdl-cell--12-col my-card-property-text" (click)="dataSelect(item)" >
-                <div [ngClass]=item.labels
+               <div class="mdl-cell mdl-cell--12-col my-card-property-text" (click)="dataSelect(item)" >
+                 <div [ngClass]=item.labels
                  *ngIf="ref != item.id" id="p_{{item.id}}" autosize>{{item.value}}</div>
                  <div *ngIf="ref == item.id" style="margin:0;">
                    <textarea id="textarea_{{item.id}}" autosize focus='true'
@@ -76,15 +76,24 @@
                    [(ngModel)]="updateData.value" name="newValue"
                    (blur)="update()"
                    *ngIf="ref == item.id"></textarea>
-                   <a style="display:grid; color:grey; cursor:pointer; min-width:8%; margin: 0 5px; height: 50px;" (click)="delete_property()">
-                     <i class="material-icons" style="text-align:center;">delete</i>
-                     <span style="text-align:center;">Delete item</span>
-                   </a>
+                   <!-- <div class="" style="display:grid; color:grey; cursor:pointer; min-width:8%; margin: 0 5px; height: 50px;"> -->
+                   <div class="" style="display:flex; text-align: center;">
+                       <a style=""(click)="delete_property()">
+                         <i class="material-icons" style="text-align:center;">delete</i>
+                         <span style="text-align:center;">Delete item</span>
+                       </a>
+                       <a style="" (click)="drop('up', item.id)">
+                         <i class="material-icons" style="text-align:center;">arrow_up</i>
+                         <span style="text-align:center;">Up</span>
+                       </a>
+                   </div>
                  </div>
-              </div>
+               </div>
 
-            </div>
+             </div>
+           </div>
          </div>
+
        </div>
 
      </div>

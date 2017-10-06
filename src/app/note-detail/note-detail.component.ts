@@ -7,7 +7,7 @@ import { ApiService }                 from '../_core/api.service';
    moduleId: module.id,
    selector: 'app-note-detail',
    templateUrl: './note-detail.component.html',
-   styleUrls: ['./note-detail.component.css'],
+   styleUrls: ['../app.component.css','./note-detail.component.css'],
    providers:[ApiService]
 })
 export class NoteDetailComponent implements OnInit {
@@ -184,25 +184,23 @@ export class NoteDetailComponent implements OnInit {
      // this.current property
    };
 
-  //  drop(direction){
-  //     let params = {
-  //        note_id: this.note_id,
-  //        property_id:this.selectedProperty.node_id,
-  //        drop:direction
-  //     };
-  //     this.apiService.query('post', '/drop_property', params)
-  //     .subscribe(
-  //        data => {
-  //           console.log('data', data);
-  //           this.editing = false;
-  //           // this.initing();
-  //        },
-  //        error => {
-  //           console.log('error', error);
-  //           this.editing = false;
-  //        }
-  //     );
-   //
-  //  };
+   drop(dir, id){
+      let params = {
+         container_id: this.note_id,
+         property_id:id,
+         direction:dir
+      };
+      this.api.query('post', '/note_drop_property', params)
+      .subscribe(
+         res => {
+           // then modify the position on the details list
+            console.log('data', res);
+            this.initing();
+         },
+         error => {
+            console.log('error', error);
+         }
+      );
+   };
 
 }
