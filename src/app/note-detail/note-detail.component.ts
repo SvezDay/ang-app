@@ -53,13 +53,28 @@ export class NoteDetailComponent implements OnInit {
      .queryParams
      .subscribe(params=>{
        this.note_id = params.note_id;
-       //  params.command ? this.init_command = params.command : null
+      //  this.initing();
+      this.api.query('get', `/get_note_detail/${this.note_id}`)
+      .subscribe(
+        res =>{
+          let d = res.data.data;
+          this.details = d.detail;
+          this.container = d.container;
+          this.title = d.title;
+          this.get_label();
+        },
+        error => {
+          if(error.status == 401){
+            this.router.navigate(['/authenticate']);
+          }else{
+             console.log(error);
+           //  this.router.navigate(['/note_list']);
+          };
+       });
      });
-     this.initing();
    };
 
    initing(){
-    //  this.init_command ?  console.log(this.init_command) : console.log('no command')
      this.api.query('get', `/get_note_detail/${this.note_id}`)
      .subscribe(
        res =>{
@@ -95,12 +110,20 @@ export class NoteDetailComponent implements OnInit {
    };
 
    dataSelect(item){
-     this.ref = item.id;
-     let c = window.document.getElementById(`card_${item.id}`).style;
-     c.width = "110%";
-     c.left = "-6%";
-     this.originalData = Object.assign({},item);
-     this.updateData = Object.assign({},item);
+     setTimeout(()=>{
+       this.ref = item.id;
+       let c = window.document.getElementById(`card_${item.id}`);
+       console.log(c)
+       let s = c.style;
+       s.width = "110%";
+       s.left = "-6%";
+       s.marginTop = "1%";
+       s.marginBottom = "1%";
+       c.classList.add("mdl-shadow--2dp");
+       // c.addClass("mdl-shadow--2dp");
+       this.originalData = Object.assign({},item);
+       this.updateData = Object.assign({},item);
+     }, 500);
    };
 
   //  labelChanging(label){
@@ -112,30 +135,33 @@ export class NoteDetailComponent implements OnInit {
   //  };
 
    update(){
+     setTimeout(()=>{
+       this.ref = 0;
+       let c = window.document.getElementById(`card_${this.updateData.id}`);
+       let s = c.style;
+       s.width = "initial";
+       s.left = "0";
+       s.marginTop = "0";
+       s.marginBottom = "0";
+       let t = window.document.getElementsByClassName("my-card-property-extend");
+       t[0] ? t[0].classList.remove('my-card-property-extend') : null
 
-     this.ref = 0;
-     let c = window.document.getElementById(`card_${this.updateData.id}`).style;
-     c.width = "initial";
-     c.left = "0";
-     let t = window.document.getElementsByClassName("my-card-property-extend");
-     t[0] ? t[0].classList.remove('my-card-property-extend') : null
-
-     if(this.originalData.labels != this.updateData.labels){
-        this.updateData.container_id = this.note_id;
-        this.api.query('post', '/note_update_label', this.updateData)
-        .subscribe( res => {
-          //override the data wihtin the init params
-          this.details.map( item => {
-            if(item.id == this.updateData.id){
-              item.labels = this.updateData.labels;
-            };
-          });
-          console.log(res);
-        }, error => {
-          console.log(error);
-        });
-    }else if(this.originalData.value != this.updateData.value){
-        this.updateData.container_id = this.note_id;
+       if(this.originalData.labels != this.updateData.labels){
+         this.updateData.container_id = this.note_id;
+         this.api.query('post', '/note_update_label', this.updateData)
+         .subscribe( res => {
+           //override the data wihtin the init params
+           this.details.map( item => {
+             if(item.id == this.updateData.id){
+               item.labels = this.updateData.labels;
+             };
+           });
+           console.log(res);
+         }, error => {
+           console.log(error);
+         });
+       }else if(this.originalData.value != this.updateData.value){
+         this.updateData.container_id = this.note_id;
          this.api.query('post', '/note_update_value', this.updateData)
          .subscribe( res => {
            // Override the data wihtin the init params
@@ -153,7 +179,9 @@ export class NoteDetailComponent implements OnInit {
          }, error => {
            console.log(error);
          });
-     };
+       };
+     }, 500);
+
    };
 
    add(){
@@ -186,7 +214,7 @@ export class NoteDetailComponent implements OnInit {
 
    drop(dir, id){
       let params = {
-         container_id: this.note_id,
+         container_id: this.container.id,
          property_id:id,
          direction:dir
       };

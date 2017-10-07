@@ -14,7 +14,7 @@
 .mdl-layout__header--waterfall{
     overflow: visible;
 }
-.blinking-cursor{
+/*.blinking-cursor{
   -webkit-animation: 1s blink step-end infinite;
   -moz-animation: 1s blink step-end infinite;
   -ms-animation: 1s blink step-end infinite;
@@ -40,7 +40,7 @@
 @-o-keyframes "blink" {
   from, to { color: transparent;  }
   50% { color: black;  }
-}
+}*/
 .noborder{
   border: none;
 }

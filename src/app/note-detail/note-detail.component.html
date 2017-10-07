@@ -33,21 +33,22 @@
      <div class="mdl-layout-spacer"></div>
      <div class="mdl-cell mdl-cell--8-col">
 
-       <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
+       <div id="card_{{title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
           <div class="mdl-card__title" (click)="dataSelect(title)">
-             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf='ref != title.id'>
+             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf='title && ref != title.id'>
                {{title.value}}
              </h2>
              <input id="input1"
                 class="mdl-textfield__input blinking-cursor noborder"
                 type="text" [(ngModel)]="updateData.value"
                 (blur)="update()"
-                *ngIf='ref == title.id' focus="true">
+                *ngIf='title && ref == title.id && updateData && updateData.value' focus="true">
           </div>
        </div>
-       <div class="mdl-shadow--2dp" style="margin:inherit;">
-         <div *ngFor="let item of details" style="margin-left:-1%; margin-right:-1%;">
-           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property">
+       <!-- <div class="mdl-shadow--2dp" style="margin:inherit;"> -->
+         <!-- <div *ngFor="let item of details" style="margin-left:-1%; margin-right:-1%;"> -->
+         <div *ngFor="let item of details" style="">
+           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property ">
              <div class="mdl-card__supporting-text texting my-card-property-under" id='my-course-detail'>
 
                <div class="mdl-card__menu my-card-property-chip">
@@ -69,7 +70,7 @@
                <div class="mdl-cell mdl-cell--12-col my-card-property-text" (click)="dataSelect(item)" >
                  <div [ngClass]=item.labels
                  *ngIf="ref != item.id" id="p_{{item.id}}" autosize>{{item.value}}</div>
-                 <div *ngIf="ref == item.id" style="margin:0;">
+                 <!-- <div *ngIf="ref == item.id" style="margin:0;"> -->
                    <textarea id="textarea_{{item.id}}" autosize focus='true'
                    class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
                    type="text"
@@ -77,24 +78,28 @@
                    (blur)="update()"
                    *ngIf="ref == item.id"></textarea>
                    <!-- <div class="" style="display:grid; color:grey; cursor:pointer; min-width:8%; margin: 0 5px; height: 50px;"> -->
-                   <div class="" style="display:flex; text-align: center;">
+                   <div class="" style="display:flex; text-align: center; margin: -50px 0 0 0; " *ngIf="ref == item.id">
                        <a style=""(click)="delete_property()">
-                         <i class="material-icons" style="text-align:center;">delete</i>
+                         <i class="material-icons" style="text-align:center;cursor:pointer;">delete</i>
                          <span style="text-align:center;">Delete item</span>
                        </a>
                        <a style="" (click)="drop('up', item.id)">
-                         <i class="material-icons" style="text-align:center;">arrow_up</i>
+                         <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_upward</i>
                          <span style="text-align:center;">Up</span>
                        </a>
+                       <a style="" (click)="drop('down', item.id)">
+                         <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_downward</i>
+                         <span style="text-align:center;">Down</span>
+                       </a>
                    </div>
-                 </div>
+                 <!-- </div> -->
                </div>
 
              </div>
            </div>
          </div>
 
-       </div>
+       <!-- </div> -->
 
      </div>
      <div class="mdl-layout-spacer"></div>
