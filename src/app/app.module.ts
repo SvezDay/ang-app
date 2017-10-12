@@ -49,8 +49,11 @@ import { GameRecallComponent }   from './game-recall/game-recall.component';
 import { GameUpdateComponent }   from './game-update/game-update.component';
 
 
+import { NgbdAlertBasic } from './alert-basic';
+
 @NgModule({
   declarations: [
+
     Autosize,
     AppComponent,
     SubnavComponent,
@@ -67,17 +70,18 @@ import { GameUpdateComponent }   from './game-update/game-update.component';
     CourseDetailComponent,
     GameListComponent,
     GameRecallComponent,
-    GameUpdateComponent
+    GameUpdateComponent,
+    NgbdAlertBasic,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule,
     MdlModule,
     CoreModule.forRoot(),
     FocusModule.forRoot(),
+    NgbModule.forRoot(),
   ],
   providers: [
    //    {

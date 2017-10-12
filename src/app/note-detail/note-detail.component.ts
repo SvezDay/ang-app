@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewContainerRef }           from '@angular/core';
 import { Router, ActivatedRoute }      from '@angular/router';
 
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 import { ApiService }                 from '../_core/api.service';
 
 @Component({
@@ -17,7 +19,6 @@ export class NoteDetailComponent implements OnInit {
    container: any;
    title: any;
    label_list: any;
-// loading = false;
 
   // toggling params
   ref = 0;
@@ -26,27 +27,72 @@ export class NoteDetailComponent implements OnInit {
   originalData: any;
   updateData: any;
 
-
-  //  editing = false;
-  //  labels = ['Undefined', 'title', 'Resume', 'Code'];
-  //  newLabel: string;
-  //  newValue: string;
-  //  newProperty = false;
-   //
-  //  init_command: any;
-  //  selectedProperty: any;
-
    // Message params
    alert_message = "";
 
-   // sub:any;
-   // dialog = document.querySelector('dialog');
+
+   // Modal change path
+   closeResult: string;
+   path = "My Home";
+   path_list = [];
+   container_list = [];
+
+   list = [1, 2, 3, 4, 5, 6]
+   sublist = [23, 24, 45, 56, 78]
+
    constructor(
       private route: ActivatedRoute,
       private router: Router,
       private api: ApiService,
-      private vcr: ViewContainerRef
+      private modalService: NgbModal
    ) { }
+
+// Modal change path
+  // open(content) {
+  //   this.modalService.open(content).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
+
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return  `with: ${reason}`;
+  //   }
+  // }
+
+  container_listing(content, direction, c?){
+    console.log('=====================')
+    console.log(c)
+    if(c && direction == 'forward'){
+      this.path_list.push(c);
+    }else if(direction == 'back'){
+      this.path_list.pop();
+    }
+
+    this.api.query('post', '/container_get_sub_container', {path:this.path_list})
+    .subscribe(res => {
+      this.container_list = res.data.data;
+      c ? this.path = c.value : null
+      this.modalService.open(content).result.then( res => {
+        console.log('check the modal result')
+        console.log(res);
+      });
+
+    }, err => {
+      console.log(err)
+    });
+  };
+
+  select_container(container){
+
+  }
+
 
    ngOnInit() {
      this.route
@@ -208,8 +254,23 @@ export class NoteDetailComponent implements OnInit {
       );
    };
 
-   delete_property(){
-     // this.current property
+   delete_property(property){
+     let q: String;
+     if( property.labels != 'Title'){
+       q =  `/delete_property/${this.container.id}/${property.id}`;
+     }else{
+       q = `/delete_container/${this.container.id}`;
+     };
+     this.api.query('delete',q).subscribe( res => {
+       if (property.labels == 'Title'){
+         this.router.navigate(['/note_list']);
+       }else{
+         this.details = this.details.filter(x => { return x.id != property.id});
+       };
+     }, err => {
+       err.status == 401 ? this.router.navigate(['/authenticate']) : null
+       console.log(err);
+     });
    };
 
    drop(dir, id){

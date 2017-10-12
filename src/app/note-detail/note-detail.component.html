@@ -10,6 +10,39 @@
    }
 </style>
 
+<!-- Modal change path -->
+<ng-template #content let-c="close" let-d="dismiss" >
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <i class="material-icons">arrow_back</i>
+      <span (click)="container_listing(content, 'back')" style="cursor:pointer;">{{path}}</span>
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul *ngIf="container_list?.length > 0">
+      <li *ngFor="let c of container_list" style="display: flex; cursor: pointer">
+        <span style=" width: 70%"  (click)="select_container(c)">{{c.value}}</span>
+        <i class="material-icons" (click)="container_listing(content, 'forward', c)" style="text-align: center;">keyboard_arrow_right</i>
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="mdl-button mdl-js-button mdl-button--raised" (click)="c('Close click')" style="position:absolute; left: 5%;">Move here</button>
+    <!-- <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" routerLink="" (click)="c('Close click')" style="float:left;">
+      <span style="">Move here</span>
+    </a> -->
+    <a style="" (click)="add_folder_container()" style="float:right; cursor: pointer;">
+      <i class="material-icons" >create_new_folder</i>
+    </a>
+  </div>
+</ng-template>
+
+<!-- End modal -->
+
+
 <mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
     <mdl-layout-header-row class="my-subnav-layout-row">
         <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="add()">
@@ -20,12 +53,18 @@
           <i class="material-icons" style="text-align:center;">delete</i>
           <span style="text-align:center;">Delete</span>
         </a>
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="container_listing(content)">
+          <i class="material-icons" style="text-align:center;">linear_scale</i>
+          <span style="text-align:center;">Change path</span>
+        </a>
     </mdl-layout-header-row>
  </mdl-layout-header>
 
  <mdl-layout-header class="mdl-shadow--2dp" style="background-color: green" *ngIf="alert_message">
    <mdl-layout-header-row style="justify-content: center;" >
-     {{alert_message}}
+       <ngb-alert [dismissible]="false">
+       <strong>Warning!</strong> {{alert_message}}
+     </ngb-alert>
    </mdl-layout-header-row>
   </mdl-layout-header>
 
@@ -79,7 +118,7 @@
                    *ngIf="ref == item.id"></textarea>
                    <!-- <div class="" style="display:grid; color:grey; cursor:pointer; min-width:8%; margin: 0 5px; height: 50px;"> -->
                    <div class="" style="display:flex; text-align: center; margin: -50px 0 0 0; " *ngIf="ref == item.id">
-                       <a style=""(click)="delete_property()">
+                       <a style=""(click)="delete_property(item)">
                          <i class="material-icons" style="text-align:center;cursor:pointer;">delete</i>
                          <span style="text-align:center;">Delete item</span>
                        </a>
@@ -94,6 +133,7 @@
                    </div>
                  <!-- </div> -->
                </div>
+
 
              </div>
            </div>

@@ -11,7 +11,7 @@ import { UserService }           from './_core/user.service';
   providers: [AuthenticationService, UserService]
 })
 export class AppComponent implements OnInit, AfterViewInit {
-
+  big_footer: any;
 
    constructor(
       public auth: AuthenticationService,
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, AfterViewInit {
    ){ }
 
    ngOnInit(){
-
+     this.big_footer = false;
    };
 
     ngAfterViewInit(){
@@ -33,18 +33,5 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/home']);
    };
 
-
-
-
-   usering(){
-      this.users.getAll()
-      .subscribe(
-          data => {
-             console.log(data);
-          },
-          error => {
-             console.log(error);
-          });
-   }
 
 }
