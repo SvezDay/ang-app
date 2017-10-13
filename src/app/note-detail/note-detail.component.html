@@ -14,18 +14,18 @@
 <ng-template #content let-c="close" let-d="dismiss" >
   <div class="modal-header">
     <h4 class="modal-title">
-      <i class="material-icons">arrow_back</i>
-      <span (click)="container_listing(content, 'back')" style="cursor:pointer;">{{path}}</span>
+      <i class="material-icons" *ngIf="container_to_host?.container_id">arrow_back</i>
+      <span (click)="get_containers(content, 'back')" style="cursor:pointer;">{{container_to_host?.value || 'My Home'}}</span>
     </h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')" style="cursor: pointer;">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <ul *ngIf="container_list?.length > 0">
-      <li *ngFor="let c of container_list" style="display: flex; cursor: pointer">
-        <span style=" width: 70%"  (click)="select_container(c)">{{c.value}}</span>
-        <i class="material-icons" (click)="container_listing(content, 'forward', c)" style="text-align: center;">keyboard_arrow_right</i>
+    <ul *ngIf="containers?.length > 0">
+      <li *ngFor="let c of containers" (click)="get_containers(content, 'forward', c)" style="display: flex; cursor: pointer">
+        <span style=" width: 70%">{{c.value}}</span>
+        <i class="material-icons"  style="text-align: center;">keyboard_arrow_right</i>
       </li>
     </ul>
   </div>
@@ -53,7 +53,7 @@
           <i class="material-icons" style="text-align:center;">delete</i>
           <span style="text-align:center;">Delete</span>
         </a>
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="container_listing(content)">
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="get_containers(content, 'forward')">
           <i class="material-icons" style="text-align:center;">linear_scale</i>
           <span style="text-align:center;">Change path</span>
         </a>

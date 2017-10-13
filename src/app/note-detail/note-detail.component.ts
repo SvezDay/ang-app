@@ -33,13 +33,12 @@ export class NoteDetailComponent implements OnInit {
 
    // Modal change path
    closeResult: string;
-   path = "My Home";
-   path_list = [];
-   container_list = [];
-   container_selected: any;
+   default_current_container = "My Home";
+   current_container = "";
+   path = [];
+   containers = [];
+   container_to_host: any;
 
-   list = [1, 2, 3, 4, 5, 6]
-   sublist = [23, 24, 45, 56, 78]
 
    constructor(
       private route: ActivatedRoute,
@@ -67,43 +66,57 @@ export class NoteDetailComponent implements OnInit {
   //   }
   // }
 
-  container_listing(content, direction, c?){
-    console.log('=====================')
-    console.log(c)
-    if(c && direction == 'forward'){
-      this.path_list.push(c);
-    }else if(direction == 'back'){
-      this.path_list.pop();
-    }
+  get_containers(content, direction, c?){
+    // console.log('=====================')
+    // console.log(c)
+    let params = {container_id: null};
 
-    this.api.query('post', '/container_get_sub_container', {path:this.path_list})
+    if(!c && direction == 'forward'){
+
+    }else if(c && direction == 'forward'){
+      this.path.push(c);
+      this.container_to_host = c;
+    }else if(direction == 'back'){
+      this.path.pop();
+      if(this.path.length == 0){
+        this.container_to_host = {};
+      }else{
+        this.container_to_host = this.path[this.path.length - 1];
+      }
+    };
+
+    if(this.container_to_host && this.container_to_host.container_id){
+      params.container_id = this.container_to_host.container_id;
+    };
+
+    this.api.query('post', '/container_get_sub_container', params)
     .subscribe(res => {
       console.log(res);
-      console.log('check the modal result')
+      // console.log('check the modal result')
       if(res.response.status == 204){
-        this.container_list = [];
+        this.containers = [];
       }else{
-        this.container_list = res.data.data;
-        c ? this.path = c.value : null
-        this.modalService.open(content).result.then( res => {
+        this.containers = res.data.data;
+        this.modalService.open(content).result.then( result => {
+          console.log('result', result)
         });
-      }
+      };
 
     }, err => {
       console.log(err)
     });
   };
 
-  select_container(container){
-    this.container_selected  = container.container_id;
-    console.log(this.container_selected)
+  add_folder_container(){
+    // this.container_selected  = container.container_id;
+    // console.log(this.container_selected)
     // console.log(container)
   }
 
   change_container_path(){
     let params = {
       container_to_move: this.container.id,
-      container_to_host: this.container_selected
+      container_to_host: this.container_to_host.container_id
     };
     this.api.query('post', '/change_container_path',params)
     .subscribe( res => {
