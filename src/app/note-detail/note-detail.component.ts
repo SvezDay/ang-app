@@ -36,6 +36,7 @@ export class NoteDetailComponent implements OnInit {
    path = "My Home";
    path_list = [];
    container_list = [];
+   container_selected: any;
 
    list = [1, 2, 3, 4, 5, 6]
    sublist = [23, 24, 45, 56, 78]
@@ -77,12 +78,16 @@ export class NoteDetailComponent implements OnInit {
 
     this.api.query('post', '/container_get_sub_container', {path:this.path_list})
     .subscribe(res => {
-      this.container_list = res.data.data;
-      c ? this.path = c.value : null
-      this.modalService.open(content).result.then( res => {
-        console.log('check the modal result')
-        console.log(res);
-      });
+      console.log(res);
+      console.log('check the modal result')
+      if(res.response.status == 204){
+        this.container_list = [];
+      }else{
+        this.container_list = res.data.data;
+        c ? this.path = c.value : null
+        this.modalService.open(content).result.then( res => {
+        });
+      }
 
     }, err => {
       console.log(err)
@@ -90,7 +95,23 @@ export class NoteDetailComponent implements OnInit {
   };
 
   select_container(container){
+    this.container_selected  = container.container_id;
+    console.log(this.container_selected)
+    // console.log(container)
+  }
 
+  change_container_path(){
+    let params = {
+      container_to_move: this.container.id,
+      container_to_host: this.container_selected
+    };
+    this.api.query('post', '/change_container_path',params)
+    .subscribe( res => {
+      console.log('response =================')
+      console.log(res)
+    }, err => {
+      console.log(err);
+    });
   }
 
 
