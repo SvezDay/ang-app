@@ -13,9 +13,9 @@
 <!-- Modal change path -->
 <ng-template #content let-c="close" let-d="dismiss" >
   <div class="modal-header">
-    <h4 class="modal-title">
+    <h4 class="modal-title" (click)="get_containers(content, 'back')"  style="cursor:pointer;">
       <i class="material-icons" *ngIf="container_to_host?.container_id">arrow_back</i>
-      <span (click)="get_containers(content, 'back')" style="cursor:pointer;">{{container_to_host?.value || 'My Home'}}</span>
+      <span>{{container_to_host?.value || 'My Home'}}</span>
     </h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')" style="cursor: pointer;">
       <span aria-hidden="true">&times;</span>
@@ -68,8 +68,25 @@
    </mdl-layout-header-row>
   </mdl-layout-header>
 
+  <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
+    <div class="mdl-cell mdl-cell--12-col">
+    <div id="" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
+    <div class="mdl-card__title" (click)="dataSelect(title)">
+    <h2 class="mdl-card__title-text my-card-title-h2" *ngIf='title && ref != title.id'>
+    {{title.value}}
+    </h2>
+    <input id="input1"
+    class="mdl-textfield__input blinking-cursor noborder"
+    type="text" [(ngModel)]="updateData.value"
+    (blur)="update()"
+    *ngIf='title && ref == title.id && updateData && updateData.value' focus="true">
+    </div>
+    </div>
+    </div>
+  </div>
+
   <div class="centeritems mdl-grid">
-     <div class="mdl-layout-spacer"></div>
+    <!-- <div class="mdl-layout-spacer"></div> -->
      <div class="mdl-cell mdl-cell--8-col">
 
        <div id="card_{{title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">

@@ -38,6 +38,7 @@ export class NoteDetailComponent implements OnInit {
    path = [];
    containers = [];
    container_to_host: any;
+   modal: any;
 
 
    constructor(
@@ -67,13 +68,9 @@ export class NoteDetailComponent implements OnInit {
   // }
 
   get_containers(content, direction, c?){
-    // console.log('=====================')
-    // console.log(c)
     let params = {container_id: null};
 
-    if(!c && direction == 'forward'){
-
-    }else if(c && direction == 'forward'){
+    if(c && direction == 'forward'){
       this.path.push(c);
       this.container_to_host = c;
     }else if(direction == 'back'){
@@ -92,16 +89,13 @@ export class NoteDetailComponent implements OnInit {
     this.api.query('post', '/container_get_sub_container', params)
     .subscribe(res => {
       console.log(res);
-      // console.log('check the modal result')
       if(res.response.status == 204){
         this.containers = [];
       }else{
         this.containers = res.data.data;
-        this.modalService.open(content).result.then( result => {
-          console.log('result', result)
-        });
       };
-
+      this.modal ? this.modal.close() : null
+      this.modal = this.modalService.open(content);
     }, err => {
       console.log(err)
     });
@@ -121,7 +115,7 @@ export class NoteDetailComponent implements OnInit {
     this.api.query('post', '/change_container_path',params)
     .subscribe( res => {
       console.log('response =================')
-      console.log(res)
+      console.log(res.data.data)
     }, err => {
       console.log(err);
     });
