@@ -1,16 +1,5 @@
 
-<style media="screen">
-   .original-label {
-      color: blue;}
-   .new-label{
-      color: red;
-   }
-   .order{
-      background-color:#D8D8D8;
-   }
-</style>
-
-<!-- Modal change path -->
+<!-- MODAL -->
 <ng-template #content let-c="close" let-d="dismiss" >
   <div class="modal-header">
     <h4 class="modal-title" (click)="get_containers(content, 'back')"  style="cursor:pointer;">
@@ -39,10 +28,9 @@
     </a>
   </div>
 </ng-template>
+<!-- END MODAL -->
 
-<!-- End modal -->
-
-
+<!-- NAVBAR -->
 <mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
     <mdl-layout-header-row class="my-subnav-layout-row">
         <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="add()">
@@ -67,26 +55,30 @@
      </ngb-alert>
    </mdl-layout-header-row>
   </mdl-layout-header>
+<!-- END NAVBAR -->
 
-  <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
-    <div class="mdl-cell mdl-cell--12-col">
-    <div id="" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
-    <div class="mdl-card__title" (click)="dataSelect(title)">
-    <h2 class="mdl-card__title-text my-card-title-h2" *ngIf='title && ref != title.id'>
-    {{title.value}}
-    </h2>
-    <input id="input1"
-    class="mdl-textfield__input blinking-cursor noborder"
-    type="text" [(ngModel)]="updateData.value"
-    (blur)="update()"
-    *ngIf='title && ref == title.id && updateData && updateData.value' focus="true">
-    </div>
-    </div>
-    </div>
-  </div>
+<!-- SIDE -->
+  <!-- <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
+    <div class="mdl-cell mdl-cell--12-col" (click)="get_containers('forward')" style="cursor: pointer;">
+      <i class="material-icons" *ngIf="!perso_account" style="font-size:14px;color:grey; vertical-align: middle;">play_arrow</i>
+      <span>My account</span>
+      <i class="material-icons" *ngIf="perso_account" style="color:grey; vertical-align: middle;">arrow_drop_down</i>
+      <div class="my-solid-breakline"></div>
+      <div class="my-layout-sider-list">
+        <tbody>
+          <tr *ngFor="let item of list">
+            <td class="mdl-data-table__cell--non-numeric" (click)="detail(item)">{{item.title}}</td>
+          </tr>
+        </tbody>
 
-  <div class="centeritems mdl-grid">
-    <!-- <div class="mdl-layout-spacer"></div> -->
+      </div>
+    </div>
+  </div> -->
+<!-- END SIDE -->
+
+<!-- MAIN -->
+<div class="centeritems mdl-grid">
+    <div class="mdl-layout-spacer"></div>
      <div class="mdl-cell mdl-cell--8-col">
 
        <div id="card_{{title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
@@ -161,3 +153,4 @@
      </div>
      <div class="mdl-layout-spacer"></div>
   </div>
+<!-- END MAIN -->

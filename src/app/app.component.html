@@ -11,6 +11,10 @@
             </mdl-layout-title>
 
             <mdl-layout-spacer></mdl-layout-spacer>
+            <a class="mdl-navigation__link" routerLink="/note" routerLinkActive="active" *ngIf="auth.isLogged()">
+              <!-- <i class="material-icons">note</i> -->
+              <span>new folder note</span>
+            </a>
 
             <a class="mdl-navigation__link" routerLink="/note_list" routerLinkActive="active" *ngIf="auth.isLogged()">
               <i class="material-icons">note</i>

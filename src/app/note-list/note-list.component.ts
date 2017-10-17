@@ -42,7 +42,7 @@ export class NoteListComponent implements OnInit {
 
  get_container(direction, cont?){
    cont ? null : cont = null;
-   this.contservice.get_containers(direction, cont)
+   this.contservice.containers(cont)
    .subscribe(res => {
 
    }, err =>{
@@ -64,8 +64,9 @@ export class NoteListComponent implements OnInit {
  };
 
 
- detail(note_id){
-    this.router.navigate(['/note_detail'], {queryParams:{note_id: note_id}});
+ detail(item){
+   console.log('item', item)
+    this.router.navigate(['/note_detail'], {queryParams:{note_id: item.note_id}});
  };
 
 

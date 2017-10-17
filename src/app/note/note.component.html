@@ -1,0 +1,55 @@
+<!-- NAVBAR -->
+<mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
+    <mdl-layout-header-row class="my-subnav-layout-row">
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="add()">
+          <i class="material-icons" style="text-align:center;">add</i>
+          <span style="text-align:center;">Add item</span>
+        </a>
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="delete_container()">
+          <i class="material-icons" style="text-align:center;">delete</i>
+          <span style="text-align:center;">Delete</span>
+        </a>
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="get_containers(content, 'forward')">
+          <i class="material-icons" style="text-align:center;">linear_scale</i>
+          <span style="text-align:center;">Change path</span>
+        </a>
+    </mdl-layout-header-row>
+ </mdl-layout-header>
+
+ <mdl-layout-header class="mdl-shadow--2dp" style="background-color: green" *ngIf="alert_message">
+   <mdl-layout-header-row style="justify-content: center;" >
+       <ngb-alert [dismissible]="false">
+       <strong>Warning!</strong> {{alert_message}}
+     </ngb-alert>
+   </mdl-layout-header-row>
+  </mdl-layout-header>
+<!-- END NAVBAR -->
+
+
+<!-- SIDE -->
+  <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
+    <div class="mdl-cell mdl-cell--12-col" (click)="containers('forward')" style="cursor: pointer;">
+      <i class="material-icons" *ngIf="!perso_account" style="font-size:14px;color:grey; vertical-align: middle;">play_arrow</i>
+      <span>My account</span>
+      <i class="material-icons" *ngIf="perso_account" style="color:grey; vertical-align: middle;">arrow_drop_down</i>
+      <div class="my-solid-breakline"></div>
+      <div class="my-layout-sider-list">
+        <!-- <tbody>
+          <tr *ngFor="let item of mainlist; let idx = index;">
+            <div *ngIf="item?.list">
+              <tr *ngFor="let sub of item?.list; let subidx = index;">
+                <td class="mdl-data-table__cell--non-numeric" (click)="select(sub, subidx)"> - {{sub.value}}</td>
+              </tr>
+            </div>
+            <div *ngIf="!item?.list">
+              <td class="mdl-data-table__cell--non-numeric" (click)="select(item, idx)">{{item.value}}</td>
+            </div>
+          </tr>
+        </tbody> -->
+
+        <!-- <tree-view [mainlist]=test></tree-view> -->
+        <tree-view [treeData]=mainlist></tree-view>
+      </div>
+    </div>
+  </div>
+<!-- END SIDE -->

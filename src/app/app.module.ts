@@ -27,6 +27,7 @@ import {Autosize}                from 'angular2-autosize/src/autosize.directive'
 /* Feature Modules */
 import { CoreModule }            from './_core/core.module';
 import { SubnavComponent }       from './_directives/subnav.component';
+import { TreeViewComponent }     from './_directives/tree-view.component';
 
 /* App Root */
 import { AppRoutingModule }      from './app-routing.module';
@@ -47,6 +48,7 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { GameListComponent }     from './game-list/game-list.component';
 import { GameRecallComponent }   from './game-recall/game-recall.component';
 import { GameUpdateComponent }   from './game-update/game-update.component';
+import { NoteComponent } from './note/note.component';
 
 
 import { NgbdAlertBasic } from './alert-basic';
@@ -57,6 +59,7 @@ import { NgbdAlertBasic } from './alert-basic';
     Autosize,
     AppComponent,
     SubnavComponent,
+    TreeViewComponent,
     HomeComponent,
     ProfileComponent,
     RegisterComponent,
@@ -72,6 +75,7 @@ import { NgbdAlertBasic } from './alert-basic';
     GameRecallComponent,
     GameUpdateComponent,
     NgbdAlertBasic,
+    NoteComponent,
   ],
   imports: [
     BrowserModule,

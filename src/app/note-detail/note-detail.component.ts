@@ -40,6 +40,8 @@ export class NoteDetailComponent implements OnInit {
    container_to_host: any;
    modal: any;
 
+   // Side arborescence
+
 
    constructor(
       private route: ActivatedRoute,
@@ -128,6 +130,8 @@ export class NoteDetailComponent implements OnInit {
      .subscribe(params=>{
        this.note_id = params.note_id;
       //  this.initing();
+
+      console.log('this.note_id', params.note_id)
       this.api.query('get', `/get_note_detail/${this.note_id}`)
       .subscribe(
         res =>{

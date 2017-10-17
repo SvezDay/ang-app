@@ -13,44 +13,39 @@
    </mdl-layout-header-row>
   </mdl-layout-header>
 
-  <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
+  <!-- <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
     <div class="mdl-cell mdl-cell--12-col" (click)="get_containers('forward')" style="cursor: pointer;">
       <i class="material-icons" *ngIf="!perso_account" style="font-size:14px;color:grey; vertical-align: middle;">play_arrow</i>
       <span>My account</span>
       <i class="material-icons" *ngIf="perso_account" style="color:grey; vertical-align: middle;">arrow_drop_down</i>
-    </div>
-    <div class="my-solid-breakline"></div>
-    <div class="mdl-cell mdl-cell--12-col">
       <div class="my-layout-sider-list">
         <tbody>
           <tr *ngFor="let item of list">
-            <td class="mdl-data-table__cell--non-numeric" (click)="detail(item.note_id)">{{item.title}}</td>
+            <td class="mdl-data-table__cell--non-numeric" (click)="detail(item)">{{item.title}}</td>
           </tr>
         </tbody>
 
       </div>
     </div>
-  </div>
+  </div> -->
 
 <div class="centeritems mdl-grid">
-   <!-- <div class="mdl-layout-spacer"></div> -->
-      <!-- <div class="mdl-cell--8-col"> -->
-         <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell--8-col">
-         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%">
-           <tbody>
-             <tr *ngFor="let item of list">
-               <td class="mdl-data-table__cell--non-numeric" (click)="detail(item.note_id)">{{item.title}}</td>
-             </tr>
-           </tbody>
-         </table>
-         <!-- <br>
-         <div class="mdl-card__actions" style="text-align:right;">
+   <div class="mdl-layout-spacer"></div>
+       <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell--8-col">
+       <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%">
+         <tbody>
+           <tr *ngFor="let item of list">
+             <td class="mdl-data-table__cell--non-numeric" (click)="detail(item)">{{item.title}}</td>
+           </tr>
+         </tbody>
+       </table>
 
-            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" (click)="add()">
-              <i class="material-icons">add</i>
-            </button>
-         </div> -->
-      </div>
+       <!-- <div class="mdl-card__actions" style="text-align:right;">
 
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" (click)="add()">
+            <i class="material-icons">add</i>
+          </button>
+       </div> -->
+     </div>
    <div class="mdl-layout-spacer"></div>
 </div>
