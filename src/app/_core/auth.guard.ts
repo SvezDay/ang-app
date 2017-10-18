@@ -1,42 +1,25 @@
 import { Injectable }                  from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot,
-   RouterStateSnapshot }               from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot
+                                     } from '@angular/router';
+import {Observable}                    from 'rxjs/Rx';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
     constructor(private router: Router) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('currentUser')) {
-            // logged in so return true
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean {
+      let auth = localStorage.getItem('auth_token');
+      let exp = localStorage.getItem('auth_token_exp')
+      let now = new Date().getTime();
+        if (auth && Number(exp) > now) {
+        // if(localStorage.getItem('auth_token_exp')){
             return true;
         }
 
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+        // this.router.navigate(['/authenticate'], { queryParams: { returnUrl: state.url }});
+        this.router.navigate(['/authenticate']);
         return false;
     }
 }
-// import {Injectable} from '@angular/core';
-// import {Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
-// import {CanActivate} from '@angular/router';
-// import {Auth} from './auth.service';
-//
-// @Injectable()
-// export class AuthGuard implements CanActivate{
-//     constructor(private auth: Auth, private router: Router){
-//
-//     }
-//
-//     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-//         if(this.auth.authenticated()){
-//             console.log('AUTH GUARD PASSED');
-//             return true;
-//         } else {
-//             console.log('BLOCKED BY AUTH GUARD');
-//             this.auth.login();
-//             return false;
-//         }
-//     }
-// }

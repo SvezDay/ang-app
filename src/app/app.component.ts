@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
    ngOnInit(){
      this.big_footer = false;
+     console.log( 'this.auth.test()', this.auth.test() )
    };
 
     ngAfterViewInit(){

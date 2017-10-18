@@ -21,11 +21,11 @@ export class AuthenticateComponent implements OnInit {
     ){}
 
     ngOnInit() {
-        // reset login status
-        this.auth.logout();
-
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      // reset login status
+      this.auth.logout();
+      
+      // get return url from route parameters or default to '/'
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     login() {

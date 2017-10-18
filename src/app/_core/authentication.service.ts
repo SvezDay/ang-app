@@ -17,41 +17,51 @@ export class AuthenticationService {
       return this.http.post(this.api_url + '/authenticate', { email, password } )
       .map((response: Response) => {
          // login successful if there's a jwt token in the response
-         let user = response.json();
-         if (user && user.token) {
+         let data = response.json();
+         if (data && data.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('auth_token', user.token);
-            localStorage.setItem('user_id', user.id);
-            localStorage.setItem('user_name', user.name);
+            localStorage.setItem('auth_token', data.token);
+            localStorage.setItem('auth_token_exp', data.exp);
+            let profile = {first: data.first};
+            localStorage.setItem('profile', JSON.stringify(profile));
          }
-         return user;
+         return;
       });
    }
 
    register(creds){
      return this.http.post(`${this.api_url}/register`, creds)
      .map( (response:Response) => {
-       let user = response.json();
-       console.log(user)
-       if (user && user.token) {
+       let data = response.json();
+       if (data && data.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('auth_token', user.token);
-          localStorage.setItem('user_id', user.id);
-          localStorage.setItem('user_name', user.name);
+          localStorage.setItem('auth_token', data.token);
+          let profile = {first: data.first};
+          localStorage.setItem('profile', JSON.stringify(profile));
        }
-       return user;
+       return;
      })
    };
 
    logout() {
       // remove user from local storage to log user out
       localStorage.removeItem('auth_token');
-      localStorage.removeItem('user_id');
-      localStorage.removeItem('user_name');
+      localStorage.removeItem('auth_token_exp');
+      localStorage.removeItem('profile');
+   }
+
+   test(){
+     let auth = localStorage.getItem('auth_token') || null;
+     let exp = localStorage.getItem('auth_token_exp') || null;
+     return {auth, exp};
    }
 
    isLogged(){
-      if(localStorage.getItem('auth_token')){
+     let exp = localStorage.getItem('auth_token_exp');
+     let now = new Date().getTime();
+    //  let auth = localStorage.getItem('auth_token') || null;
+    //   if(auth && exp){
+    if(localStorage.getItem('auth_token')){
          return true;
       }else{
          return false;

@@ -25,7 +25,9 @@ export class ProfileComponent implements OnInit {
         console.log(res)
       },
       error => {
-        error.status == 401 ? this.router.navigate(['/authenticate']) : null
+        // error.status == 401 ? this.router.navigate(['/authenticate']) : null
+        console.log('bad token')
+        console.log(error)
       });
   };
 

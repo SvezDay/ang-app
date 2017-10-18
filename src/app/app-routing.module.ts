@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard }            from './_core/auth.guard';
+
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -20,35 +22,23 @@ import { GameUpdateComponent } from './game-update/game-update.component';
 
 
 const routes: Routes = [
-   { path: '', component: HomeComponent /*, canActivate: [AuthGuard] */ },
-   { path: 'profile', component: ProfileComponent  /*, canActivate: [AuthGuard]*/   },
-   { path: 'register', component: RegisterComponent  /*, canActivate: [AuthGuard]*/   },
-   { path: 'authenticate', component: AuthenticateComponent  /*, canActivate: [AuthGuard]*/   },
+   { path: '', component: HomeComponent },
+   { path: 'register', component: RegisterComponent },
+   { path: 'authenticate', component: AuthenticateComponent },
+   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+
+   { path: 'note', component: NoteComponent, canActivate: [AuthGuard] },
 
    { path: 'note_list', component: NoteListComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_create', component: NoteCreateComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_detail', component: NoteDetailComponent  /*, canActivate: [AuthGuard]*/   },
-   { path: 'note', component: NoteComponent },
    { path: 'course_list', component: CourseListComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'course_create', component: CourseCreateComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'course_detail', component: CourseDetailComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'game_list', component: GameListComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'game_recall', component: GameRecallComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'game_update', component: GameUpdateComponent /*, canActivate: [AuthGuard]*/ },
-   // {
-   //   path: 'sign-in',
-   //  component: AdminComponent,
-   // //  canActivate: [AuthGuard]
-   // },
-   // {
-   //   path: 'course',
-   // //  canActivate: [AuthGuard]
-   // },
-   // {
-   //   path: 'add_course',
-   //  component: AddCourseComponent
-   // //  canActivate: [AuthGuard]
-   // },
+
    { path: '**', redirectTo: '', pathMatch: 'full' } // reload another component, in this case, the appComponent - Need to be modified
 ];
 

@@ -11,6 +11,8 @@ import { NgModule }              from '@angular/core';
 import { FormsModule }           from '@angular/forms';
 import { HttpModule, Http, RequestOptions
                                } from '@angular/http';
+import { ActivatedRouteSnapshot, RouterStateSnapshot
+                               } from '@angular/router';
 
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import {MdButtonModule, MdCheckboxModule} from '@angular/material';
@@ -26,6 +28,7 @@ import {Autosize}                from 'angular2-autosize/src/autosize.directive'
 
 /* Feature Modules */
 import { CoreModule }            from './_core/core.module';
+import { AuthGuard }             from './_core/auth.guard';
 import { SubnavComponent }       from './_directives/subnav.component';
 import { TreeViewComponent }     from './_directives/tree-view.component';
 
@@ -40,7 +43,7 @@ import { ProfileComponent }      from './profile/profile.component';
 import { RegisterComponent }     from './register/register.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { NoteListComponent }     from './note-list/note-list.component';
-import { NoteCreateComponent } from './note-create/note-create.component';
+import { NoteCreateComponent }   from './note-create/note-create.component';
 import { NoteDetailComponent }   from './note-detail/note-detail.component';
 import { CourseListComponent }   from './course-list/course-list.component';
 import { CourseCreateComponent } from './course-create/course-create.component';
@@ -48,10 +51,10 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { GameListComponent }     from './game-list/game-list.component';
 import { GameRecallComponent }   from './game-recall/game-recall.component';
 import { GameUpdateComponent }   from './game-update/game-update.component';
-import { NoteComponent } from './note/note.component';
+import { NoteComponent }         from './note/note.component';
 
 
-import { NgbdAlertBasic } from './alert-basic';
+import { NgbdAlertBasic }        from './alert-basic';
 
 @NgModule({
   declarations: [
@@ -94,10 +97,13 @@ import { NgbdAlertBasic } from './alert-basic';
    //      deps: [Http, RequestOptions]
    //   },
    //   AuthService,
-   //   AuthGuard
+   AuthGuard
+    //  {
+    //    provide: "AuthGuard",
+    //    useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
+    //    true
+    //  }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-}
+export class AppModule {}

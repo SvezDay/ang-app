@@ -8,7 +8,7 @@ import { ContainerService }                                               from '
     <ul>
       <li *ngFor="let item of treeData; let idx = index">
         <span (click)="select(item, 'forward')">{{item.value}}</span>
-        <tree-view *ngIf="item?.list" [treeData]="item?.list"></tree-view>
+        <tree-view *ngIf="item?.list" [treeData]="item?.list"(notify)="onEmerge($event)"></tree-view>
       </li>
     </ul>
   `,
@@ -30,6 +30,10 @@ export class TreeViewComponent {
     // this.treeData = this.test
   }
 
+
+  onEmerge(ev){
+    this.notify.emit(ev);
+  }
   ngOnInit(){
     // Since the treeData variable is already set by the note component
     // the current maxlevel must set to 1
@@ -118,6 +122,7 @@ export class TreeViewComponent {
     .subscribe(res => {
       // Emitte to host component the selected container
       this.notify.emit(container);
+      console.log(' ================= CONTAINER: ', container)
       // set to contlev variable the level of the selected conainer
       this.getlevel(this.treeData, container)
       .then(()=>{

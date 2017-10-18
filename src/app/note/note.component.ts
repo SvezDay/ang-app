@@ -7,6 +7,12 @@ import { ApiService }                 from '../_core/api.service';
 import { ContainerService }           from '../_core/container.service';
 
 
+class Contain {
+  container_id: number;
+  title: {};
+  main: {};
+}
+
 @Component({
   moduleId: module.id,
   selector: 'app-note',
@@ -20,7 +26,8 @@ export class NoteComponent implements OnInit {
   mainlist = [];
   path = [];
   // Main
-  container = {container_id: Number, main: {}, title: {}};
+  // container = {container_id: number, main: {}, title: {}};
+  container: Contain;
   labels = [];
   ref: any;           // ?
   updateData = {};    // ?
@@ -29,18 +36,22 @@ export class NoteComponent implements OnInit {
     private router: Router,
     private api: ApiService,
     private cs: ContainerService
-  ) { }
+  ) {
+    this.container = new Contain();
+  }
 
   ngOnInit() {
     this.cs.containers().subscribe(res => {
       res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
-      this.getLabel();
+      // this.getLabel();
     }, err => {
       console.log(err);
     })
   }
 
   onNotify(ev){
+    console.log('==============================')
+    console.log(ev)
     this.container.title = {id: ev.title_id, value: ev.value};
     this.container.container_id = ev.container_id;
     this.api.query('get', `/get_note_detail/${ev.container_id}`)
@@ -49,6 +60,7 @@ export class NoteComponent implements OnInit {
         console.log(res)
         let data = res.data.data;
         this.container.main =  data.main;
+        console.log('this.container.main', this.container.main)
       }, error => {
         if(error.status == 401){
           this.router.navigate(['/authenticate']);
