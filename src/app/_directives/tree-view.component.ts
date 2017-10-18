@@ -1,5 +1,5 @@
-import { Component, Input, OnInit }    from '@angular/core';
-import { ContainerService }            from '../_core/container.service';
+import { Component, Input, Output, OnInit, EventEmitter }                 from '@angular/core';
+import { ContainerService }                                               from '../_core/container.service';
 
 @Component ({
   moduleId: module.id,
@@ -16,27 +16,14 @@ import { ContainerService }            from '../_core/container.service';
 })
 export class TreeViewComponent {
   @Input() treeData: any;
+  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   path = []; // path of selected container, exept the last list
   itret = 0; // rectract function iterator
   itsort = 0; // sort function iterator
   maxlevel = 0; // component iterator for the last level of the last list
   itgetlev = 0; // getlevel function iterator
   contlev: any; // the selected container level found in getlevel function
-  // test = [
-  //   {container_id: 111, title_id:112, value:'hello'},
-  //   {container_id: 111, title_id:112, value:'hello'},
-  //   {container_id: 111, title_id:112, value:'hello'},
-  //   {list: [
-  //     {container_id: 111, title_id:112, value:'hel'},
-  //     {list: [
-  //       {container_id: 111, title_id:112, value:'h'},
-  //       {container_id: 111, title_id:112, value:'h'},
-  //       {container_id: 111, title_id:112, value:'h'}
-  //     ]},
-  //     {container_id: 111, title_id:112, value:'hel'}
-  //   ]},
-  //   {container_id: 111, title_id:112, value:'hello'}
-  // ];
+
   constructor(
     private cs: ContainerService
   ){
@@ -129,6 +116,8 @@ export class TreeViewComponent {
     // Return sub list of a container if exist
     this.cs.containers(container.container_id)
     .subscribe(res => {
+      // Emitte to host component the selected container
+      this.notify.emit(container);
       // set to contlev variable the level of the selected conainer
       this.getlevel(this.treeData, container)
       .then(()=>{

@@ -28,28 +28,34 @@
 
 <!-- SIDE -->
   <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
-    <div class="mdl-cell mdl-cell--12-col" (click)="containers('forward')" style="cursor: pointer;">
+    <div class="mdl-cell mdl-cell--12-col" style="cursor: pointer;">
       <i class="material-icons" *ngIf="!perso_account" style="font-size:14px;color:grey; vertical-align: middle;">play_arrow</i>
       <span>My account</span>
       <i class="material-icons" *ngIf="perso_account" style="color:grey; vertical-align: middle;">arrow_drop_down</i>
       <div class="my-solid-breakline"></div>
       <div class="my-layout-sider-list">
-        <!-- <tbody>
-          <tr *ngFor="let item of mainlist; let idx = index;">
-            <div *ngIf="item?.list">
-              <tr *ngFor="let sub of item?.list; let subidx = index;">
-                <td class="mdl-data-table__cell--non-numeric" (click)="select(sub, subidx)"> - {{sub.value}}</td>
-              </tr>
-            </div>
-            <div *ngIf="!item?.list">
-              <td class="mdl-data-table__cell--non-numeric" (click)="select(item, idx)">{{item.value}}</td>
-            </div>
-          </tr>
-        </tbody> -->
-
-        <!-- <tree-view [mainlist]=test></tree-view> -->
-        <tree-view [treeData]=mainlist></tree-view>
+        <tree-view [treeData]=mainlist (notify)="onNotify($event)"></tree-view>
       </div>
     </div>
   </div>
 <!-- END SIDE -->
+
+<!-- MAIN -->
+<div class="centeritems mdl-grid">
+     <div class="mdl-cell mdl-cell--10-col">
+       <div id="card_{{container.title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
+          <div class="mdl-card__title" (click)="selectProperty(title)">
+             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf="container && container.title && ref != container.title.id">
+               {{container.title.value}}
+             </h2>
+             <input id="input1"
+                class="mdl-textfield__input blinking-cursor noborder"
+                type="text" [(ngModel)]="updateData.value"
+                (blur)="update()"
+                *ngIf="container.title && ref == container.title.id && updateData && updateData.value" focus="true">
+          </div>
+       </div>
+     </div>
+     <div class="mdl-layout-spacer"></div>
+  </div>
+<!-- END MAIN -->
