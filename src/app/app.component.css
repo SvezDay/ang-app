@@ -124,7 +124,7 @@
   margin-left:15px;
 }
 .my-card-property{
-  min-height: 50px;
+  min-height: 40px;
   margin-top: 0;
   margin-bottom: 0;
 
@@ -152,15 +152,26 @@
   margin: 0;
 }
 .my-card-property-text{
-  margin: 0 0 0 5%;
-  white-space: pre;
+  /*white-space: pre;*/
 }
-.my-card-property-text div{
+/*.my-card-property-text div{
   margin-top: -2%;
   margin-bottom: -7%;
-}
+}*/
 .my-card-property-text-textarea{
   padding:2%;
   outline:none;
   width: stretch;
+}
+.my-selectedProperty{
+  width: 110%;
+  left: -6%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.my-card-action-a{
+  /*margin-top: -3%;
+  margin-bottom: -5%;*/
+  display: inline-grid;
+  width: 10%
 }

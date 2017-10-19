@@ -50,18 +50,13 @@ export class AuthenticationService {
       localStorage.removeItem('profile');
    }
 
-   test(){
-     let auth = localStorage.getItem('auth_token') || null;
-     let exp = localStorage.getItem('auth_token_exp') || null;
-     return {auth, exp};
-   }
 
    isLogged(){
+     let auth = localStorage.getItem('auth_token');
      let exp = localStorage.getItem('auth_token_exp');
      let now = new Date().getTime();
-    //  let auth = localStorage.getItem('auth_token') || null;
-    //   if(auth && exp){
-    if(localStorage.getItem('auth_token')){
+    //   if(localStorage.getItem('auth_token')){
+    if(auth && Number(exp) > now){
          return true;
       }else{
          return false;

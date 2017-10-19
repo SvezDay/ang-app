@@ -263,15 +263,14 @@ export class NoteDetailComponent implements OnInit {
    };
 
    add(){
-    //  Add in db
-      this.api.query('post', '/note_add_property', {container_id: this.note_id})
-      .subscribe( res => {
-        //  Then Add in this.details with result of db creation
-        this.details.unshift(res.data.data);
-      }, error => {
-        console.log(error);
-      });
-
+    // //  Add in db
+    //   this.api.query('post', '/note_add_property', {container_id: this.note_id})
+    //   .subscribe( res => {
+    //     //  Then Add in this.details with result of db creation
+    //     this.details.unshift(res.data.data);
+    //   }, error => {
+    //     console.log(error);
+    //   });
    };
 
    delete_container(){

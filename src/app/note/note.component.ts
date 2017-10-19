@@ -7,10 +7,16 @@ import { ApiService }                 from '../_core/api.service';
 import { ContainerService }           from '../_core/container.service';
 
 
-class Contain {
-  container_id: number;
-  title: {};
-  main: {};
+class Property {
+  id: number;
+  label: string;
+  value: string;
+  container_id?: number;
+}
+class Container extends Property{
+  container_id?: number;
+  title?: Property;
+  main?: Property[];
 }
 
 @Component({
@@ -20,16 +26,17 @@ class Contain {
   styleUrls: ['../app.component.css','./note.component.css'],
   providers: [ApiService, ContainerService]
 })
-export class NoteComponent implements OnInit {
+export class NoteComponent implements OnInit{
   // TreeView
   perso_account: any;
   mainlist = [];
   path = [];
+
   // Main
-  // container = {container_id: number, main: {}, title: {}};
-  container: Contain;
+  container: Container;
   labels = [];
-  ref: any;           // ?
+  selProp: Property;
+  cpSelProp: Property;
   updateData = {};    // ?
 
   constructor(
@@ -37,30 +44,29 @@ export class NoteComponent implements OnInit {
     private api: ApiService,
     private cs: ContainerService
   ) {
-    this.container = new Contain();
+    this.container = new Container();
   }
 
   ngOnInit() {
     this.cs.containers().subscribe(res => {
       res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
-      // this.getLabel();
     }, err => {
       console.log(err);
     })
   }
 
   onNotify(ev){
-    console.log('==============================')
-    console.log(ev)
-    this.container.title = {id: ev.title_id, value: ev.value};
+    this.selProp == null ? console.log('TRUE'): console.log('FALSE')
+    this.container.title = {
+      id: ev.title_id, value: ev.value, label: ev.label || 'Title'
+    };
     this.container.container_id = ev.container_id;
     this.api.query('get', `/get_note_detail/${ev.container_id}`)
     .subscribe(
       res =>{
-        console.log(res)
+        console.log('CHECKING', res)
         let data = res.data.data;
         this.container.main =  data.main;
-        console.log('this.container.main', this.container.main)
       }, error => {
         if(error.status == 401){
           this.router.navigate(['/authenticate']);
@@ -69,7 +75,6 @@ export class NoteComponent implements OnInit {
         };
      });
   }
-
 
   getLabel(){
     this.api.query('get', '/note_get_label').subscribe( res => {
@@ -80,29 +85,85 @@ export class NoteComponent implements OnInit {
       });
   }
 
-
-  selectProperty(item, ev){
-    console.log('property event',ev)
+  selecting(item){
+    console.log('SELECTING FUNCTION')
     setTimeout(()=>{
-      this.ref = item.id;
+      this.selProp = Object.assign({},item);
+      this.cpSelProp = Object.assign({},item);
       let c = window.document.getElementById(`card_${item.id}`);
-      console.log(c)
-      let s = c.style;
-      s.width = "110%";
-      s.left = "-6%";
-      s.marginTop = "1%";
-      s.marginBottom = "1%";
-      c.classList.add("mdl-shadow--2dp");
-      // c.addClass("mdl-shadow--2dp");
-      // this.originalData = Object.assign({},item);
+      c.classList.toggle("mdl-shadow--2dp");
+      c.classList.toggle("my-selectedProperty");
       this.updateData = Object.assign({},item);
     }, 500);
   }
 
-  update(){
+  updateText(){
+    console.log('UPDATE FUNCTION')
+    let c = window.document.getElementById(`card_${this.selProp.id}`);
+    c.classList.toggle("mdl-shadow--2dp");
+    c.classList.toggle("my-selectedProperty");
+
+    if(this.selProp.value != this.cpSelProp.value){
+      this.cpSelProp.container_id = this.container.container_id;
+      this.api.query('post', '/note_update_value', this.cpSelProp).subscribe(
+        res => {
+          this.container.main.map(x => {
+            if(x.id == this.cpSelProp.id){
+              x.value = this.cpSelProp.value;
+            }
+          })
+          delete this.selProp;
+          delete this.cpSelProp;
+        }, err => {
+          console.log(err)
+          delete this.selProp;
+          delete this.cpSelProp;
+        });
+    }else{
+      delete this.selProp;
+      delete this.cpSelProp;
+    }
 
   }
 
+  updateLabel(){
+
+  }
+
+  addProperty(){
+    this.api.query('post', '/note_add_property',
+      {container_id: this.container.container_id}).subscribe( res => {
+      //  Then Add in this.details with result of db creation
+      this.container.main.unshift(res.data.data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  deleteProperty(item){
+    console.log('DELETE PROPERTY FUNCTION')
+
+  }
+
+  drop(direction, item){
+    console.log('DROP FUNCTION')
+    let params = {
+       container_id: this.container.container_id,
+       property_id:item.id,
+       direction:direction
+    };
+    this.api.query('post', '/note_drop_property', params)
+    .subscribe(
+       res => {
+         // then modify the position on the details list
+          console.log('data', res);
+          // window.location.reload();
+       },
+       error => {
+          console.log('error', error);
+       }
+    );
+  }
 
 
 }

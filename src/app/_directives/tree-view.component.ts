@@ -7,7 +7,7 @@ import { ContainerService }                                               from '
   template: `
     <ul>
       <li *ngFor="let item of treeData; let idx = index">
-        <span (click)="select(item, 'forward')">{{item.value}}</span>
+        <span (click)="select(item, 'forward'); test(item)">{{item.value}}</span>
         <tree-view *ngIf="item?.list" [treeData]="item?.list"(notify)="onEmerge($event)"></tree-view>
       </li>
     </ul>
@@ -29,15 +29,20 @@ export class TreeViewComponent {
   ){
     // this.treeData = this.test
   }
-
+  test(item){
+    // console.log('ITEM',item)
+  }
 
   onEmerge(ev){
     this.notify.emit(ev);
+    // console.log('************** EMERGE', this.path)
   }
   ngOnInit(){
     // Since the treeData variable is already set by the note component
     // the current maxlevel must set to 1
     this.maxlevel = 1;
+    // console.log('ITEM INIT',this.path)
+
   }
 
   // Add sublist to treeData
@@ -113,20 +118,27 @@ export class TreeViewComponent {
   };
 
   select(container, direction){
+    // console.log('============== CHECK 1')
+    // console.log(this.path)
+    // console.log('============== CHECK 1.2')
     // Avoid to select the same data if clicking on the previous container
     if(this.path.length && this.path[this.path.length -1].container_id == container.container_id){
+      // console.log('this.path[this.path.length -1].container_id', this.path[this.path.length -1].container_id)
+      // console.log('container.container_id', container.container_id)
+      // console.log('============== CHECK 2')
       return;
     }
+    // console.log('============== CHECK 3')
     // Return sub list of a container if exist
     this.cs.containers(container.container_id)
     .subscribe(res => {
+      // console.log('============== CHECK 4')
       // Emitte to host component the selected container
       this.notify.emit(container);
-      console.log(' ================= CONTAINER: ', container)
+      // console.log(' ================= CONTAINER: ', container)
       // set to contlev variable the level of the selected conainer
-      this.getlevel(this.treeData, container)
-      .then(()=>{
-
+      this.getlevel(this.treeData, container).then(()=>{
+        // console.log('============== CHECK 5')
         // launch the retract function if the arboresence level of the
         // selected container is higher than the deep level on the
         // treeData global list
@@ -138,7 +150,13 @@ export class TreeViewComponent {
         this.definepath();
 
         container.level = this.contlev
-        this.path.push(container);
+        // console.log('============== CHECK 8')
+        // console.log(this.path)
+        // console.log(container)
+        // this.path.push(container);
+        // console.log('============== CHECK 8.2')
+        // console.log(this.path)
+        // console.log('============== CHECK 8.3')
 
         // Add sub container list if the api result is not empty
         if(res.response.status != 204) {
@@ -146,6 +164,8 @@ export class TreeViewComponent {
           this.contlev = 0;
           this.itgetlev = 0;
         }
+        // console.log('============== CHECK 11')
+        // console.log(this.path)
 
       });
 

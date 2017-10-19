@@ -1,7 +1,7 @@
 <!-- NAVBAR -->
 <mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
     <mdl-layout-header-row class="my-subnav-layout-row">
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="add()">
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="addProperty()">
           <i class="material-icons" style="text-align:center;">add</i>
           <span style="text-align:center;">Add item</span>
         </a>
@@ -40,69 +40,76 @@
   </div>
 <!-- END SIDE -->
 
+
 <!-- MAIN -->
 <div class="centeritems mdl-grid">
+  <div class="mdl-layout-spacer"></div>
      <div class="mdl-cell mdl-cell--10-col">
       <!-- TITLE -->
-       <div id="card_{{container.title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
-          <div class="mdl-card__title" (click)="selectProperty(title)">
-             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf="container && container.title && ref != container.title.id">
+       <div id="card_{{container.title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title" *ngIf="container.title">
+          <div class="mdl-card__title" (click)="selecting(title)">
+             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf="container && container.title && selProp?.id != container.title.id">
                {{container.title.value}}
              </h2>
              <input id="input1"
                 class="mdl-textfield__input blinking-cursor noborder"
-                type="text" [(ngModel)]="updateData.value"
-                (blur)="update()"
-                *ngIf="container.title && ref == container.title.id && updateData && updateData.value" focus="true">
+                type="text" [(ngModel)]="cpSelProp.value"
+                (blur)="updateText()"
+                *ngIf="container.title && cpSelProp?.id == container.title.id && cpSelProp && cpSelProp.value" focus="true">
           </div>
        </div>
        <!-- END TITLE -->
        <!-- DETAIL -->
        <div *ngIf="container.main">
-         CHECK
-         </div>
          <div *ngFor="let item of container.main"  style="">
-           hello : {{item.value}}
-           <!-- <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property ">
-             <div class="mdl-card__supporting-text texting my-card-property-under" id='my-course-detail'>
+           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property ">
+             <div class="mdl-card__supporting-text texting my-card-property-under">
 
+               <!-- CHIP -->
                <div class="mdl-card__menu my-card-property-chip">
-                 <span class="my-chip" (click)="dataSelect(item); alert.show()" *ngIf="!toggleLabelList">{{item.labels}}</span>
+                 <span class="my-chip" (click)="selecting(item); alert.show()" *ngIf="!toggleLabelList">{{item.labels}}</span>
                  <mdl-alert #alert="mdlAlert"
                  message="This is a <em class='mdl-color-text--primary'>simple</em> Alert"
                  okText="Got it!"
                  (confirmed)="alertConfirmd()"></mdl-alert>
                </div>
+               <!-- END CHIP -->
 
-               <div class="mdl-cell mdl-cell--12-col my-card-property-text" (click)="dataSelect(item)" >
-                 <div [ngClass]=item.labels
-                 *ngIf="ref != item.id" id="p_{{item.id}}" autosize>{{item.value}}</div>
-                   <textarea id="textarea_{{item.id}}" autosize focus='true'
+               <!-- PROPERTY -->
+               <div class="mdl-cell mdl-cell--12-col" (click)="selecting(item)" >
+
+                 <div [ngClass]=item.labels *ngIf="selProp?.id != item.id" id="p_{{item.id}}" class="my-card-property-text" autosize [ngStyle]="!item.value.length && {'white-space':'pre'}">
+                   {{item.value}}
+                 </div>
+                 <textarea id="textarea_{{item.id}}" autosize focus='true'
                    class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
                    type="text"
-                   [(ngModel)]="updateData.value" name="newValue"
-                   (blur)="update()"
-                   *ngIf="ref == item.id"></textarea>
-                   <div class="" style="display:flex; text-align: center; margin: -50px 0 0 0; " *ngIf="ref == item.id">
-                       <a style=""(click)="delete_property(item)">
-                         <i class="material-icons" style="text-align:center;cursor:pointer;">delete</i>
-                         <span style="text-align:center;">Delete item</span>
-                       </a>
-                       <a style="" (click)="drop('up', item.id)">
-                         <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_upward</i>
-                         <span style="text-align:center;">Up</span>
-                       </a>
-                       <a style="" (click)="drop('down', item.id)">
-                         <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_downward</i>
-                         <span style="text-align:center;">Down</span>
-                       </a>
-                   </div>
+                   [(ngModel)]="cpSelProp.value" name="newValue"
+                   (blur)="updateText()"
+                   *ngIf="cpSelProp?.id == item.id">
+                 </textarea>
+                 <div class="mdl-card__actions mdl-card--border" style="text-align: center; " *ngIf="selProp?.id == item.id">
+                   <a style=""(mousedown)="deleteProperty(item)" class="my-card-action-a">
+                     <i class="material-icons" style="text-align:center;cursor:pointer;">delete</i>
+                     <span style="text-align:center;">Delete item</span>
+                   </a>
+                   <a style="" (mousedown)="drop('up', item.id)" class="my-card-action-a">
+                     <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_upward</i>
+                     <span style="text-align:center;">Up</span>
+                   </a>
+                   <a style="" (mousedown)="drop('down', item.id)" class="my-card-action-a">
+                     <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_downward</i>
+                     <span style="text-align:center;">Down</span>
+                   </a>
+                 </div>
+
                </div>
+               <!-- END PROPERTY -->
 
              </div>
-           </div> -->
+           </div>
          </div>
-       <!-- </div> -->
+       </div>
        <!-- END DETAIL -->
 
 
