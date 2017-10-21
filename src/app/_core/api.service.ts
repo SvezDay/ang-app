@@ -17,9 +17,11 @@ export class ApiService {
       return this.http[verb](`${this.api_url}${route}`, this.jwt())
       .map((response: Response)=>{
         let data = response.json();
-        if(data && data.token){
-          localStorage.setItem('auth_token', data.token);
-        };
+        // if(data && data.token){
+        //   localStorage.setItem('auth_token', data.token);
+        // };
+        data && data.token ? localStorage.setItem('auth_token', data.token) : null
+        // data && data.exp ? localStorage.setItem('auth_token_exp', data.exp) : null
         // data.data ? data = data.data : null
         return {response, data};
       });
@@ -27,10 +29,11 @@ export class ApiService {
       return this.http[verb](`${this.api_url}${route}`, param[0], this.jwt())
       .map((response: Response)=>{
         let data = response.json();
-        if(data && data.token){
-          localStorage.setItem('auth_token', data.token);
-        };
-        // data.data ? data = data.data : null
+        // if(data && data.token){
+        //   localStorage.setItem('auth_token', data.token);
+        // };
+        data && data.token ? localStorage.setItem('auth_token', data.token) : null
+        data && data.exp ? localStorage.setItem('auth_token_exp', data.exp) : null
         return {response, data};
       });
     }

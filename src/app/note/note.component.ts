@@ -50,6 +50,7 @@ export class NoteComponent implements OnInit{
   ngOnInit() {
     this.cs.containers().subscribe(res => {
       res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
+      this.getLabel();
     }, err => {
       console.log(err);
     })
@@ -97,32 +98,46 @@ export class NoteComponent implements OnInit{
     }, 500);
   }
 
-  updateText(){
-    console.log('UPDATE FUNCTION')
-    let c = window.document.getElementById(`card_${this.selProp.id}`);
-    c.classList.toggle("mdl-shadow--2dp");
-    c.classList.toggle("my-selectedProperty");
+  unselecting(){
+    delete this.selProp;
+    delete this.cpSelProp;
+  }
 
-    if(this.selProp.value != this.cpSelProp.value){
-      this.cpSelProp.container_id = this.container.container_id;
-      this.api.query('post', '/note_update_value', this.cpSelProp).subscribe(
-        res => {
-          this.container.main.map(x => {
-            if(x.id == this.cpSelProp.id){
-              x.value = this.cpSelProp.value;
+  bluring(){
+
+  }
+
+  updateText(){
+    setTimeout(()=>{
+      console.log('UPDATE FUNCTION')
+
+      let c = window.document.getElementById(`card_${this.selProp.id}`);
+      c.classList.toggle("mdl-shadow--2dp");
+      c.classList.toggle("my-selectedProperty");
+
+      if(this.selProp.value != this.cpSelProp.value){
+        this.cpSelProp.container_id = this.container.container_id;
+        this.api.query('post', '/note_update_value', this.cpSelProp).subscribe(
+          res => {
+            let d = res.data.data;
+            if(this.cpSelProp.label == 'Title'){
+              this.container.title = {value: d.value, id:d.id, label:'Title'};
+            }else{
+              this.container.main.map(x => {
+                if(x.id == this.cpSelProp.id){
+                  x = {id: d.id, label:d.label, value:d.value};
+                }
+              })
             }
-          })
-          delete this.selProp;
-          delete this.cpSelProp;
-        }, err => {
-          console.log(err)
-          delete this.selProp;
-          delete this.cpSelProp;
-        });
-    }else{
-      delete this.selProp;
-      delete this.cpSelProp;
-    }
+            this.unselecting();
+          }, err => {
+            console.log(err)
+            this.unselecting();
+          });
+        }else{
+          this.unselecting();
+        }
+    }, 1000)
 
   }
 
@@ -146,18 +161,24 @@ export class NoteComponent implements OnInit{
   }
 
   drop(direction, item){
-    console.log('DROP FUNCTION')
+    console.log('DROP FUNCTION rrrrrrr')
     let params = {
        container_id: this.container.container_id,
        property_id:item.id,
        direction:direction
     };
+    console.log(params)
     this.api.query('post', '/note_drop_property', params)
     .subscribe(
        res => {
          // then modify the position on the details list
           console.log('data', res);
           // window.location.reload();
+          let c = window.document.getElementById(`card_${this.selProp.id}`);
+          c.classList.toggle("mdl-shadow--2dp");
+          c.classList.toggle("my-selectedProperty");
+          delete this.selProp;
+          delete this.cpSelProp;
        },
        error => {
           console.log('error', error);
@@ -165,5 +186,22 @@ export class NoteComponent implements OnInit{
     );
   }
 
+  addContainer(){
+    this.api.query('post', '/create_empty_note').subscribe( res => {
+      let d = res.data.data;
+      this.container.container_id = d.container_id;
+      this.container.title = {id:d.title_id, label: 'Title', value:'Undefined'};
+      this.container.main = [{id:d.first_property_id, label: 'Undefined', value:''}];
+      this.updateMainList({
+        container_id:d.container_id,
+        title_id: d.title_id,
+        value: 'Undefined'
+      });
+    }, err => { console.log(err) });
+  }
+
+  updateMainList(obj){
+    this.mainlist.unshift(obj)
+  }
 
 }
