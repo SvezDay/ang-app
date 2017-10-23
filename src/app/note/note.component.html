@@ -1,15 +1,27 @@
 <!-- NAVBAR -->
 <mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
     <mdl-layout-header-row class="my-subnav-layout-row">
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="addProperty()">
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="addProperty()"  *ngIf="container.container_id">
           <i class="material-icons" style="text-align:center;">add</i>
           <span style="text-align:center;">Add item</span>
         </a>
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="delete_container()">
+        <a style="display:grid; color:grey; min-width:8%; margin: 0 5px;"  *ngIf="!container.container_id">
+          <i class="material-icons" style="text-align:center;">add</i>
+          <span style="text-align:center;">Add item</span>
+        </a>
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="deleteContainer()" *ngIf="container.container_id">
           <i class="material-icons" style="text-align:center;">delete</i>
           <span style="text-align:center;">Delete</span>
         </a>
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="get_containers(content, 'forward')">
+          <a style="display:grid; color:grey; min-width:8%; margin: 0 5px;" *ngIf="!container.container_id">
+            <i class="material-icons" style="text-align:center;">delete</i>
+            <span style="text-align:center;">Delete</span>
+        </a>
+        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="get_containers(content, 'forward')" *ngIf="container.container_id">
+          <i class="material-icons" style="text-align:center;">linear_scale</i>
+          <span style="text-align:center;">Change path</span>
+        </a>
+        <a style="display:grid; color:grey; min-width:8%; margin: 0 5px;" *ngIf="!container.container_id">
           <i class="material-icons" style="text-align:center;">linear_scale</i>
           <span style="text-align:center;">Change path</span>
         </a>

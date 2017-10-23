@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
-   public api_url = 'http://localhost:3200';
+   private api_url = 'http://localhost:3200';
    private secret = 'zertyuiopghjkfsddie345678098fjsdkqurqzeljml45678';
    constructor(private http: Http) { }
 
@@ -50,16 +50,18 @@ export class AuthenticationService {
       localStorage.removeItem('profile');
    }
 
+   updateExp(time){
+     localStorage.setItem('auth_token_exp', time.toString());
+   }
 
    isLogged(){
      let auth = localStorage.getItem('auth_token');
      let exp = localStorage.getItem('auth_token_exp');
      let now = new Date().getTime();
-    //   if(localStorage.getItem('auth_token')){
-    if(auth && Number(exp) > now){
+
+      if(auth && Number(exp) > now){
          return true;
-      }else{
-         return false;
       }
+      return false;
    }
 }

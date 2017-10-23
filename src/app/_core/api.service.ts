@@ -1,6 +1,7 @@
 import { Injectable }                 from '@angular/core';
 import { Http, Headers, RequestOptions, Response }
                                       from '@angular/http';
+import {AuthenticationService}        from './authentication.service';
 
 
 @Injectable()
@@ -9,7 +10,8 @@ export class ApiService {
 
 
   constructor(
-    private http: Http
+    private http: Http,
+    private auth: AuthenticationService
   ){}
 
   query(verb, route, ...param){
@@ -17,23 +19,20 @@ export class ApiService {
       return this.http[verb](`${this.api_url}${route}`, this.jwt())
       .map((response: Response)=>{
         let data = response.json();
-        // if(data && data.token){
-        //   localStorage.setItem('auth_token', data.token);
-        // };
+
         data && data.token ? localStorage.setItem('auth_token', data.token) : null
-        // data && data.exp ? localStorage.setItem('auth_token_exp', data.exp) : null
-        // data.data ? data = data.data : null
+        data && data.exp ? this.auth.updateExp(data.exp) : null
+
         return {response, data};
       });
     }else{
       return this.http[verb](`${this.api_url}${route}`, param[0], this.jwt())
       .map((response: Response)=>{
         let data = response.json();
-        // if(data && data.token){
-        //   localStorage.setItem('auth_token', data.token);
-        // };
+
         data && data.token ? localStorage.setItem('auth_token', data.token) : null
-        data && data.exp ? localStorage.setItem('auth_token_exp', data.exp) : null
+        data && data.exp ? this.auth.updateExp(data.exp) : null
+
         return {response, data};
       });
     }

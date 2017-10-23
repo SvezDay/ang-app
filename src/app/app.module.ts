@@ -101,7 +101,7 @@ import { NgbdAlertBasic }        from './alert-basic';
     //  {
     //    provide: "AuthGuard",
     //    useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
-    //    true
+    //    return true
     //  }
   ],
   bootstrap: [AppComponent]

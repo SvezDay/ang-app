@@ -1,5 +1,6 @@
 import { Component, OnInit }        from '@angular/core';
 import { Router, ActivatedRoute }   from '@angular/router';
+import {Location}                   from '@angular/common';
 
 import { AuthenticationService }    from '../_core/authentication.service';
 
@@ -17,13 +18,14 @@ export class AuthenticateComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
+        private location: Location,
         private auth: AuthenticationService
     ){}
 
     ngOnInit() {
       // reset login status
       this.auth.logout();
-      
+
       // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }

@@ -103,10 +103,6 @@ export class NoteComponent implements OnInit{
     delete this.cpSelProp;
   }
 
-  bluring(){
-
-  }
-
   updateText(){
     setTimeout(()=>{
       console.log('UPDATE FUNCTION')
@@ -122,12 +118,13 @@ export class NoteComponent implements OnInit{
             let d = res.data.data;
             if(this.cpSelProp.label == 'Title'){
               this.container.title = {value: d.value, id:d.id, label:'Title'};
-            }else{
-              this.container.main.map(x => {
-                if(x.id == this.cpSelProp.id){
-                  x = {id: d.id, label:d.label, value:d.value};
-                }
+              this.cs.containers().subscribe(res => {
+                res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
+              }, err => {
+                console.log(err);
               })
+            }else{
+              this.updateContainerMain(d)
             }
             this.unselecting();
           }, err => {
@@ -148,17 +145,12 @@ export class NoteComponent implements OnInit{
   addProperty(){
     this.api.query('post', '/note_add_property',
       {container_id: this.container.container_id}).subscribe( res => {
-      //  Then Add in this.details with result of db creation
       this.container.main.unshift(res.data.data);
     }, error => {
       console.log(error);
     });
   }
 
-  deleteProperty(item){
-    console.log('DELETE PROPERTY FUNCTION')
-
-  }
 
   drop(direction, item){
     console.log('DROP FUNCTION rrrrrrr')
@@ -204,4 +196,39 @@ export class NoteComponent implements OnInit{
     this.mainlist.unshift(obj)
   }
 
+  updateContainerMain(obj){
+    this.container.main.map((itm, idx) => {
+      if(itm.id == this.cpSelProp.id){
+        this.container.main[idx] = obj;
+      }
+    })
+  }
+
+  deleteProperty(item){
+    console.log('DELETE PROPERTY FUNCTION')
+    this.api.query('delete',`/delete_property/${this.container.container_id}/${item.id}`)
+    .subscribe( res => {
+      this.unselecting();
+      this.container.main = this.container.main.filter(x => { return x.id != item.id});
+    }, err => {  console.log(err)  });
+
+  }
+
+  deleteContainer(){
+    this.api.query('delete', `/delete_container/${this.container.container_id}`)
+    .subscribe( res => {
+      // update the list
+      console.log('deleted !')
+      console.log('res', res)
+
+      this.cs.containers().subscribe(res => {
+        res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
+        this.container = new Container();
+      }, err => {
+        console.log(err);
+      })
+    }, err => {
+      console.log(err)
+    })
+  }
 }
