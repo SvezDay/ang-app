@@ -18,6 +18,18 @@ class Container extends Property{
   title?: Property;
   main?: Property[];
 }
+class LabelsData {
+  initialLabel: string;
+  list: string[];
+  tryLabel:string;
+}
+
+// @Component({
+//   selector: 'ngbd-dropdown-basic',
+//   templateUrl: './dropdown-basic.html'
+// })
+// export class NgbdDropdownBasic {
+// }
 
 @Component({
   moduleId: module.id,
@@ -34,17 +46,22 @@ export class NoteComponent implements OnInit{
 
   // Main
   container: Container;
-  labels = [];
+  labelsData: LabelsData;
   selProp: Property;
   cpSelProp: Property;
   updateData = {};    // ?
 
+  //Modal labels
+  // modal: any;
+
   constructor(
     private router: Router,
     private api: ApiService,
-    private cs: ContainerService
+    private cs: ContainerService,
+    private modalService: NgbModal
   ) {
     this.container = new Container();
+    this.labelsData = new LabelsData();
   }
 
   ngOnInit() {
@@ -79,7 +96,7 @@ export class NoteComponent implements OnInit{
 
   getLabel(){
     this.api.query('get', '/note_get_label').subscribe( res => {
-        this.labels = res.data.data;
+        this.labelsData.list = res.data.data;
       }, err => {
         err.status == 401 ? this.router.navigate(['/authenticate']) : null
         console.log(err);
@@ -87,6 +104,9 @@ export class NoteComponent implements OnInit{
   }
 
   selecting(item){
+    if(this.selProp){
+      return;
+    }
     console.log('SELECTING FUNCTION')
     setTimeout(()=>{
       this.selProp = Object.assign({},item);
@@ -105,6 +125,11 @@ export class NoteComponent implements OnInit{
 
   updateText(){
     setTimeout(()=>{
+
+      if(this.labelsData.initialLabel){
+        console.log("RETUR OFF the update func")
+        return
+      }
       console.log('UPDATE FUNCTION')
 
       let c = window.document.getElementById(`card_${this.selProp.id}`);
@@ -138,10 +163,6 @@ export class NoteComponent implements OnInit{
 
   }
 
-  updateLabel(){
-
-  }
-
   addProperty(){
     this.api.query('post', '/note_add_property',
       {container_id: this.container.container_id}).subscribe( res => {
@@ -152,11 +173,11 @@ export class NoteComponent implements OnInit{
   }
 
 
-  drop(direction, item){
+  drop(direction){
     console.log('DROP FUNCTION rrrrrrr')
     let params = {
        container_id: this.container.container_id,
-       property_id:item.id,
+       property_id:this.selProp.id,
        direction:direction
     };
     console.log(params)
@@ -204,12 +225,14 @@ export class NoteComponent implements OnInit{
     })
   }
 
-  deleteProperty(item){
+  deleteProperty(){
     console.log('DELETE PROPERTY FUNCTION')
-    this.api.query('delete',`/delete_property/${this.container.container_id}/${item.id}`)
+    this.api.query('delete',
+      `/delete_property/${this.container.container_id}/${this.selProp.id}`)
     .subscribe( res => {
       this.unselecting();
-      this.container.main = this.container.main.filter(x => { return x.id != item.id});
+      this.container.main = this.container.main.filter(x => {
+        return x.id != this.selProp.id});
     }, err => {  console.log(err)  });
 
   }
@@ -230,5 +253,22 @@ export class NoteComponent implements OnInit{
     }, err => {
       console.log(err)
     })
+  }
+
+  selectingLabel(){
+    this.labelsData.initialLabel = this.selProp.label;
+  }
+
+  tryingLabel(lab){
+    this.labelsData.tryLabel = lab;
+  }
+  
+  unSelectingLabel(){
+    this.labelsData.tryLabel = null;
+    this.labelsData.initialLabel = null
+  }
+
+  updateLabel(){
+    console.log('Update Label')
   }
 }

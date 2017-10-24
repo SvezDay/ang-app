@@ -98,13 +98,22 @@
 /*                       SUB NAV COMMAND                            */
 .my-subnav-layout{
   background-color: #00BFFF;
+  color:white;
 }
-.my-subnav-layout-row{
-  justify-content: center;
+.my-subnav-layout-row-left{
+  display: inline-flex;
+  position: absolute;
+  left: 0;
+  margin-left: 1%;
+}
+.my-subnav-layout-row-right{
+  display: inline-flex;
+  position: absolute;
+  right: 0;
+  margin-right: 1%;
 }
 .my-subnav-a{
   display:grid;
-  color:white;
   cursor:pointer;
   min-width:8%;
   margin: 0 5px;
@@ -174,4 +183,15 @@
   margin-bottom: -5%;*/
   display: inline-grid;
   width: 10%
+}
+
+/* LABEL CLASS*/
+.label-Title {
+  color: green;
+}
+.label-Undefined {
+  color: red;
+}
+.label-Definition{
+  color: purple;
 }

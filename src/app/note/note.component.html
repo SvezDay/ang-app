@@ -1,30 +1,47 @@
+<!-- MODAL -->
+<!-- <ng-template #labelslist let-c="close" let-d="dismiss" >
+  <labels-list [labelsData]=labelsData (notiSelect)="onNotiSelect($event)" (newLabel)="tryLab($event)"></labels-list>
+</ng-template> -->
+<!-- END MODAL -->
+
+
 <!-- NAVBAR -->
 <mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
-    <mdl-layout-header-row class="my-subnav-layout-row">
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="addProperty()"  *ngIf="container.container_id">
+    <mdl-layout-header-row>
+      <div class="my-subnav-layout-row-left"  *ngIf="container.container_id">
+        <a (click)="addProperty()"  class="my-subnav-a">
           <i class="material-icons" style="text-align:center;">add</i>
           <span style="text-align:center;">Add item</span>
         </a>
-        <a style="display:grid; color:grey; min-width:8%; margin: 0 5px;"  *ngIf="!container.container_id">
-          <i class="material-icons" style="text-align:center;">add</i>
-          <span style="text-align:center;">Add item</span>
-        </a>
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="deleteContainer()" *ngIf="container.container_id">
+
+        <a (click)="deleteContainer()"  class="my-subnav-a">
           <i class="material-icons" style="text-align:center;">delete</i>
           <span style="text-align:center;">Delete</span>
         </a>
-          <a style="display:grid; color:grey; min-width:8%; margin: 0 5px;" *ngIf="!container.container_id">
-            <i class="material-icons" style="text-align:center;">delete</i>
-            <span style="text-align:center;">Delete</span>
-        </a>
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="get_containers(content, 'forward')" *ngIf="container.container_id">
+
+        <a  (click)="get_containers(content, 'forward')"  class="my-subnav-a">
           <i class="material-icons" style="text-align:center;">linear_scale</i>
           <span style="text-align:center;">Change path</span>
         </a>
-        <a style="display:grid; color:grey; min-width:8%; margin: 0 5px;" *ngIf="!container.container_id">
-          <i class="material-icons" style="text-align:center;">linear_scale</i>
-          <span style="text-align:center;">Change path</span>
+      </div>
+      <div class="my-subnav-layout-row-right" *ngIf="selProp?.id">
+        <a (mousedown)="deleteProperty()" class="my-subnav-a">
+          <i class="material-icons" style="text-align:center;">delete</i>
+          <span style="text-align:center;">Delete item</span>
         </a>
+        <a (mousedown)="drop('up')" class="my-subnav-a">
+          <i class="material-icons" style="text-align:center;">arrow_upward</i>
+          <span style="text-align:center;">Up</span>
+        </a>
+        <a (mousedown)="drop('down')" class="my-subnav-a">
+          <i class="material-icons" style="text-align:center;">arrow_downward</i>
+          <span style="text-align:center;">Down</span>
+        </a>
+        <a (mousedown)="selectingLabel()" class="my-subnav-a">
+          <i class="material-icons" style="text-align:center;">label</i>
+          <span style="text-align:center;">Change label</span>
+        </a>
+      </div>
     </mdl-layout-header-row>
  </mdl-layout-header>
 
@@ -91,32 +108,54 @@
                <!-- END CHIP -->
 
                <!-- PROPERTY -->
-               <div class="mdl-cell mdl-cell--12-col" (click)="selecting(item)" >
+               <div class="mdl-cell mdl-cell--12-col" (mousedown)="selecting(item)" >
 
-                 <div [ngClass]=item.label *ngIf="selProp?.id != item.id" id="p_{{item.id}}" class="my-card-property-text" autosize [ngStyle]="!item.value.length && {'white-space':'pre'}">
+                 <div [ngClass]="'label-'+ item.label" *ngIf="selProp?.id != item.id" id="p_{{item.id}}" class="my-card-property-text" autosize [ngStyle]="!item.value.length && {'white-space':'pre'}">
                    {{item.value}}
                  </div>
                  <textarea id="textarea_{{item.id}}" autosize focus='true'
                    class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
+                   [ngClass]="labelsData?.tryLabel ? 'label-' + labelsData?.tryLabel : 'label-'+ item.label"
                    type="text"
                    [(ngModel)]="cpSelProp.value" name="newValue"
                    (blur)="updateText()"
-                   *ngIf="cpSelProp?.id == item.id">
+                   *ngIf="selProp?.id == item.id">
                  </textarea>
-                 <div class="mdl-card__actions mdl-card--border" style="text-align: center; " *ngIf="selProp?.id == item.id">
-                   <a style=""(mousedown)="deleteProperty(item)" class="my-card-action-a">
-                     <i class="material-icons" style="text-align:center;cursor:pointer;">delete</i>
+                 <div *ngIf="selProp?.id == item.id" style="border-top:1px solid rgba(0,0,0,.1);">
+                   <!-- <a (mousedown)="deleteProperty()" class="my-subnav-a">
+                     <i class="material-icons" style="text-align:center;">delete</i>
                      <span style="text-align:center;">Delete item</span>
                    </a>
-                   <a style="" (mousedown)="drop('up', item)" class="my-card-action-a">
-                     <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_upward</i>
+                   <a (mousedown)="drop('up')" class="my-subnav-a">
+                     <i class="material-icons" style="text-align:center;">arrow_upward</i>
                      <span style="text-align:center;">Up</span>
                    </a>
-                   <a style="" (mousedown)="drop('down', item)" class="my-card-action-a">
-                     <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_downward</i>
+                   <a (mousedown)="drop('down')" class="my-subnav-a">
+                     <i class="material-icons" style="text-align:center;">arrow_downward</i>
                      <span style="text-align:center;">Down</span>
                    </a>
+                   <a (mousedown)="selectingLabel()" class="my-subnav-a">
+                     <i class="material-icons" style="text-align:center;">label</i>
+                     <span style="text-align:center;">Change label</span>
+                   </a> -->
                  </div>
+                 <!-- LABEL LIST -->
+                  <div *ngIf="selProp?.id == item.id && labelsData?.initialLabel">
+                    <ul style="border-top:1px solid rgba(0,0,0,.1);">
+                      <li *ngFor="let val of labelsData?.list"(click)="tryingLabel(val)">
+                        <span [ngStyle]="selProp.label == val ? {'color':'green'} : labelsData.tryLabel == val ? {'color':'red'} : {'color':'grey'}">{{val}}</span>
+                      </li>
+                    </ul>
+                    <div class="mdl-card__actions mdl-card--border" style="height:40px">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                        style="position:absolute; display: inline-flex; left: 0; margin-left: 10%"
+                        (click)="unSelectingLabel()">Back</a>
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                        style="position:absolute; display: inline-flex; right: 0; margin-right: 10%"
+                        (click)="updateLabel()">Save</a>
+                  </div>
+                  </div>
+                 <!-- END LABEL LIST -->
 
                </div>
                <!-- END PROPERTY -->

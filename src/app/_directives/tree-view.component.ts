@@ -7,7 +7,7 @@ import { ContainerService }                                               from '
   template: `
     <ul>
       <li *ngFor="let item of treeData; let idx = index">
-        <span (click)="select(item, 'forward'); test(item)">{{item.value}}</span>
+        <span (click)="select(item, 'forward'); test(item)">{{item.value  | truncate:[20, '...'] }}</span>
         <tree-view *ngIf="item?.list" [treeData]="item?.list"(notify)="onEmerge($event)"></tree-view>
       </li>
     </ul>

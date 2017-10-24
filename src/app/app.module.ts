@@ -31,6 +31,8 @@ import { CoreModule }            from './_core/core.module';
 import { AuthGuard }             from './_core/auth.guard';
 import { SubnavComponent }       from './_directives/subnav.component';
 import { TreeViewComponent }     from './_directives/tree-view.component';
+import { LabelsListComponent }   from './_modals/labels-list.component';
+import { TruncatePipe }          from './_pipes/truncate.pipe';
 
 /* App Root */
 import { AppRoutingModule }      from './app-routing.module';
@@ -63,6 +65,9 @@ import { NgbdAlertBasic }        from './alert-basic';
     AppComponent,
     SubnavComponent,
     TreeViewComponent,
+    LabelsListComponent,
+    TruncatePipe,
+
     HomeComponent,
     ProfileComponent,
     RegisterComponent,
