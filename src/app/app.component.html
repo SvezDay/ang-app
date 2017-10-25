@@ -27,7 +27,7 @@
                 <i class="material-icons">school</i>
               <!-- Course -->
             </a>
-            <a class="mdl-navigation__link" routerLink="/game_list" routerLinkActive="active" *ngIf="auth.isLogged()">
+            <a class="mdl-navigation__link  mdl-badge mdl-badge--overlap" routerLink="/game_list" routerLinkActive="active" *ngIf="auth.isLogged()"  data-badge="1">
               <i class="material-icons">games</i>
             </a>
             <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" *ngIf="auth.isLogged()">

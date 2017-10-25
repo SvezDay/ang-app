@@ -24,13 +24,6 @@ class LabelsData {
   tryLabel:string;
 }
 
-// @Component({
-//   selector: 'ngbd-dropdown-basic',
-//   templateUrl: './dropdown-basic.html'
-// })
-// export class NgbdDropdownBasic {
-// }
-
 @Component({
   moduleId: module.id,
   selector: 'app-note',
@@ -44,9 +37,14 @@ export class NoteComponent implements OnInit{
   mainlist = [];
   path = [];
 
+  // Template boolean
+  labelListBool: boolean;
+
+
   // Main
   container: Container;
   labelsData: LabelsData;
+  labels: string[];
   selProp: Property;
   cpSelProp: Property;
   updateData = {};    // ?
@@ -62,6 +60,7 @@ export class NoteComponent implements OnInit{
   ) {
     this.container = new Container();
     this.labelsData = new LabelsData();
+    this.labelListBool = false;
   }
 
   ngOnInit() {
@@ -97,6 +96,7 @@ export class NoteComponent implements OnInit{
   getLabel(){
     this.api.query('get', '/note_get_label').subscribe( res => {
         this.labelsData.list = res.data.data;
+        this.labels = res.data.data;
       }, err => {
         err.status == 401 ? this.router.navigate(['/authenticate']) : null
         console.log(err);
@@ -260,15 +260,52 @@ export class NoteComponent implements OnInit{
   }
 
   tryingLabel(lab){
-    this.labelsData.tryLabel = lab;
+    // this.labelsData.tryLabel = lab;
+    this.cpSelProp.label = lab;
   }
-  
+
   unSelectingLabel(){
-    this.labelsData.tryLabel = null;
-    this.labelsData.initialLabel = null
+    // this.labelsData.tryLabel = null;
+    // this.labelsData.initialLabel = null
   }
 
   updateLabel(){
-    console.log('Update Label')
+    console.log('UPDATE LABEL FUNCTION')
+    // let lab = this.labelsData.tryLabel;
+    let lab = this.cpSelProp.label;
+    if(lab == 'Title' || lab == this.selProp.label){
+      this.unSelectingLabel();
+      return;
+    }
+    console.log('UPDATE LABEL FUNCTION Validate')
+    this.api.query('post', '/note_update_label', ).subscribe( res => {
+      console.log('res of update label', res)
+    }, err => { console.log(err) })
+    // this.unselecting();
+    // if(this.selProp.value != this.cpSelProp.value){
+    //   this.cpSelProp.container_id = this.container.container_id;
+    //   this.api.query('post', '/note_update_value', this.cpSelProp).subscribe(
+    //     res => {
+    //       let d = res.data.data;
+    //       if(this.cpSelProp.label == 'Title'){
+    //         this.container.title = {value: d.value, id:d.id, label:'Title'};
+    //         this.cs.containers().subscribe(res => {
+    //           res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
+    //         }, err => {
+    //           console.log(err);
+    //         })
+    //       }else{
+    //         this.updateContainerMain(d)
+    //       }
+    //       this.unselecting();
+    //     }, err => {
+    //       console.log(err)
+    //       this.unselecting();
+    //     });
+    //   }else{
+    //     this.unselecting();
+    //   }
   }
+
+
 }
