@@ -25,7 +25,10 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
-      }
+      },
+      "script":[
+        "./node_modules/jquery/dist/jquery.min.js"
+      ]
     }
   ],
   "e2e": {

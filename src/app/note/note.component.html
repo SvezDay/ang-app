@@ -11,37 +11,16 @@
       <div class="my-subnav-layout-row-left"  *ngIf="container.container_id">
         <a (click)="addProperty()"  class="my-subnav-a">
           <i class="material-icons" style="text-align:center;">add</i>
-          <span style="text-align:center;">Add item</span>
         </a>
 
         <a (click)="deleteContainer()"  class="my-subnav-a">
           <i class="material-icons" style="text-align:center;">delete</i>
-          <span style="text-align:center;">Delete</span>
         </a>
 
-        <a  (click)="get_containers(content, 'forward')"  class="my-subnav-a">
+        <a  (click)="get_containers(content, 'forward')"  class="my-subnav-a">  <!-- changing path -->
           <i class="material-icons" style="text-align:center;">linear_scale</i>
-          <span style="text-align:center;">Change path</span>
         </a>
       </div>
-      <!-- <div class="my-subnav-layout-row-right" *ngIf="selProp?.id">
-        <a (mousedown)="deleteProperty()" class="my-subnav-a">
-          <i class="material-icons" style="text-align:center;">delete</i>
-          <span style="text-align:center;">Delete item</span>
-        </a>
-        <a (mousedown)="drop('up')" class="my-subnav-a">
-          <i class="material-icons" style="text-align:center;">arrow_upward</i>
-          <span style="text-align:center;">Up</span>
-        </a>
-        <a (mousedown)="drop('down')" class="my-subnav-a">
-          <i class="material-icons" style="text-align:center;">arrow_downward</i>
-          <span style="text-align:center;">Down</span>
-        </a>
-        <a (mousedown)="lablist=true" class="my-subnav-a">
-          <i class="material-icons" style="text-align:center;">label</i>
-          <span style="text-align:center;">Change label</span>
-        </a>
-      </div> -->
     </mdl-layout-header-row>
  </mdl-layout-header>
 
@@ -62,9 +41,6 @@
 <!-- SIDE -->
   <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
     <div class="mdl-cell mdl-cell--12-col" style="cursor: pointer;">
-      <!-- <i class="material-icons" *ngIf="!perso_account" style="font-size:14px;color:grey; vertical-align: middle;">play_arrow</i>
-      <span>My account</span>
-      <i class="material-icons" *ngIf="perso_account" style="color:grey; vertical-align: middle;">arrow_drop_down</i> -->
       <div class="" style="text-align:center;">
         <button type="button" name="button" class="mdl-button" (click)="addContainer()" style="background-color:white;">New</button>
       </div>
@@ -93,102 +69,81 @@
                 (blur)="updateText()"
                 *ngIf="container.title && cpSelProp?.id == container.title.id && cpSelProp && cpSelProp.value" focus="true">
           </div>
+
        </div>
        <!-- END TITLE -->
-       <!-- DETAIL -->
+
+       <!-- PROPERTIES -->
        <div *ngIf="container.main">
          <div *ngFor="let item of container.main"  style="">
-           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property ">
-             <div class="mdl-card__supporting-text texting my-card-property-under" *ngIf="cpSelProp?.id != item.id">
+           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property" (click)="selecting(item)">
 
-               <!-- CHIP -->
+             <!-- IS NOT SELECTED -->
+             <div *ngIf="selProp?.id != item.id">
+
                <div class="mdl-card__menu my-card-property-chip">
-                 <span class="my-chip" (click)="selecting(item); alert.show()" *ngIf="!toggleLabelList">{{item.label}}</span>
+                 <span class="my-chip" *ngIf="!toggleLabelList">{{item.label}}</span>
                </div>
-               <!-- END CHIP -->
 
-               <!-- PROPERTY -->
-               <div class="mdl-cell mdl-cell--12-col" (mousedown)="selecting(item)" >
-
+               <div class="mdl-cell mdl-cell--12-col" >
                  <div [ngClass]="'label-'+ item.label" id="p_{{item.id}}" class="my-card-property-text" autosize [ngStyle]="!item.value.length && {'white-space':'pre'}"
-                 *ngIf="cpSelProp?.id != item.id">{{item.value}}</div>
+                      *ngIf="cpSelProp?.id != item.id">{{item.value}}</div>
                </div>
-               <!-- END PROPERTY -->
              </div>
-             <div class="mdl-card__supporting-text texting my-card-property-under" *ngIf="cpSelProp?.id == item.id">
-               <!-- PROPERTY -->
-               <div class="mdl-cell mdl-cell--12-col" (mousedown)="selecting(item)" >
 
-                 <!-- CHIP -->
-                 <div class="mdl-card__menu my-card-property-chip">
-                   <span class="my-chip" (click)="selecting(item); alert.show()" *ngIf="!toggleLabelList">{{item.label}}</span>
-                 </div>
-                 <!-- END CHIP -->
-                    <div class="mdl-card__supporting-text">
-                        <!-- <div *ngIf="cpSelProp?.id == item.id" style="">
-                          <a (mousedown)="deleteProperty()" class="" style="display:inline-grid;">
-                            <i class="material-icons" style="text-align:center;">delete</i>
-                            <span style="text-align:center;">Delete item</span>
-                          </a>
-                          <a (mousedown)="drop('up')" class="" style="display:inline-grid;">
-                            <i class="material-icons" style="text-align:center;">arrow_upward</i>
-                            <span style="text-align:center;">Up</span>
-                          </a>
-                          <a (mousedown)="drop('down')" class="" style="display:inline-grid;">
-                            <i class="material-icons" style="text-align:center;">arrow_downward</i>
-                            <span style="text-align:center;">Down</span>
-                          </a>
-                          <a (mousedown)="selectingLabel(); lablist=true" class="" style="display:inline-grid;cursor:pointer;">
-                            <i class="material-icons" style="text-align:center;">label</i>
-                            <span style="text-align:center;">Change label</span>
-                          </a>
-                        </div> -->
-                        <textarea id="textarea_{{item.id}}" autosize focus='true' type="text"
-                        class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
-                        [ngClass]="labelsData?.tryLabel ? 'label-' + labelsData?.tryLabel : 'label-'+ item.label"
-                        style="border-top:1px solid rgba(0,0,0,.1);"
-                        [(ngModel)]="cpSelProp.value" name="newValue"></textarea>
-                        <!-- (blur)="updateText()" -->
-                      </div>
-                      <div class="mdl-card__actions" *ngIf="selProp?.id == item.id" style="text-align:right">
-                        <a (mousedown)="deleteProperty()" class="" style="display:inline-grid">
-                          <i class="material-icons" style="text-align:center;">delete</i>
-                          <span style="text-align:center;">Delete item</span>
-                        </a>
-
-
-                        <!-- LABEL LIST -->
-                        <!-- <div *ngIf="lablist">
-                          <ul style="border-top:1px solid rgba(0,0,0,.1);">
-                            <li *ngFor="let val of labelsData?.list"(click)="tryingLabel(val)">
-                              <span [ngStyle]="selProp?.label == val ? {'color':'green'} : labelsData.tryLabel == val ? {'color':'red'} : {'color':'grey'}">{{val}}</span>
-                            </li>
-                          </ul>
-                          <div class="mdl-card__actions mdl-card--border" style="height:40px">
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                            style="position:absolute; display: inline-flex; left: 0; margin-left: 10%"
-                            (click)="unSelectingLabel(); lablist=false">Back</button>
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                            style="position:absolute; display: inline-flex; right: 0; margin-right: 10%"
-                            (click)="updateLabel()"
-                            [ngClass]="{'mdl-button--disabled' : !labelsData.tryLabel ||  selProp.label == labelsData.tryLabel }"
-                            >Saving</button>
-                          </div>
-                        </div> -->
-                        <!-- END LABEL LIST -->
-                      </div>
-
-               </div>
-               <!-- END PROPERTY -->
-
-           </div>
+             <!-- IS SELECTED -->
+             <div *ngIf="selProp?.id == item.id">
+               <app-note-detail [property]="selProp"></app-note-detail>
+             </div>
+           <!-- END IS SELECTED -->
          </div>
        </div>
-       <!-- END DETAIL -->
+      </div>
+       <!-- END PROPERTIES -->
 
 
-       </div>
      </div>
      <div class="mdl-layout-spacer"></div>
   </div>
 <!-- END MAIN -->
+
+
+<!-- LABEL LIST -->
+<!-- <div *ngIf="lablist">
+<ul style="border-top:1px solid rgba(0,0,0,.1);">
+<li *ngFor="let val of labelsData?.list"(click)="tryingLabel(val)">
+<span [ngStyle]="selProp?.label == val ? {'color':'green'} : labelsData.tryLabel == val ? {'color':'red'} : {'color':'grey'}">{{val}}</span>
+</li>
+</ul>
+<div class="mdl-card__actions mdl-card--border" style="height:40px">
+<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+style="position:absolute; display: inline-flex; left: 0; margin-left: 10%"
+(click)="unSelectingLabel(); lablist=false">Back</button>
+<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+style="position:absolute; display: inline-flex; right: 0; margin-right: 10%"
+(click)="updateLabel()"
+[ngClass]="{'mdl-button--disabled' : !labelsData.tryLabel ||  selProp.label == labelsData.tryLabel }"
+>Saving</button>
+</div>
+</div> -->
+<!-- END LABEL LIST -->
+
+
+<!-- <button type="button" name="button" class="mdl-button mdl-button--raised"
+    (mousedown)="deleteProperty()"
+     style="display:inline-grid; background-color:#E8E8E8:">{{item.label}}</button> -->
+     <!-- <div class="row">
+         <div class="col">
+     <div ngbDropdown class="d-inline-block">
+       <a  type="button" class="" style="cursor:pointer; display:inline-flex; margin:10px;"  id="dropdownBasic1" ngbDropdownToggle>
+         <span class="" (click)="selecting(item)" *ngIf="!toggleLabelList">{{item.label}}</span>
+         <i class="material-icons" style="">keyboard_arrow_down</i>
+       </a>
+       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button class="dropdown-item">Action - 1</button>
+        <button class="dropdown-item">Another Action</button>
+        <button class="dropdown-item">Something else is here</button>
+      </div>
+    </div>
+  </div>
+</div> -->

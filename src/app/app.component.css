@@ -81,6 +81,16 @@
     color: red;
   }
 }
+.my-chip-fab {
+  display: inline-block;
+  background-color: #E8E8E8;
+  height: 40px;
+  vertical-align: middle;
+  border-radius: 25px;
+  padding: 0 0 0 12px;
+  color: rgba(0,0,0,.87);
+  margin-right: 5px;
+}
 .chip-selected{
   background-color: green!important;
 }
@@ -116,7 +126,7 @@
   display:grid;
   cursor:pointer;
   min-width:8%;
-  margin: 0 5px;
+  margin: 0 10px;
 }
 .my-subnav-i{
   text-align:center;

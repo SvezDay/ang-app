@@ -21,6 +21,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot
 import {NgbModule}               from '@ng-bootstrap/ng-bootstrap';
 import { MdlModule }             from '@angular-mdl/core';
 import {FocusModule}             from 'angular2-focus';
+import { ClickOutsideModule }    from 'ng-click-outside';
 
 
 import { AuthHttp, AuthConfig }  from 'angular2-jwt';
@@ -31,6 +32,7 @@ import { CoreModule }            from './_core/core.module';
 import { AuthGuard }             from './_core/auth.guard';
 import { SubnavComponent }       from './_directives/subnav.component';
 import { TreeViewComponent }     from './_directives/tree-view.component';
+// import { ClickOutside }          from './_directives/click-outside.directive';
 import { LabelsListComponent }   from './_modals/labels-list.component';
 import { TruncatePipe }          from './_pipes/truncate.pipe';
 
@@ -55,7 +57,6 @@ import { GameRecallComponent }   from './game-recall/game-recall.component';
 import { GameUpdateComponent }   from './game-update/game-update.component';
 import { NoteComponent }         from './note/note.component';
 
-
 import { NgbdAlertBasic }        from './alert-basic';
 
 @NgModule({
@@ -67,6 +68,7 @@ import { NgbdAlertBasic }        from './alert-basic';
     TreeViewComponent,
     LabelsListComponent,
     TruncatePipe,
+    // ClickOutside,
 
     HomeComponent,
     ProfileComponent,
@@ -84,7 +86,9 @@ import { NgbdAlertBasic }        from './alert-basic';
     GameUpdateComponent,
     NgbdAlertBasic,
     NoteComponent,
+
   ],
+  // exports: [ClickOutside],
   imports: [
     BrowserModule,
     HttpModule,
@@ -94,6 +98,7 @@ import { NgbdAlertBasic }        from './alert-basic';
     CoreModule.forRoot(),
     FocusModule.forRoot(),
     NgbModule.forRoot(),
+    ClickOutsideModule
   ],
   providers: [
    //    {
