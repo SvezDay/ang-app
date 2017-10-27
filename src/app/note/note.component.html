@@ -60,14 +60,14 @@
       <!-- TITLE -->
        <div id="card_{{container.title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title" *ngIf="container.title">
           <div class="mdl-card__title" (click)="selecting(container.title)">
-             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf="container && container.title && selProp?.id != container.title.id">
+             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf="container && container.title && propSelected?.id != container.title.id">
                {{container.title.value}}
              </h2>
              <input id="input1"
                 class="mdl-textfield__input blinking-cursor noborder"
-                type="text" [(ngModel)]="cpSelProp.value"
+                type="text" [(ngModel)]="propSelected.value"
                 (blur)="updateText()"
-                *ngIf="container.title && cpSelProp?.id == container.title.id && cpSelProp && cpSelProp.value" focus="true">
+                *ngIf="container.title && propSelected?.id == container.title.id && propSelected && propSelected.value" focus="true">
           </div>
 
        </div>
@@ -76,10 +76,12 @@
        <!-- PROPERTIES -->
        <div *ngIf="container.main">
          <div *ngFor="let item of container.main"  style="">
-           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property" (click)="selecting(item)">
+           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property"
+                [ngClass]="{'my-selectedProperty mdl-shadow--2dp': propSelected?.id == item?.id }"
+                (click)="selecting(item)">
 
              <!-- IS NOT SELECTED -->
-             <div *ngIf="selProp?.id != item.id">
+             <div *ngIf="propSelected?.id != item.id">
 
                <div class="mdl-card__menu my-card-property-chip">
                  <span class="my-chip" *ngIf="!toggleLabelList">{{item.label}}</span>
@@ -87,13 +89,13 @@
 
                <div class="mdl-cell mdl-cell--12-col" >
                  <div [ngClass]="'label-'+ item.label" id="p_{{item.id}}" class="my-card-property-text" autosize [ngStyle]="!item.value.length && {'white-space':'pre'}"
-                      *ngIf="cpSelProp?.id != item.id">{{item.value}}</div>
+                      *ngIf="propSelected?.id != item.id">{{item.value}}</div>
                </div>
              </div>
 
              <!-- IS SELECTED -->
-             <div *ngIf="selProp?.id == item.id">
-               <app-note-detail [property]="selProp"></app-note-detail>
+             <div *ngIf="propSelected?.id == item.id">
+               <app-note-detail [property]="propSelected" (droper)="onDrop($event)" (deleter)="onDelete()" (outsider)="onOutside($event)"></app-note-detail>
              </div>
            <!-- END IS SELECTED -->
          </div>

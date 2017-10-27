@@ -3,6 +3,14 @@
     label: string;
     value: string;
     container_id?: number;
+    constructor(_?){
+      if(_){
+        this.id = _.id;
+        this.label = _.label;
+        this.value = _.value;
+        this.container_id = _.container_id;
+      }
+    }
   }
 
   class Container extends Property{

@@ -1,156 +1,60 @@
+<div class="mdl-cell mdl-cell--12-col" style="margin:0;" (clickOutside)="clickOutside($event)">
+  <div class="mdl-card__supporting-text"  style="text-align:right; padding:0; width:100%;">
+   <div class="mdl-card__actions" style="text-align:right; padding:0;">
+     <span class="my-chip-fab" (click)="selectingLabel(content)" ngbDropdown>
+       <span>{{copy.label}}</span>
+       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" id="dropdownBasic1" ngbDropdownToggle
+         style=""><i class="material-icons">arrow_drop_down</i></button>
+     </span>
+     <span class="my-chip-fab" (click)="drop('up')">
+       <span>Up</span>
+       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+         style=""><i class="material-icons">keyboard_arrow_up</i></button>
+     </span>
+     <span class="my-chip-fab"  (click)="drop('down')">
+       <span>down</span>
+       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+         style=""><i class="material-icons">keyboard_arrow_down</i></button>
+     </span>
+     <button id="deli" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+       (click)="delete()"
+       style="margin:5px;"><i class="material-icons">delete</i></button>
+   </div>
+  </div>
+  <div class="mdl-card__supporting-text" style="width:100%;padding:0;">
+     <textarea id="textarea_{{property.id}}" autosize focus='true' type="text"
+         class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
+         style="padding-top:0;"
+         [ngClass]="copy?.label ? 'label-' + copy?.label : 'label-'+ original?.label"
+         [(ngModel)]="copy.value" name="newValue"></textarea>
+  </div>
+</div>
 
-<!-- MODAL -->
-<ng-template #content let-c="close" let-d="dismiss" >
+
+<!-- <dialog id="dialog" class="mdl-dialog">
+<h3 class="mdl-dialog__title">MDL Dialog</h3>
+<div class="mdl-dialog__content">
+<p>
+This is an example of the Material Design Lite dialog component.
+Please use responsibly.
+</p>
+</div>
+<div class="mdl-dialog__actions">
+<button type="button" class="mdl-button">Close</button>
+<button type="button" class="mdl-button" disabled>Disabled action</button>
+</div>
+</dialog> -->
+
+
+<ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" (click)="get_containers(content, 'back')"  style="cursor:pointer;">
-      <i class="material-icons" *ngIf="container_to_host?.container_id">arrow_back</i>
-      <span>{{container_to_host?.value || 'My Home'}}</span>
-    </h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')" style="cursor: pointer;">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')" style="position:absolute; right: 0; padding: 2%; ">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <ul *ngIf="containers?.length > 0">
-      <li *ngFor="let c of containers" (click)="get_containers(content, 'forward', c)" style="display: flex; cursor: pointer">
-        <span style=" width: 70%">{{c.value}}</span>
-        <i class="material-icons"  style="text-align: center;">keyboard_arrow_right</i>
-      </li>
+    <ul>
+      <li *ngFor="let lab of labels" (click)="tryingLabel(lab); c()" style="cursor: pointer;">{{lab}}</li>
     </ul>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="mdl-button mdl-js-button mdl-button--raised" (click)="change_container_path()" style="position:absolute; left: 5%;">Move here</button>
-    <!-- <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" routerLink="" (click)="c('Close click')" style="float:left;">
-      <span style="">Move here</span>
-    </a> -->
-    <a style="" (click)="add_folder_container()" style="float:right; cursor: pointer;">
-      <i class="material-icons" >create_new_folder</i>
-    </a>
-  </div>
 </ng-template>
-<!-- END MODAL -->
-
-<!-- NAVBAR -->
-<mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
-    <mdl-layout-header-row class="my-subnav-layout-row">
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="add()">
-          <i class="material-icons" style="text-align:center;">add</i>
-          <span style="text-align:center;">Add item</span>
-        </a>
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="delete_container()">
-          <i class="material-icons" style="text-align:center;">delete</i>
-          <span style="text-align:center;">Delete</span>
-        </a>
-        <a style="display:grid; color:white; cursor:pointer; min-width:8%; margin: 0 5px;" (click)="get_containers(content, 'forward')">
-          <i class="material-icons" style="text-align:center;">linear_scale</i>
-          <span style="text-align:center;">Change path</span>
-        </a>
-    </mdl-layout-header-row>
- </mdl-layout-header>
-
- <mdl-layout-header class="mdl-shadow--2dp" style="background-color: green" *ngIf="alert_message">
-   <mdl-layout-header-row style="justify-content: center;" >
-       <ngb-alert [dismissible]="false">
-       <strong>Warning!</strong> {{alert_message}}
-     </ngb-alert>
-   </mdl-layout-header-row>
-  </mdl-layout-header>
-<!-- END NAVBAR -->
-
-<!-- SIDE -->
-  <!-- <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
-    <div class="mdl-cell mdl-cell--12-col" (click)="get_containers('forward')" style="cursor: pointer;">
-      <i class="material-icons" *ngIf="!perso_account" style="font-size:14px;color:grey; vertical-align: middle;">play_arrow</i>
-      <span>My account</span>
-      <i class="material-icons" *ngIf="perso_account" style="color:grey; vertical-align: middle;">arrow_drop_down</i>
-      <div class="my-solid-breakline"></div>
-      <div class="my-layout-sider-list">
-        <tbody>
-          <tr *ngFor="let item of list">
-            <td class="mdl-data-table__cell--non-numeric" (click)="detail(item)">{{item.title}}</td>
-          </tr>
-        </tbody>
-
-      </div>
-    </div>
-  </div> -->
-<!-- END SIDE -->
-
-<!-- MAIN -->
-<div class="centeritems mdl-grid">
-    <div class="mdl-layout-spacer"></div>
-     <div class="mdl-cell mdl-cell--8-col">
-
-       <div id="card_{{title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
-          <div class="mdl-card__title" (click)="dataSelect(title)">
-             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf='title && ref != title.id'>
-               {{title.value}}
-             </h2>
-             <input id="input1"
-                class="mdl-textfield__input blinking-cursor noborder"
-                type="text" [(ngModel)]="updateData.value"
-                (blur)="update()"
-                *ngIf='title && ref == title.id && updateData && updateData.value' focus="true">
-          </div>
-       </div>
-       <!-- <div class="mdl-shadow--2dp" style="margin:inherit;"> -->
-         <!-- <div *ngFor="let item of details" style="margin-left:-1%; margin-right:-1%;"> -->
-         <div *ngFor="let item of details" style="">
-           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property ">
-             <div class="mdl-card__supporting-text texting my-card-property-under" id='my-course-detail'>
-
-               <div class="mdl-card__menu my-card-property-chip">
-                 <!-- <span class="my-chip" (click)="dataSelect(item); toggler('label')" *ngIf="!toggleLabelList">{{item.labels}}</span> -->
-                 <span class="my-chip" (click)="dataSelect(item); alert.show()" *ngIf="!toggleLabelList">{{item.labels}}</span>
-                 <!-- <div *ngIf="toggleLabelList" class=" my-card-property-chip-list-div">
-                 <ul class="my-card-property-chip-list">
-                    <li *ngFor="let label of label_list">
-                      <span class="my-chip list" [class.chip-selected]="label == item.labels" (click)="changeLabel(label)">{{label}}</span>
-                    </li>
-                 </ul>
-                 </div> -->
-                 <mdl-alert #alert="mdlAlert"
-                 message="This is a <em class='mdl-color-text--primary'>simple</em> Alert"
-                 okText="Got it!"
-                 (confirmed)="alertConfirmd()"></mdl-alert>
-               </div>
-
-               <div class="mdl-cell mdl-cell--12-col my-card-property-text" (click)="dataSelect(item)" >
-                 <div [ngClass]=item.labels
-                 *ngIf="ref != item.id" id="p_{{item.id}}" autosize>{{item.value}}</div>
-                 <!-- <div *ngIf="ref == item.id" style="margin:0;"> -->
-                   <textarea id="textarea_{{item.id}}" autosize focus='true'
-                   class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
-                   type="text"
-                   [(ngModel)]="updateData.value" name="newValue"
-                   (blur)="update()"
-                   *ngIf="ref == item.id"></textarea>
-                   <!-- <div class="" style="display:grid; color:grey; cursor:pointer; min-width:8%; margin: 0 5px; height: 50px;"> -->
-                   <div class="" style="display:flex; text-align: center; margin: -50px 0 0 0; " *ngIf="ref == item.id">
-                       <a style=""(click)="delete_property(item)">
-                         <i class="material-icons" style="text-align:center;cursor:pointer;">delete</i>
-                         <span style="text-align:center;">Delete item</span>
-                       </a>
-                       <a style="" (click)="drop('up', item.id)">
-                         <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_upward</i>
-                         <span style="text-align:center;">Up</span>
-                       </a>
-                       <a style="" (click)="drop('down', item.id)">
-                         <i class="material-icons" style="text-align:center;cursor:pointer;">arrow_downward</i>
-                         <span style="text-align:center;">Down</span>
-                       </a>
-                   </div>
-                 <!-- </div> -->
-               </div>
-
-
-             </div>
-           </div>
-         </div>
-
-       <!-- </div> -->
-
-     </div>
-     <div class="mdl-layout-spacer"></div>
-  </div>
-<!-- END MAIN -->

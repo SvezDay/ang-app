@@ -1,12 +1,9 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-// import * as $ from 'jquery';
-
 import { ApiService } from '../_core/api.service';
 import { ContainerService } from '../_core/container.service';
-
+import _ from 'lodash';
 import * as $$ from '../_models/all.class';
 
 
@@ -21,22 +18,9 @@ export class NoteComponent implements OnInit{
   // TreeView
   mainlist = [];
   updateMainList: any;
-  // path = [];
-
-  // Template boolean
-  // labelListBool: boolean;
-
   // Main
   container: $$.Container;
-  // labelsData: c_.LabelsData;
-  // labels: string[];
-  selProp: $$.Property;
-  // cpSelProp: $$.Property;
-  // updateData = {};    // ?
-
-
-  //Modal labels
-  // modal: any;
+  propSelected: $$.Property;
 
   constructor(
     private router: Router,
@@ -45,21 +29,28 @@ export class NoteComponent implements OnInit{
     private modalService: NgbModal
   ) {
     this.container = new $$.Container();
-    // this.labelsData = new LabelsData();
-    // this.labelListBool = true;
   }
 
-  ngOnInit() {
+
+  ngOnInit():void{
     this.cs.containers().subscribe(res => {
       res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
-      // this.getLabel();
     }, err => {
       console.log(err);
     })
   }
 
-  onNotify(ev){
-    this.selProp == null ? console.log('TRUE'): console.log('FALSE')
+  onOutside(property: $$.Property, newTitle?: $$.Property):void{
+    if(this.propSelected && this.propSelected.id == property.id)
+        delete this.propSelected;
+
+    if(newTitle){
+      // update the title
+    }
+  }
+
+  onNotify(ev):void{
+    this.propSelected == null ? console.log('TRUE'): console.log('FALSE')
     this.container.title = {
       id: ev.title_id, value: ev.value, label: ev.label || 'Title'
     };
@@ -78,74 +69,12 @@ export class NoteComponent implements OnInit{
      });
   }
 
-  // getLabel(){
-  //   this.api.query('get', '/note_get_label').subscribe( res => {
-  //       this.labelsData.list = res.data.data;
-  //       this.labels = res.data.data;
-  //     }, err => {
-  //       err.status == 401 ? this.router.navigate(['/authenticate']) : null
-  //       console.log(err);
-  //     });
-  // }
-
-  selecting(item){
-    if(this.selProp){
+  selecting(item:$$.Property):void{
+    if(this.propSelected && this.propSelected.id == item.id){
       return;
+    }else{
+      this.propSelected = Object.assign({},item);
     }
-    console.log('SELECTING FUNCTION')
-    setTimeout(()=>{
-      this.selProp = Object.assign({},item);
-      // this.cpSelProp = Object.assign({},item);
-      let c = window.document.getElementById(`card_${item.id}`);
-      c.classList.toggle("mdl-shadow--2dp");
-      c.classList.toggle("my-selectedProperty");
-      // this.updateData = Object.assign({},item);
-    }, 500);
-  }
-
-  unselecting(){
-    delete this.selProp;
-    // delete this.cpSelProp;
-  }
-
-  updateText(){
-      console.log('UPDATE FUNCTION')
-    // setTimeout(()=>{
-    //
-    //   if(this.labelsData.initialLabel){
-    //     console.log("RETUR OFF the update func")
-    //     return
-    //   }
-    //
-    //   let c = window.document.getElementById(`card_${this.selProp.id}`);
-    //   c.classList.toggle("mdl-shadow--2dp");
-    //   c.classList.toggle("my-selectedProperty");
-    //
-    //   if(this.selProp.value != this.cpSelProp.value){
-    //     this.cpSelProp.container_id = this.container.container_id;
-    //     this.api.query('post', '/note_update_value', this.cpSelProp).subscribe(
-    //       res => {
-    //         let d = res.data.data;
-    //         if(this.cpSelProp.label == 'Title'){
-    //           this.container.title = {value: d.value, id:d.id, label:'Title'};
-    //           this.cs.containers().subscribe(res => {
-    //             res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
-    //           }, err => {
-    //             console.log(err);
-    //           })
-    //         }else{
-    //           this.updateContainerMain(d)
-    //         }
-    //         this.unselecting();
-    //       }, err => {
-    //         console.log(err)
-    //         this.unselecting();
-    //       });
-    //     }else{
-    //       this.unselecting();
-    //     }
-    // }, 1000)
-
   }
 
   addProperty(){
@@ -157,31 +86,45 @@ export class NoteComponent implements OnInit{
     });
   }
 
+  onDrop(dir){
+    let params = {
+       container_id: this.container.container_id,
+       property_id:this.propSelected.id,
+       direction:dir
+    };
+    this.api.query('post', '/note_drop_property', params)
+    .subscribe(
+       res => {
+         // then modify the position on the details list
+         if(res.response.status == 200){
+           let newArr = [];
+           let store = {};
+           let main = this.container.main;
+           let selID = this.propSelected.id;
+           if(dir == 'up' && main[0].id == selID){
+             return 'Error limit';
+           }else if(dir == 'down' && main[main.length -1].id == selID){
+             return 'Error limit';
+           }else if(dir == 'up'){
+             this.container.main.reverse()
+           }
+           this.container.main.map( x => {
+             if(x.id == selID){
+               store = x;
+             }else if (!_.isEmpty(store)) {
+               newArr.push(x);
+               newArr.push(store);
+             }else{
+               newArr.push(x)
+             }
+           })
+           dir == 'up' ? newArr.reverse() : null
+           this.container.main = newArr;
 
-  drop(direction){
-    console.log('DROP FUNCTION ', direction)
-    // let params = {
-    //    container_id: this.container.container_id,
-    //    property_id:this.selProp.id,
-    //    direction:direction
-    // };
-    // console.log(params)
-    // this.api.query('post', '/note_drop_property', params)
-    // .subscribe(
-    //    res => {
-    //      // then modify the position on the details list
-    //       console.log('data', res);
-    //       // window.location.reload();
-    //       let c = window.document.getElementById(`card_${this.selProp.id}`);
-    //       c.classList.toggle("mdl-shadow--2dp");
-    //       c.classList.toggle("my-selectedProperty");
-    //       delete this.selProp;
-    //       delete this.cpSelProp;
-    //    },
-    //    error => {
-    //       console.log('error', error);
-    //    }
-    // );
+         }
+       },
+       error => { console.log('error', error); }
+    );
   }
 
   addContainer(){
@@ -198,34 +141,14 @@ export class NoteComponent implements OnInit{
     }, err => { console.log(err) });
   }
 
-  // updateMainList(obj){
-  //   this.mainlist.unshift(obj)
-  // }
-
-  // updateContainerMain(obj){
-  //   this.container.main.map((itm, idx) => {
-  //     if(itm.id == this.cpSelProp.id){
-  //       this.container.main[idx] = obj;
-  //     }
-  //   })
-  // }
-
-  deleteProperty(item){
-    console.log('DELETE PROPERTY FUNCTION');
-    // let w = window.document.getElementById('textarea_559');
-    // let t = $(`#textarea_${item.id}`);
-
-    // console.log('item', item)
-    // console.log("w", w)
-    // console.log("t", t)
-    // console.log('this native elem', this.elRef.nativeElement)
-    // this.api.query('delete',
-    //   `/delete_property/${this.container.container_id}/${this.selProp.id}`)
-    // .subscribe( res => {
-    //   this.unselecting();
-    //   this.container.main = this.container.main.filter(x => {
-    //     return x.id != this.selProp.id});
-    // }, err => {  console.log(err)  });
+  onDelete(){
+    this.api.query('delete',
+      `/delete_property/${this.container.container_id}/${this.propSelected.id}`)
+    .subscribe( res => {
+      this.container.main = this.container.main.filter(x => {
+        return x.id != this.propSelected.id });
+      delete this.propSelected;
+    }, err => {  console.log(err)  });
 
   }
 
@@ -249,7 +172,7 @@ export class NoteComponent implements OnInit{
 
   // selectingLabel(){
   //   console.log('SELECTING LABEL')
-  //   this.labelsData.initialLabel = this.selProp.label;
+  //   this.labelsData.initialLabel = this.propSelected.label;
   // }
 
   // tryingLabel(lab){
@@ -266,7 +189,7 @@ export class NoteComponent implements OnInit{
   //   console.log('UPDATE LABEL FUNCTION')
     // let lab = this.labelsData.tryLabel;
     // let lab = this.cpSelProp.label;
-    // if(lab == 'Title' || lab == this.selProp.label){
+    // if(lab == 'Title' || lab == this.propSelected.label){
     //   this.unSelectingLabel();
     //   return;
     // }
@@ -275,7 +198,7 @@ export class NoteComponent implements OnInit{
     //   console.log('res of update label', res)
     // }, err => { console.log(err) })
     // this.unselecting();
-    // if(this.selProp.value != this.cpSelProp.value){
+    // if(this.propSelected.value != this.cpSelProp.value){
     //   this.cpSelProp.container_id = this.container.container_id;
     //   this.api.query('post', '/note_update_value', this.cpSelProp).subscribe(
     //     res => {

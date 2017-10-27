@@ -11,7 +11,6 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 
 import { NoteListComponent } from './note-list/note-list.component';
 import { NoteCreateComponent } from './note-create/note-create.component';
-import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { NoteComponent } from './note/note.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { CourseCreateComponent } from './course-create/course-create.component';
@@ -31,7 +30,6 @@ const routes: Routes = [
 
    { path: 'note_list', component: NoteListComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'note_create', component: NoteCreateComponent  /*, canActivate: [AuthGuard]*/   },
-   { path: 'note_detail', component: NoteDetailComponent  /*, canActivate: [AuthGuard]*/   },
    { path: 'course_list', component: CourseListComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'course_create', component: CourseCreateComponent /*, canActivate: [AuthGuard]*/ },
    { path: 'course_detail', component: CourseDetailComponent /*, canActivate: [AuthGuard]*/ },
