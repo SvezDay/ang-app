@@ -29,6 +29,7 @@ export class NoteDetailComponent{
     private api: ApiService,
     private modalService: NgbModal
   ){ }
+
   ngOnInit(){
     this.showLabels = false;
     // Because an event is sent automatically at the creation, we must avoid it
@@ -40,15 +41,25 @@ export class NoteDetailComponent{
   }
 
   clickOutside(e: Event) :void{
+    let now = new Date().getTime();
+    console.log('function outside function')
     // Because an event is sent automatically at the creation, we must avoid it
-    if(this.delai + 100 < new Date().getTime()){
-      // if the title has updated
-      // this.outsider.emit(this.property, this.propUpdated);
+    if(this.delai + 100 < now && !this.showLabels){
+      this.update();
+      // if updated
+        // this.outsider.emit(this.propUpdated);
       // else
-      if(!this.showLabels){
-        console.log('outsiding =================')
-        this.outsider.emit(this.property);
-      }
+        this.outsider.emit();
+    }
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
     }
   }
 
@@ -58,38 +69,16 @@ export class NoteDetailComponent{
       res => { this.labels = res.data.data; },
       err => { console.log(err); });
 
-    // let dialogButton = document.querySelector('.dialog-button');
-    // let dialog = document.querySelector('#dialog');
-    // if (! dialog.showModal) {
-    //   dialogPolyfill.registerDialog(dialog);
-    // }
-    // dialogButton.addEventListener('click', function() {
-    //    dialog.showModal();
-    // });
-    // dialog.querySelector('button:not([disabled])')
-    // .addEventListener('click', function() {
-    //   dialog.close();
-    // });
-
-    this.modalService.open(content).result.then((result) => {
+    this.modalService.open(content).result.then(
+      (result) => { this.closeResult = `Closed with: ${result}`; },
+      (reason) => {
+         this.closeResult = "Dismissed "+ this.getDismissReason(reason); }
+      ).then(()=>{
       // This is fore avoid the click outside emitting
-      console.log('============resutl : ', result)
       this.delai = new Date().getTime();
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      console.log('============reason : ', reason)
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.showLabels = false;
     });
 
-  }
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
   }
 
   drop(dir){
@@ -102,41 +91,31 @@ export class NoteDetailComponent{
 
   update(){
     console.log('UPDATE FUNCTION')
-    // setTimeout(()=>{
-    //
-    //   if(this.labelsData.initialLabel){
-    //     console.log("RETUR OFF the update func")
-    //     return
-    //   }
-    //
-    //   let c = window.document.getElementById(`card_${this.propSelected.id}`);
-    //   c.classList.toggle("mdl-shadow--2dp");
-    //   c.classList.toggle("my-selectedProperty");
-    //
-    //   if(this.propSelected.value != this.cpSelProp.value){
-    //     this.cpSelProp.container_id = this.container.container_id;
-    //     this.api.query('post', '/note_update_value', this.cpSelProp).subscribe(
-    //       res => {
-    //         let d = res.data.data;
-    //         if(this.cpSelProp.label == 'Title'){
-    //           this.container.title = {value: d.value, id:d.id, label:'Title'};
-    //           this.cs.containers().subscribe(res => {
-    //             res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
-    //           }, err => {
-    //             console.log(err);
-    //           })
-    //         }else{
-    //           this.updateContainerMain(d)
-    //         }
-    //         this.unselecting();
-    //       }, err => {
-    //         console.log(err)
-    //         this.unselecting();
-    //       });
-    //     }else{
-    //       this.unselecting();
-    //     }
-    // }, 1000)
+    // console.log('copy', this.copy)
+    // console.log('property', this.property)
+    if(this.property != this.copy){
+      this.api.query('post', '/note_update', this.copy).subscribe(
+        res => {
+          this.outsider.emit(res.data.data);
+          // if(this.cpSelProp.label == 'Title'){
+            // this.container.title = {value: d.value, id:d.id, label:'Title'};
+            // this.cs.containers().subscribe(res => {
+            //   res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
+            // }, err => {
+            //   console.log(err);
+            // })
+          // }else{
+          //   this.updateContainerMain(d)
+          // }
+          // this.unselecting();
+        }, err => {
+          console.log(err)
+          // this.unselecting();
+        });
+      }else{
+        // this.unselecting();
+        this.outsider.emit();
+      }
   }
 
   tryingLabel(label){

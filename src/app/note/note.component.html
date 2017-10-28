@@ -46,7 +46,7 @@
       </div>
       <div class="my-solid-breakline"></div>
       <div class="my-layout-sider-list">
-        <tree-view [treeData]=mainlist (notify)="onNotify($event)"></tree-view>
+        <tree-view [treeData]=mainList (notify)="onNotify($event)"></tree-view>
       </div>
     </div>
   </div>
@@ -58,17 +58,22 @@
   <div class="mdl-layout-spacer"></div>
      <div class="mdl-cell mdl-cell--10-col">
       <!-- TITLE -->
-       <div id="card_{{container.title?.id}}" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title" *ngIf="container.title">
+       <div id="card_{{container.title?.id}}"
+            class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title"
+            *ngIf="container.title">
           <div class="mdl-card__title" (click)="selecting(container.title)">
-             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf="container && container.title && propSelected?.id != container.title.id">
+             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf=" propSelected?.id != container?.title?.id">
                {{container.title.value}}
              </h2>
-             <input id="input1"
+             <!-- <input id="input1"
                 class="mdl-textfield__input blinking-cursor noborder"
                 type="text" [(ngModel)]="propSelected.value"
                 (blur)="updateText()"
                 *ngIf="container.title && propSelected?.id == container.title.id && propSelected && propSelected.value" focus="true">
-          </div>
+              </div> -->
+              <div *ngIf="propSelected?.label == 'Title'">
+                <app-note-detail [property]="propSelected" (droper)="onDrop($event)" (deleter)="onDelete()" (outsider)="onOutside($event)"></app-note-detail>
+              </div>
 
        </div>
        <!-- END TITLE -->

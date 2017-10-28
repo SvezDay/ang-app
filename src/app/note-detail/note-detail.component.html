@@ -1,49 +1,48 @@
-<div class="mdl-cell mdl-cell--12-col" style="margin:0;" (clickOutside)="clickOutside($event)">
-  <div class="mdl-card__supporting-text"  style="text-align:right; padding:0; width:100%;">
-   <div class="mdl-card__actions" style="text-align:right; padding:0;">
-     <span class="my-chip-fab" (click)="selectingLabel(content)" ngbDropdown>
-       <span>{{copy.label}}</span>
-       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" id="dropdownBasic1" ngbDropdownToggle
-         style=""><i class="material-icons">arrow_drop_down</i></button>
-     </span>
-     <span class="my-chip-fab" (click)="drop('up')">
-       <span>Up</span>
-       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
-         style=""><i class="material-icons">keyboard_arrow_up</i></button>
-     </span>
-     <span class="my-chip-fab"  (click)="drop('down')">
-       <span>down</span>
-       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
-         style=""><i class="material-icons">keyboard_arrow_down</i></button>
-     </span>
-     <button id="deli" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
-       (click)="delete()"
-       style="margin:5px;"><i class="material-icons">delete</i></button>
-   </div>
-  </div>
-  <div class="mdl-card__supporting-text" style="width:100%;padding:0;">
-     <textarea id="textarea_{{property.id}}" autosize focus='true' type="text"
-         class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
-         style="padding-top:0;"
-         [ngClass]="copy?.label ? 'label-' + copy?.label : 'label-'+ original?.label"
-         [(ngModel)]="copy.value" name="newValue"></textarea>
+<div *ngIf="property.label != 'Title'">
+  <div class="mdl-cell mdl-cell--12-col" style="margin:0;" (clickOutside)="clickOutside($event)">
+    <div class="mdl-card__supporting-text"  style="text-align:right; padding:0; width:100%;">
+     <div class="mdl-card__actions" style="text-align:right; padding:0;">
+       <span class="my-chip-fab" (click)="selectingLabel(content)">
+         <span>{{copy.label}}</span>
+         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+           style=""><i class="material-icons">arrow_drop_down</i></button>
+       </span>
+       <span class="my-chip-fab" (click)="drop('up')">
+         <span>Up</span>
+         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+           style=""><i class="material-icons">keyboard_arrow_up</i></button>
+       </span>
+       <span class="my-chip-fab"  (click)="drop('down')">
+         <span>down</span>
+         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+           style=""><i class="material-icons">keyboard_arrow_down</i></button>
+       </span>
+       <button id="deli" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect"
+         (click)="delete()"
+         style="margin:5px;"><i class="material-icons">delete</i></button>
+     </div>
+    </div>
+    <div class="mdl-card__supporting-text" style="width:100%;padding:0;">
+       <textarea id="textarea_{{property.id}}" autosize focus='true' type="text"
+           class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
+           style="padding-top:0;"
+           [ngClass]="copy?.label ? 'label-' + copy?.label : 'label-'+ original?.label"
+           [(ngModel)]="copy.value" name="newValue"></textarea>
+    </div>
   </div>
 </div>
 
-
-<!-- <dialog id="dialog" class="mdl-dialog">
-<h3 class="mdl-dialog__title">MDL Dialog</h3>
-<div class="mdl-dialog__content">
-<p>
-This is an example of the Material Design Lite dialog component.
-Please use responsibly.
-</p>
+<div *ngIf="property.label == 'Title'">
+  <div class="mdl-cell mdl-cell--12-col" style="margin:0;" (clickOutside)="clickOutside($event)">
+    <div class="mdl-card__supporting-text" style="width:100%;padding:0;">
+       <textarea id="textarea_{{property.id}}" autosize focus='true' type="text"
+           class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
+           style="padding-top:0;"
+           [ngClass]="copy?.label ? 'label-' + copy?.label : 'label-'+ original?.label"
+           [(ngModel)]="copy.value" name="newValue"></textarea>
+    </div>
+  </div>
 </div>
-<div class="mdl-dialog__actions">
-<button type="button" class="mdl-button">Close</button>
-<button type="button" class="mdl-button" disabled>Disabled action</button>
-</div>
-</dialog> -->
 
 
 <ng-template #content let-c="close" let-d="dismiss">

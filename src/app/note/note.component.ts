@@ -15,10 +15,7 @@ import * as $$ from '../_models/all.class';
   providers: [ApiService, ContainerService]
 })
 export class NoteComponent implements OnInit{
-  // TreeView
-  mainlist = [];
-  updateMainList: any;
-  // Main
+  mainList = [];
   container: $$.Container;
   propSelected: $$.Property;
 
@@ -34,23 +31,45 @@ export class NoteComponent implements OnInit{
 
   ngOnInit():void{
     this.cs.containers().subscribe(res => {
-      res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
+      res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
+      console.log(this.mainList)
     }, err => {
       console.log(err);
     })
   }
 
-  onOutside(property: $$.Property, newTitle?: $$.Property):void{
-    if(this.propSelected && this.propSelected.id == property.id)
-        delete this.propSelected;
-
-    if(newTitle){
-      // update the title
+  onOutside(updated?: $$.Property):void{
+    if(updated){
+      console.log('the property has updated, and this is it: ', updated)
+      if( this.propSelected.label == 'Title'){
+        let bool = false;
+        this.mainList.map((x, i) => {
+          x.id == this.propSelected.id ?
+            (this.mainList[i] = updated, bool = true) : null
+        });
+        bool ? null : this.updateMainList()
+        this.container.title = updated;
+      }
+      this.container.main.map(x => {
+        if(x.id == this.propSelected.id){
+          x.id = updated.id;
+          x.value = updated.value;
+        }
+      })
     }
+    delete this.propSelected;
+
+  }
+
+  updateMainList():void{
+    this.cs.containers().subscribe(res => {
+      res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
+    }, err => {
+      console.log(err);
+    })
   }
 
   onNotify(ev):void{
-    this.propSelected == null ? console.log('TRUE'): console.log('FALSE')
     this.container.title = {
       id: ev.title_id, value: ev.value, label: ev.label || 'Title'
     };
@@ -74,6 +93,7 @@ export class NoteComponent implements OnInit{
       return;
     }else{
       this.propSelected = Object.assign({},item);
+      this.propSelected.container_id = this.container.container_id;
     }
   }
 
@@ -131,9 +151,9 @@ export class NoteComponent implements OnInit{
     this.api.query('post', '/create_empty_note').subscribe( res => {
       let d = res.data.data;
       this.container.container_id = d.container_id;
-      this.container.title = {id:d.title_id, label: 'Title', value:'Undefined'};
-      this.container.main = [{id:d.first_property_id, label: 'Undefined', value:''}];
-      this.updateMainList({
+      this.container.title = {id:d.title_id, label:'Title', value:'Undefined'};
+      this.container.main = [{id:d.first_property_id, label:'Undefined', value:''}];
+      this.mainList.unshift({
         container_id:d.container_id,
         title_id: d.title_id,
         value: 'Undefined'
@@ -155,12 +175,8 @@ export class NoteComponent implements OnInit{
   deleteContainer(){
     this.api.query('delete', `/delete_container/${this.container.container_id}`)
     .subscribe( res => {
-      // update the list
-      console.log('deleted !')
-      console.log('res', res)
-
       this.cs.containers().subscribe(res => {
-        res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
+        res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
         this.container = new $$.Container();
       }, err => {
         console.log(err);
@@ -206,7 +222,7 @@ export class NoteComponent implements OnInit{
     //       if(this.cpSelProp.label == 'Title'){
     //         this.container.title = {value: d.value, id:d.id, label:'Title'};
     //         this.cs.containers().subscribe(res => {
-    //           res.response.status == 204 ? this.mainlist = [] : this.mainlist = res.data.data
+    //           res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
     //         }, err => {
     //           console.log(err);
     //         })
