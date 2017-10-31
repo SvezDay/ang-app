@@ -5,6 +5,7 @@ import { ApiService } from '../_core/api.service';
 import { ContainerService } from '../_core/container.service';
 import _ from 'lodash';
 import * as $$ from '../_models/all.class';
+import 'rxjs/add/operator/toPromise';
 
 
 @Component({
@@ -40,7 +41,6 @@ export class NoteComponent implements OnInit{
 
   onOutside(updated?: $$.Property):void{
     if(updated){
-      console.log('the property has updated, and this is it: ', updated)
       if( this.propSelected.label == 'Title'){
         let bool = false;
         this.mainList.map((x, i) => {
@@ -86,6 +86,7 @@ export class NoteComponent implements OnInit{
            console.log(error);
         };
      });
+
   }
 
   selecting(item:$$.Property):void{
@@ -185,59 +186,6 @@ export class NoteComponent implements OnInit{
       console.log(err)
     })
   }
-
-  // selectingLabel(){
-  //   console.log('SELECTING LABEL')
-  //   this.labelsData.initialLabel = this.propSelected.label;
-  // }
-
-  // tryingLabel(lab){
-  //   // this.labelsData.tryLabel = lab;
-  //   this.cpSelProp.label = lab;
-  // }
-
-  // unSelectingLabel(){
-  //   // this.labelsData.tryLabel = null;
-  //   // this.labelsData.initialLabel = null
-  // }
-
-  // updateLabel(){
-  //   console.log('UPDATE LABEL FUNCTION')
-    // let lab = this.labelsData.tryLabel;
-    // let lab = this.cpSelProp.label;
-    // if(lab == 'Title' || lab == this.propSelected.label){
-    //   this.unSelectingLabel();
-    //   return;
-    // }
-    // console.log('UPDATE LABEL FUNCTION Validate')
-    // this.api.query('post', '/note_update_label', ).subscribe( res => {
-    //   console.log('res of update label', res)
-    // }, err => { console.log(err) })
-    // this.unselecting();
-    // if(this.propSelected.value != this.cpSelProp.value){
-    //   this.cpSelProp.container_id = this.container.container_id;
-    //   this.api.query('post', '/note_update_value', this.cpSelProp).subscribe(
-    //     res => {
-    //       let d = res.data.data;
-    //       if(this.cpSelProp.label == 'Title'){
-    //         this.container.title = {value: d.value, id:d.id, label:'Title'};
-    //         this.cs.containers().subscribe(res => {
-    //           res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
-    //         }, err => {
-    //           console.log(err);
-    //         })
-    //       }else{
-    //         this.updateContainerMain(d)
-    //       }
-    //       this.unselecting();
-    //     }, err => {
-    //       console.log(err)
-    //       this.unselecting();
-    //     });
-    //   }else{
-    //     this.unselecting();
-    //   }
-  // }
 
 
 }

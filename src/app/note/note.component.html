@@ -76,20 +76,23 @@
               </div>
 
        </div>
+       </div>
        <!-- END TITLE -->
 
        <!-- PROPERTIES -->
-       <div *ngIf="container.main">
+       <div *ngIf="container.main" id="hello" style="">
          <div *ngFor="let item of container.main"  style="">
            <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property"
                 [ngClass]="{'my-selectedProperty mdl-shadow--2dp': propSelected?.id == item?.id }"
                 (click)="selecting(item)">
+                <!-- [ngClass]="{'my-selectedProperty': propSelected?.id == item?.id }" -->
+                <!-- [ngClass]="{'mdl-shadow--2dp': propSelected?.id == item?.id }" -->
 
              <!-- IS NOT SELECTED -->
              <div *ngIf="propSelected?.id != item.id">
 
                <div class="mdl-card__menu my-card-property-chip">
-                 <span class="my-chip" *ngIf="!toggleLabelList">{{item.label}}</span>
+                 <span class="my-chip" *ngIf="!toggleLabelList">{{item.label}}-{{item.id}}</span>
                </div>
 
                <div class="mdl-cell mdl-cell--12-col" >
@@ -110,7 +113,7 @@
 
 
      </div>
-     <div class="mdl-layout-spacer"></div>
+  <div class="mdl-layout-spacer"></div>
   </div>
 <!-- END MAIN -->
 
