@@ -53,7 +53,7 @@
   </div>
   <div class="modal-body">
     <ul>
-      <li *ngFor="let lab of labels" (click)="tryingLabel(lab); c()" style="cursor: pointer;">{{lab}}</li>
+      <li *ngFor="let lab of labels" (click)="copy.label = lab; c()" style="cursor: pointer;">{{lab}}</li>
     </ul>
   </div>
 </ng-template>

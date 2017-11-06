@@ -37,9 +37,20 @@
             <button class="mdl-button mdl-js-button" *ngIf="!auth.isLogged()" routerLink='/authenticate'>
             <i class="material-icons" style="font-size:32px;color:grey;">account_circle</i>
             </button>
-            <button class="mdl-button mdl-js-button" *ngIf="auth.isLogged()" routerLink='/profile'>
+
+            <!-- <md-menu> -->
+            <button id="my-menu-profile" class="mdl-button mdl-js-button" *ngIf="auth.isLogged()" routerLink='/profile'>
             <i class="material-icons" style="font-size:32px;color:#00BFFF;">account_circle</i>
             </button>
+
+            <!-- Menu Items List , mdl-menu--botton-right -->
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+              for="my-menu-rofile">
+              hello
+              <li class="mdl-menu__item">Facebook</li>
+              <li class="mdl-menu__item">Twitter</li>
+              <li disabled class="mdl-menu__item">Google Plus</li>
+            </ul>
 
 
        </mdl-layout-header-row>

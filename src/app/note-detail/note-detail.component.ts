@@ -85,22 +85,20 @@ export class NoteDetailComponent{
   }
 
   update(){
-    if(!Object.is(this.property,this.copy.value)){
+    let val = Object.is(this.property.value,this.copy.value);
+    let lab = Object.is(this.property.label,this.copy.label);
+    // if val or lab not identical
+    if(!val || !lab){
       this.api.query('post', '/note_update', this.copy)
       .toPromise()
-      .then(
-        res => {
+      .then( res => {
             this.outsider.emit(res.data.data);
         }, err => {
-          console.log(err)
+          this.outsider.emit();
         });
-      }else{
-        this.outsider.emit();
-      }
-  }
-
-  tryingLabel(label){
-    this.copy.label = label;
+    }else{
+      this.outsider.emit();
+    }
   }
 
 }

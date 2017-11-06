@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../_core/api.service';
@@ -22,6 +23,7 @@ export class NoteComponent implements OnInit{
 
   constructor(
     private router: Router,
+    private location: Location,
     private api: ApiService,
     private cs: ContainerService,
     private modalService: NgbModal
@@ -33,9 +35,9 @@ export class NoteComponent implements OnInit{
   ngOnInit():void{
     this.cs.containers().subscribe(res => {
       res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
-      console.log(this.mainList)
     }, err => {
       console.log(err);
+      this.location.back();
     })
   }
 
