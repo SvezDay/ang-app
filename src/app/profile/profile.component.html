@@ -30,23 +30,18 @@
 
          <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
            <div class="mdl-card__title">
-             <h2 class="mdl-card__title-text">Suscribtion</h2>
+             <h2 class="mdl-card__title-text">Subscribtion</h2>
            </div>
            <div class="mdl-card__supporting-text">
              <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--12-col">
               <tbody>
                 <tr>
                   <td class="mdl-data-table__cell--non-numeric">Commit length</td>
-                  <div class="mdl-textfield mdl-js-textfield my-table-texfield" (clickOutside)="clickOutside($event)" *ngIf="propCopy?.subscription_commit_length">
+                  <div class="mdl-textfield mdl-js-textfield my-table-texfield" (clickOutside)="updateProp($event, 'subscription_commit_length')" *ngIf="propCopy?.subscription_commit_length">
                     <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2"  [(ngModel)]="propCopy.subscription_commit_length">
                     <label class="mdl-textfield__label" for="sample2">{{propCopy.subscription_commit_length}}</label>
                     <span class="mdl-textfield__error">Input is not a number!</span>
                   </div>
-                  <!-- <textarea type="text"
-                      class="mdl-textfield__input my-textarea blinking-cursor noborder my-card-property-text-textarea"
-                      style="padding-top:0;"
-
-                      [(ngModel)]="propCopy.subscription_commit_length" name="newValue"></textarea> -->
                 </tr>
               </tbody>
             </table>

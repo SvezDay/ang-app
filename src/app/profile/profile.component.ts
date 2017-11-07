@@ -12,9 +12,9 @@ import { ApiService } from '../_core/api.service';
   providers:[ApiService]
 })
 export class ProfileComponent implements OnInit {
-  alert_message: "";
-  prop: any;
-  propCopy: any;
+  private alert_message: "";
+  private prop: any;
+  private propCopy: any;
 
   constructor(
     private location: Location,
@@ -24,28 +24,26 @@ export class ProfileComponent implements OnInit {
   ) {
  }
 
-  ngOnInit() {
+  ngOnInit():void {
     this.api.query('get', '/user_profile')
-    .subscribe(
-      res => {
+    .subscribe( res => {
         this.prop = res.data.data.properties;
-        // this.propCopy = res.data.data.properties;
-        Object.assign(this.propCopy, res.data.data.properties)
-      },
-      error => {
+        this.propCopy = JSON.parse(JSON.stringify(res.data.data.properties));
+      }, error => {
         this.location.back();
       });
   };
 
-  updateProp(key){
+  private updateProp(ev:Event, key:string):void{
     if(this.prop[key] != this.propCopy[key]){
-      console.log('check diff')
+      this.api.query('put', '/user_update_properties',
+                      {key:key, value:this.propCopy[key]})
+      .subscribe( res => {
+        this.prop[key] = this.propCopy[key];
+      }, err => {
+        this.location.back();
+      })
     }
-  }
-  clickOutside(e: Event) :void{
-    console.log('this.propCopy.subscription_commit_length', this.propCopy.subscription_commit_length)
-    console.log('this.prop.subscription_commit_length', this.prop.subscription_commit_length)
-    console.log('eee', e)
   }
 
 
