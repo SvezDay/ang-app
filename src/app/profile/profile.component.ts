@@ -63,11 +63,12 @@ export class ProfileComponent implements OnInit {
     }, err => {console.log(err)})
   }
 
-  private upload(e:HTMLInputEvent): void{
-    let file = e.target.files;
-    console.log(file)
+  private upload(ev:HTMLInputEvent): void{
+    // let file = e.target.files;
+    // console.log(file)
+    // console.log('Event response: ',ev)
 
-  
+
   }
 
 

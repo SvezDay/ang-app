@@ -22,7 +22,7 @@ export class AuthenticationService {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('auth_token', data.token);
             localStorage.setItem('auth_token_exp', data.exp);
-            let profile = {first: data.first};
+            let profile = {first: data.data.first};
             localStorage.setItem('profile', JSON.stringify(profile));
          }
          return;

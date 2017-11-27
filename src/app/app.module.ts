@@ -32,7 +32,7 @@ import { CoreModule }            from './_core/core.module';
 import { AuthGuard }             from './_core/auth.guard';
 import { SubnavComponent }       from './_directives/subnav.component';
 import { TreeViewComponent }     from './_directives/tree-view.component';
-// import { ClickOutside }          from './_directives/click-outside.directive';
+import { FileUploadComponent }   from './_directives/file-upload.component';
 import { LabelsListComponent }   from './_modals/labels-list.component';
 import { TruncatePipe }          from './_pipes/truncate.pipe';
 
@@ -68,7 +68,7 @@ import { NgbdAlertBasic }        from './alert-basic';
     TreeViewComponent,
     LabelsListComponent,
     TruncatePipe,
-    // ClickOutside,
+    FileUploadComponent,
 
     HomeComponent,
     ProfileComponent,
