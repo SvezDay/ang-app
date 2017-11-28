@@ -131,13 +131,21 @@ export class NoteComponent implements OnInit{
            }else if(dir == 'up'){
              this.container.main.reverse()
            }
+           console.log('selID', selID)
            this.container.main.map( x => {
+             console.log("x: ",x)
+             console.log('store', store)
              if(x.id == selID){
+               console.log('check 1')
                store = x;
-             }else if (!_.isEmpty(store)) {
+             // }else if (!_.isEmpty(store)) {
+             }else if (store != false) {
+             console.log('check 2')
                newArr.push(x);
                newArr.push(store);
+               store = {}
              }else{
+               console.log('check 3')
                newArr.push(x)
              }
            })
