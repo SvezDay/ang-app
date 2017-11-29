@@ -20,7 +20,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot
 
 import {NgbModule}               from '@ng-bootstrap/ng-bootstrap';
 import { MdlModule }             from '@angular-mdl/core';
-import {FocusModule}             from 'angular2-focus';
+// import {FocusModule}             from 'angular2-focus';
 import { ClickOutsideModule }    from 'ng-click-outside';
 
 
@@ -96,7 +96,7 @@ import { NgbdAlertBasic }        from './alert-basic';
     FormsModule,
     MdlModule,
     CoreModule.forRoot(),
-    FocusModule.forRoot(),
+    // FocusModule.forRoot(),
     NgbModule.forRoot(),
     ClickOutsideModule
   ],

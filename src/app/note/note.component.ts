@@ -120,37 +120,57 @@ export class NoteComponent implements OnInit{
        res => {
          // then modify the position on the details list
          if(res.response.status == 200){
-           let newArr = [];
-           let store = {};
+           // let newArr = [];
            let main = this.container.main;
-           let selID = this.propSelected.id;
-           if(dir == 'up' && main[0].id == selID){
-             return 'Error limit';
-           }else if(dir == 'down' && main[main.length -1].id == selID){
-             return 'Error limit';
-           }else if(dir == 'up'){
-             this.container.main.reverse()
+           // let selID = this.propSelected.id;
+           // let store = {};
+           // if(dir == 'up' && main[0].id == selID){
+           //   return 'Error limit';
+           // }else if(dir == 'down' && main[main.length -1].id == selID){
+           //   return 'Error limit';
+           // }else if(dir == 'up'){
+           //   this.container.main.reverse()
+           // }
+           // console.log('selID', selID)
+           // this.container.main.map( x => {
+           //   console.log("x: ",x)
+           //   console.log('store', store)
+           //   if(x.id == selID){
+           //     console.log('check 1')
+           //     store = x;
+           //   // }else if (!_.isEmpty(store)) {
+           //   }else if (store != false) {
+           //   console.log('check 2')
+           //     newArr.push(x);
+           //     newArr.push(store);
+           //     store = {}
+           //   }else{
+           //     console.log('check 3')
+           //     newArr.push(x)
+           //   }
+           // })
+           let index = 0;
+           // let i = 0;
+           for (var i = 0; i < this.container.main.length; i++) {
+             if(this.container.main[i].id == this.propSelected.id){
+
+               index = i}
            }
-           console.log('selID', selID)
-           this.container.main.map( x => {
-             console.log("x: ",x)
-             console.log('store', store)
-             if(x.id == selID){
-               console.log('check 1')
-               store = x;
-             // }else if (!_.isEmpty(store)) {
-             }else if (store != false) {
-             console.log('check 2')
-               newArr.push(x);
-               newArr.push(store);
-               store = {}
-             }else{
-               console.log('check 3')
-               newArr.push(x)
-             }
-           })
-           dir == 'up' ? newArr.reverse() : null
-           this.container.main = newArr;
+           // this.container.main.map(x => {
+           //   i++;
+           //   if(this.container.main.[x].id == this.propSelected.id){
+           //     index = i
+           //   }
+           // })
+           if(dir == 'down'){
+             this.container.main.splice(index+2, 0, this.container.main[index])
+             this.container.main.splice(index, 1)
+           }else{
+             this.container.main.splice(index, 1)
+             this.container.main.splice(index-1, 0, this.container.main[index])
+           }
+           // dir == 'up' ? newArr.reverse() : null
+           // this.container.main = newArr;
 
          }
        },

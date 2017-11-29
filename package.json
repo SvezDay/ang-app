@@ -12,7 +12,7 @@
     "postinstall": "ng build --aot -prod"
   },
   "config": {
-    "production": false
+    "production": true
   },
   "private": true,
   "engines": {
