@@ -1,5 +1,6 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.grey-light_blue.min.css" />
+<!-- <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.grey-light_blue.min.css" /> -->
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-light_blue.min.css" /> -->
 
 <div>
 
@@ -11,6 +12,14 @@
             </mdl-layout-title>
 
             <mdl-layout-spacer></mdl-layout-spacer>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+              <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
+                <i class="material-icons">search</i>
+              </label>
+              <div class="mdl-textfield__expandable-holder">
+                <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
+              </div>
+            </div>
             <a class="mdl-navigation__link" routerLink="/note_list" routerLinkActive="active" *ngIf="auth.isLogged()">
               <!-- <i class="material-icons">note</i> -->
               <span>old list</span>
