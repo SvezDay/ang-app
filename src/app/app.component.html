@@ -20,7 +20,9 @@
                 <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
               </div>
             </div>
-
+            <a class="mdl-navigation__link" routerLink="/todo" routerLinkActive="active" *ngIf="auth.isLogged()">
+              <i class="material-icons">view_list</i>
+            </a>
             <a class="mdl-navigation__link" routerLink="/note" routerLinkActive="active" *ngIf="auth.isLogged()">
               <i class="material-icons">note</i>
             </a>

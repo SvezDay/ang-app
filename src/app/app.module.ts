@@ -36,14 +36,15 @@ import { FileUploadComponent }   from './_directives/file-upload.component';
 import { LabelsListComponent }   from './_modals/labels-list.component';
 import { TruncatePipe }          from './_pipes/truncate.pipe';
 
+/* Other module */
+import { TodoModule }            from './todo/_todo.module';
+
 /* App Root */
 import { AppRoutingModule }      from './app-routing.module';
 import { AppComponent }          from './app.component';
 
 import { HomeComponent }         from './home/home.component';
 import { ProfileComponent }      from './profile/profile.component';
-
-
 import { RegisterComponent }     from './register/register.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { NoteComponent }         from './note/note.component';
@@ -76,13 +77,14 @@ import { NgbdAlertBasic }        from './alert-basic';
   imports: [
     BrowserModule,
     HttpModule,
+    TodoModule,
     AppRoutingModule,
     FormsModule,
     MdlModule,
     CoreModule.forRoot(),
     // FocusModule.forRoot(),
     NgbModule.forRoot(),
-    ClickOutsideModule
+    ClickOutsideModule,
   ],
   providers: [
    //    {

@@ -16,8 +16,8 @@ const routes: Routes = [
    { path: 'register', component: RegisterComponent },
    { path: 'authenticate', component: AuthenticateComponent },
    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-
    { path: 'note', component: NoteComponent, canActivate: [AuthGuard] },
+   // { path: 'todo', component: NoteComponent, canActivate: [AuthGuard] },
 
    { path: '**', redirectTo: '', pathMatch: 'full' } // reload another component, in this case, the appComponent - Need to be modified
 ];
