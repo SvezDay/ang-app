@@ -5,12 +5,10 @@ import {
 import { FormsModule }              from '@angular/forms';
 import { CommonModule }             from '@angular/common';
 
-// import { AuthService }           from './auth.service';
+import { AuthenticationService }    from './authentication.service';
+import { AuthGuard }                 from './auth.guard';
 import { AlertComponent }           from '../_directives/alert.component';
 import { AlertService }             from './alert.service';
-import { AuthenticationService }    from './authentication.service';
-import { UserService }              from './user.service';
-import { AuthGuard }                 from './auth.guard';
 
 @NgModule({
   imports: [
@@ -34,11 +32,8 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
-         // AuthService
-         AlertService,
-         AuthenticationService,
-         UserService
-      //   {provide: UserServiceConfig, useValue: config }
+        AuthenticationService,
+        AlertService,
       ]
     };
   }

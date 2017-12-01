@@ -20,10 +20,6 @@
                 <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
               </div>
             </div>
-            <a class="mdl-navigation__link" routerLink="/note_list" routerLinkActive="active" *ngIf="auth.isLogged()">
-              <!-- <i class="material-icons">note</i> -->
-              <span>old list</span>
-            </a>
 
             <a class="mdl-navigation__link" routerLink="/note" routerLinkActive="active" *ngIf="auth.isLogged()">
               <i class="material-icons">note</i>
@@ -32,11 +28,11 @@
               <i class="material-icons">timeline</i>
               <!-- Project -->
             </a>
-            <a class="mdl-navigation__link" routerLink="/course_list" routerLinkActive="active" *ngIf="auth.isLogged()">
+            <a class="mdl-navigation__link" routerLink="/" routerLinkActive="active" *ngIf="auth.isLogged()">
                 <i class="material-icons">school</i>
               <!-- Course -->
             </a>
-            <a class="mdl-navigation__link  mdl-badge mdl-badge--overlap" routerLink="/game_list" routerLinkActive="active" *ngIf="auth.isLogged()"  data-badge="1">
+            <a class="mdl-navigation__link  mdl-badge mdl-badge--overlap" routerLink="/" routerLinkActive="active" *ngIf="auth.isLogged()"  data-badge="1">
               <i class="material-icons">games</i>
             </a>
             <a class="mdl-navigation__link" routerLink="" routerLinkActive="active" *ngIf="auth.isLogged()">
@@ -55,7 +51,6 @@
             <!-- Menu Items List , mdl-menu--botton-right -->
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
               for="my-menu-rofile">
-              hello
               <li class="mdl-menu__item">Facebook</li>
               <li class="mdl-menu__item">Twitter</li>
               <li disabled class="mdl-menu__item">Google Plus</li>
