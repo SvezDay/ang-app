@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   moduleId: module.id,
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.css']
+  styleUrls: ['../app.component.css','./todo.component.css']
 })
 export class TodoComponent implements OnInit {
   alert_message: any;
@@ -12,5 +12,8 @@ export class TodoComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  createTask(){}
+  addForToday(){}
 
 }

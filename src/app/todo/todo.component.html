@@ -2,11 +2,11 @@
 <link rel="stylesheet" href="https://rawgit.com/angular/bower-material/master/angular-material.css"> -->
 
 <!-- NAVBAR -->
-<!-- <mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
+<mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
     <mdl-layout-header-row>
 
     </mdl-layout-header-row>
- </mdl-layout-header> -->
+ </mdl-layout-header>
 
  <!-- <mdl-layout-header class="mdl-shadow--2dp" style="background-color: green" *ngIf="alert_message">
    <mdl-layout-header-row style="justify-content: center;" >
@@ -15,3 +15,82 @@
      </ngb-alert>
    </mdl-layout-header-row>
   </mdl-layout-header> -->
+
+  <!-- SIDE TODOS -->
+    <!-- <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
+      <div class="mdl-cell mdl-cell--12-col" style="cursor: pointer;">
+        <div class="" style="text-align:center;">
+          <button type="button" name="button" class="mdl-button" (click)="createTask()" style="background-color:white;">New</button>
+        </div>
+        <div class="my-solid-breakline"></div>
+        <div class="my-layout-sider-list">
+
+          <ul>
+            <li>faire ceci</li>
+            <li>faire cela</li>
+          </ul>
+
+        </div>
+      </div>
+    </div> -->
+  <!-- END SIDE TODOS -->
+  <div class="centeritems mdl-grid">
+
+
+
+        <div class=" mdl-card mdl-shadow--2dp" style="width:25%; background-color:#D3D3D3;">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Todo</h2>
+          </div>
+          <form action="#" style="text-align:center;">
+            <div class="mdl-textfield mdl-js-textfield">
+              <input class="mdl-textfield__input" type="text" id="sample1">
+              <label class="mdl-textfield__label" for="sample1">New...</label>
+            </div>
+          </form>
+          <div class="mdl-card__supporting-text">
+
+            <ul class="mdl-list" style=" width: 300px;">
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                  Bryan Cranston
+                </span>
+                <a class="mdl-list__item-secondary-action" href="#" (click)="addForToday()"><i class="material-icons" style="color:grey;">star</i></a>
+
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+
+  <!-- MAIN TODAY-->
+    <div class="mdl-layout-spacer"></div>
+       <!-- <div class="mdl-cell mdl-cell--6-col"> -->
+
+        <div class=" mdl-card mdl-shadow--2dp" style="width:40%">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Today</h2>
+          </div>
+          <div class="mdl-card__supporting-text">
+
+            <ul class="mdl-list" style=" width: 300px;">
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-secondary-action">
+                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
+                    <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" checked />
+                  </label>
+                </span>
+                <span class="mdl-list__item-primary-content">
+                  Bryan Cranston
+                </span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+       <!-- </div> -->
+    <div class="mdl-layout-spacer"></div>
+    </div>
+  <!-- END MAIN TODAY -->
