@@ -1,6 +1,12 @@
 /* References:
 http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial#fake-backend-ts
 https://github.com/mseemann/angular2-mdl
+
+
+    "@types/auth0-lock": "^10.16.0",
+
+    "auth0-js": "^8.11.3",
+    "auth0-lock": "^10.24.1",
 */
 
 
