@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule }           from '@angular/forms';
 
 import { MdlModule }             from '@angular-mdl/core';
 // import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -20,6 +21,7 @@ const TodoRouting = RouterModule.forChild(todoRoutes);
   imports: [
     CommonModule,
     MdlModule,
+    FormsModule,
     // MDBBootstrapModule,
     TodoRouting,
   ],
