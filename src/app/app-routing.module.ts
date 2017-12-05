@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 
 import { NoteComponent } from './note/note.component';
+import { MemorizeComponent } from './memorize/memorize.component';
 
 const routes: Routes = [
    { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
    { path: 'authenticate', component: AuthenticateComponent },
    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
    { path: 'note', component: NoteComponent, canActivate: [AuthGuard] },
+   { path: 'memorize', component: MemorizeComponent, canActivate: [AuthGuard] },
    // { path: 'todo', component: NoteComponent, canActivate: [AuthGuard] },
 
    { path: '**', redirectTo: '', pathMatch: 'full' } // reload another component, in this case, the appComponent - Need to be modified

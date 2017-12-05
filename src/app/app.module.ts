@@ -49,6 +49,7 @@ import { RegisterComponent }     from './register/register.component';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { NoteComponent }         from './note/note.component';
 import { NoteDetailComponent }   from './note-detail/note-detail.component';
+import { MemorizeComponent }     from './memorize/memorize.component';
 
 import { NgbdAlertBasic }        from './alert-basic';
 
@@ -70,6 +71,7 @@ import { NgbdAlertBasic }        from './alert-basic';
 
     NoteComponent,
     NoteDetailComponent,
+    MemorizeComponent,
 
     NgbdAlertBasic,
   ],
