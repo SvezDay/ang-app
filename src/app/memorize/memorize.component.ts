@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../_core/api.service';
-import { ContainerService } from '../_core/container.service';
 import _ from 'lodash';
 import * as $$ from '../_models/all.class';
 import 'rxjs/add/operator/toPromise';
@@ -14,10 +13,11 @@ import 'rxjs/add/operator/toPromise';
   selector: 'app-memorize',
   templateUrl: './memorize.component.html',
   styleUrls: ['../app.component.css','./memorize.component.css'],
-  providers: [ApiService, ContainerService]
+  providers: [ApiService]
 })
 export class MemorizeComponent implements OnInit{
   mainList = [];
+  recallBool: boolean = true;
   container: $$.Container;
   propSelected: $$.Property;
 
@@ -25,7 +25,6 @@ export class MemorizeComponent implements OnInit{
     private router: Router,
     private location: Location,
     private api: ApiService,
-    private cs: ContainerService,
     private modalService: NgbModal
   ) {
     this.container = new $$.Container();
@@ -33,12 +32,18 @@ export class MemorizeComponent implements OnInit{
 
 
   ngOnInit():void{
-    this.cs.containers().subscribe(res => {
-      res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
+    this.api.query('get', '/container_recallable').subscribe(res => {
+      console.log(res.data.data)
+      // res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
+      this.mainList = res.data.data || [];
     }, err => {
       console.log(err);
       this.location.back();
     })
+  }
+
+  toggleList():void{
+    this.recallBool ? this.recallBool = false : this.recallBool = true
   }
 
   onOutside(updated?: $$.Property):void{
@@ -64,11 +69,7 @@ export class MemorizeComponent implements OnInit{
   }
 
   updateMainList():void{
-    this.cs.containers().subscribe(res => {
-      res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
-    }, err => {
-      console.log(err);
-    })
+
   }
 
   onNotify(ev):void{
@@ -167,12 +168,12 @@ export class MemorizeComponent implements OnInit{
   deleteContainer(){
     this.api.query('delete', `/delete_container/${this.container.container_id}`)
     .subscribe( res => {
-      this.cs.containers().subscribe(res => {
-        res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
-        this.container = new $$.Container();
-      }, err => {
-        console.log(err);
-      })
+      // this.cs.containers().subscribe(res => {
+      //   res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
+      //   this.container = new $$.Container();
+      // }, err => {
+      //   console.log(err);
+      // })
     }, err => {
       console.log(err)
     })

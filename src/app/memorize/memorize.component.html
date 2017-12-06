@@ -1,9 +1,8 @@
-<!-- MODAL -->
-<!-- <ng-template #labelslist let-c="close" let-d="dismiss" >
-  <labels-list [labelsData]=labelsData (notiSelect)="onNotiSelect($event)" (newLabel)="tryLab($event)"></labels-list>
-</ng-template> -->
-<!-- END MODAL -->
-
+<style>
+  .selected{
+    font-weight: bold;
+  }
+</style>
 
 <!-- NAVBAR -->
 <mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
@@ -38,80 +37,60 @@
 <!-- END NAVBAR -->
 
 
-<!-- SIDE -->
-  <div class="centeritems mdl-grid my-layout-sider" style="height:600px">
-    <div class="mdl-cell mdl-cell--12-col" style="cursor: pointer;">
-    
-      <div class="my-solid-breakline"></div>
-      <div class="my-layout-sider-list">
-        <tree-view [treeData]=mainList (notify)="onNotify($event)"></tree-view>
-      </div>
-    </div>
-  </div>
-<!-- END SIDE -->
-
 
 <!-- MAIN -->
-<div class="centeritems mdl-grid">
-  <div class="mdl-layout-spacer"></div>
-     <div class="mdl-cell mdl-cell--10-col">
-      <!-- TITLE -->
-       <div id="card_{{container.title?.id}}"
-            class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title"
-            *ngIf="container.title">
-          <div class="mdl-card__title" (click)="selecting(container.title)">
-             <h2 class="mdl-card__title-text my-card-title-h2" *ngIf=" propSelected?.id != container?.title?.id">
-               {{container.title.value}}
-             </h2>
-             <!-- <input id="input1"
-                class="mdl-textfield__input blinking-cursor noborder"
-                type="text" [(ngModel)]="propSelected.value"
-                (blur)="updateText()"
-                *ngIf="container.title && propSelected?.id == container.title.id && propSelected && propSelected.value" focus="true">
-              </div> -->
-              <div *ngIf="propSelected?.label == 'Title'">
-                <app-note-detail [property]="propSelected" (droper)="onDrop($event)" (deleter)="onDelete()" (outsider)="onOutside($event)"></app-note-detail>
-              </div>
+<div class="mdl-grid">
+  <!-- SIDE -->
+     <div class="mdl-cell mdl-cell--3-col" style="max-width:250px;min-width:250px;">
+       <ul class="demo-list-item mdl-list">
+         <li class="mdl-list__item">
+           <span class="mdl-list__item-primary-content" [class.selected]="recallBool==true" (click)="toggleList()">
+               <i class="material-icons mdl-list__item-icon">done</i>
+               Recallable list
+           </span>
+         </li>
+         <li class="mdl-list__item">
+           <span class="mdl-list__item-primary-content" [class.selected]="recallBool!=true"  (click)="toggleList()">
+             <i class="material-icons mdl-list__item-icon">clear</i>
+             Unrecallable list
+           </span>
+         </li>
+       </ul>
+    </div>
+    <!-- END SIDE -->
+    <!-- TABLE -->
+    <div class="mdl-cell mdl-cell--9-col">
+       <table class="mdl-data-table mdl-js-data-table mdl-shadow--0dp" style="width:100%; border:none;">
+        <thead style="background-color:#F0F0F0;border:none;">
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending">Title</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="recallBool">
+          <tr *ngFor="let item of mainList.recallable">
+            <td class="mdl-data-table__cell--non-numeric">
+              {{item.val}}
+              <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon" style="float:right; margin-left:20px;">
+              <i class="material-icons"style="color:grey;">check_box</i>
+            </button>
+            <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon" style="float:right;">
+              <i class="material-icons"style="color:grey;">directions_run</i>
+            </button>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!recallBool">
+          <tr *ngFor="let item of mainList.unrecallable">
+            <td class="mdl-data-table__cell--non-numeric">{{item.val}}</td>
+          </tr>
+        </tbody>
 
-       </div>
-       </div>
-       <!-- END TITLE -->
-
-       <!-- PROPERTIES -->
-       <div *ngIf="container.main" id="hello" style="">
-         <div *ngFor="let item of container.main"  style="">
-           <div id="card_{{item.id}}"  class="demo-card-wide mdl-card  mdl-cell mdl-cell--12-col my-card-property"
-                [ngClass]="{'my-selectedProperty mdl-shadow--2dp': propSelected?.id == item?.id }"
-                (click)="selecting(item)">
-                <!-- [ngClass]="{'my-selectedProperty': propSelected?.id == item?.id }" -->
-                <!-- [ngClass]="{'mdl-shadow--2dp': propSelected?.id == item?.id }" -->
-
-             <!-- IS NOT SELECTED -->
-             <div *ngIf="propSelected?.id != item.id">
-
-               <div class="mdl-card__menu my-card-property-chip">
-                 <span class="my-chip" *ngIf="!toggleLabelList">{{item.label}}-{{item.id}}</span>
-               </div>
-
-               <div class="mdl-cell mdl-cell--12-col" >
-                 <div [ngClass]="'label-'+ item.label" id="p_{{item.id}}" class="my-card-property-text" autosize [ngStyle]="!item.value.length && {'white-space':'pre'}"
-                      *ngIf="propSelected?.id != item.id">{{item.value}}</div>
-               </div>
-             </div>
-
-             <!-- IS SELECTED -->
-             <div *ngIf="propSelected?.id == item.id">
-               <app-note-detail [property]="propSelected" (droper)="onDrop($event)" (deleter)="onDelete()" (outsider)="onOutside($event)"></app-note-detail>
-             </div>
-           <!-- END IS SELECTED -->
-         </div>
-       </div>
-      </div>
-       <!-- END PROPERTIES -->
-
+      </table>
 
      </div>
-  <div class="mdl-layout-spacer"></div>
+
+     <!-- END TABLE -->
+  <!-- <div class="mdl-layout-spacer"></div> -->
   </div>
 <!-- END MAIN -->
 

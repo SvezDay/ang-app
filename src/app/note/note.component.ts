@@ -34,6 +34,7 @@ export class NoteComponent implements OnInit{
 
   ngOnInit():void{
     this.cs.containers().subscribe(res => {
+      console.log(res.data.data)
       res.response.status == 204 ? this.mainList = [] : this.mainList = res.data.data
     }, err => {
       console.log(err);
