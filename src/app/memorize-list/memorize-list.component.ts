@@ -10,12 +10,12 @@ import 'rxjs/add/operator/toPromise';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-memorize',
-  templateUrl: './memorize.component.html',
-  styleUrls: ['../app.component.css','./memorize.component.css'],
+  selector: 'app-memorize-list',
+  templateUrl: './memorize-list.component.html',
+  styleUrls: ['../app.component.css','./memorize-list.component.css'],
   providers: [ApiService]
 })
-export class MemorizeComponent implements OnInit{
+export class MemorizeListComponent implements OnInit{
   mainList = [];
   recallBool: boolean = true;
   container: $$.Container;

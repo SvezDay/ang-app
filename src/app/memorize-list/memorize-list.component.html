@@ -7,17 +7,9 @@
 <!-- NAVBAR -->
 <mdl-layout-header class="mdl-shadow--2dp my-subnav-layout" *ngIf="!alert_message">
     <mdl-layout-header-row>
-      <div class="my-subnav-layout-row-left"  *ngIf="container.container_id">
-        <a (click)="addProperty()"  class="my-subnav-a">
-          <i class="material-icons" style="text-align:center;">add</i>
-        </a>
-
-        <a (click)="deleteContainer()"  class="my-subnav-a">
-          <i class="material-icons" style="text-align:center;">delete</i>
-        </a>
-
-        <a  (click)="get_containers(content, 'forward')"  class="my-subnav-a">  <!-- changing path -->
-          <i class="material-icons" style="text-align:center;">linear_scale</i>
+      <div class="my-subnav-layout-row-left">
+        <a  class="my-subnav-a" routerLink="/memorize-recall">
+          <i class="material-icons" style="text-align:center; color:white;">videogame_asset</i>
         </a>
       </div>
     </mdl-layout-header-row>
@@ -46,13 +38,13 @@
          <li class="mdl-list__item">
            <span class="mdl-list__item-primary-content" [class.selected]="recallBool==true" (click)="toggleList()">
                <i class="material-icons mdl-list__item-icon">done</i>
-               Recallable list
+               Course recalled
            </span>
          </li>
          <li class="mdl-list__item">
            <span class="mdl-list__item-primary-content" [class.selected]="recallBool!=true"  (click)="toggleList()">
              <i class="material-icons mdl-list__item-icon">clear</i>
-             Unrecallable list
+              Course not recalled
            </span>
          </li>
        </ul>

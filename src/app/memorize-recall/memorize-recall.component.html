@@ -1,0 +1,36 @@
+div class="centeritems mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+     <div class="mdl-cell mdl-cell--10-col">
+      <!-- QUESTIONS -->
+       <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title">
+            <div class="mdl-card__supporting-text">
+              {{question.properties.value}}
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="toggleResponse()">
+                Get Response
+              </a>
+            </div>
+       </div>
+       <!-- END QUESIONS -->
+
+       <!-- QUESTIONS -->
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col my-card-title" *ngIf="toggleRespBool">
+             <div class="mdl-card__supporting-text">
+               {{response.properties.value}}
+             </div>
+             <div class="mdl-card__actions mdl-card--border">
+               <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="recordingResult(true)">
+                 I Win !
+               </a>
+               <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="recordingResult(false)">
+                 Next time, sure !
+               </a>
+             </div>
+        </div>
+        <!-- END QUESIONS -->
+
+
+     </div>
+  <div class="mdl-layout-spacer"></div>
+  </div>
